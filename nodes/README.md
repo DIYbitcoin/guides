@@ -8,6 +8,8 @@ anyone else's server. These guides help you set one up at home.
 - 🧱 [MiniBolt](https://minibolt.minibolt.info/): build a node on a mini PC
   with an Intel or AMD processor from about 2010 onwards.
 
+💬 Found in the Malaga 2140 Telegram chat.
+
 MiniBolt's own [hardware requirements](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
 ask for:
 
