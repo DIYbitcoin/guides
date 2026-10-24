@@ -2,6 +2,8 @@
 
 Step by step guides to do bitcoin yourself.
 
+🌐 Read them as a website: <https://diybitcoin.github.io/guides/>
+
 - 🖥️ [Run your own bitcoin node](nodes/)
 - 💳 [Flashing javacards](javacards/): Satochip, Satodime, SeedKeeper or
   Keycard on a J3H145 card
