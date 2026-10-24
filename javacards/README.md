@@ -28,6 +28,9 @@ The applets come from [Satochip](https://satochip.io) and
   [Satochip-DIY guide](https://github.com/3rdIteration/Satochip-DIY#smartcard-readers)
   warns it is unreliable for installing applets and can break the card.
   It's fine for using the card once the applet is installed.
+- 🛡️ Have a [ShieldSigner](https://github.com/3rdIteration/seedsigner)? It
+  can install these applets onto the card too, instead of a computer and
+  reader.
 - 💻 A **Mac**, **Linux** (Debian, Ubuntu or Raspberry Pi OS) or **Windows**
   computer
 - 🌐 An internet connection for the downloads
