@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="754" height="250" viewBox="0 0 754 250">
+  <rect width="754" height="250" rx="10" fill="#0a0f0a"/>
+  <rect width="754" height="34" rx="10" fill="#0d140d"/>
+  <rect y="24" width="754" height="10" fill="#0d140d"/>
+  <circle cx="20" cy="17" r="6" fill="#ff6b6b"/>
+  <circle cx="40" cy="17" r="6" fill="#ffb454"/>
+  <circle cx="60" cy="17" r="6" fill="#7dff9b"/>
+  <text x="377.0" y="22" fill="#5f9f6f" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" text-anchor="middle">Terminal: flash Keycard</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
+    <text x="20" y="52"><tspan fill="#7dff9b">$</tspan><tspan fill="#e6fff0" font-weight="600"> gp --install keycard_v3.2.cap --applet A000000804000101 --create A00000080400010101</tspan></text>
+    <text x="20" y="72" fill="#7dff9b" xml:space="preserve">keycard_v3.2.cap loaded: im.status.keycard A0000008040001</text>
+    <text x="20" y="92" fill="#b9e5c3" xml:space="preserve"></text>
+    <text x="20" y="112"><tspan fill="#7dff9b">$</tspan><tspan fill="#e6fff0" font-weight="600"> gp --list</tspan></text>
+    <text x="20" y="132" fill="#3f7f4f" xml:space="preserve">ISD: A000000151000000 (OP_READY)</text>
+    <text x="20" y="152" fill="#3f7f4f" xml:space="preserve">     ...</text>
+    <text x="20" y="172" fill="#7dff9b" xml:space="preserve">APP: A00000080400010101 (SELECTABLE)</text>
+    <text x="20" y="192" fill="#3f7f4f" xml:space="preserve">PKG: A0000001515350 (LOADED)</text>
+    <text x="20" y="212" fill="#7dff9b" xml:space="preserve">PKG: A0000008040001 (LOADED)</text>
+  </g>
+</svg>

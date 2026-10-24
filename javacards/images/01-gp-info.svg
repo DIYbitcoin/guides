@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="270" viewBox="0 0 640 270">
+  <rect width="640" height="270" rx="10" fill="#0a0f0a"/>
+  <rect width="640" height="34" rx="10" fill="#0d140d"/>
+  <rect y="24" width="640" height="10" fill="#0d140d"/>
+  <circle cx="20" cy="17" r="6" fill="#ff6b6b"/>
+  <circle cx="40" cy="17" r="6" fill="#ffb454"/>
+  <circle cx="60" cy="17" r="6" fill="#7dff9b"/>
+  <text x="320.0" y="22" fill="#5f9f6f" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" text-anchor="middle">Terminal: is the card there?</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
+    <text x="20" y="52"><tspan fill="#7dff9b">$</tspan><tspan fill="#e6fff0" font-weight="600"> gp --info</tspan></text>
+    <text x="20" y="72" fill="#b9e5c3" xml:space="preserve">CPLC: ICFabricator=4790</text>
+    <text x="20" y="92" fill="#b9e5c3" xml:space="preserve">      ICType=0503</text>
+    <text x="20" y="112" fill="#b9e5c3" xml:space="preserve">      OperatingSystemID=8211</text>
+    <text x="20" y="132" fill="#3f7f4f" xml:space="preserve">      ... more CPLC lines ...</text>
+    <text x="20" y="152" fill="#b9e5c3" xml:space="preserve"></text>
+    <text x="20" y="172" fill="#b9e5c3" xml:space="preserve">IIN: 420100</text>
+    <text x="20" y="192" fill="#b9e5c3" xml:space="preserve">Card Data:</text>
+    <text x="20" y="212" fill="#7dff9b" xml:space="preserve">-&gt; Global Platform card</text>
+    <text x="20" y="232" fill="#7dff9b" xml:space="preserve">-&gt; GP Version: 2.1.1</text>
+  </g>
+</svg>

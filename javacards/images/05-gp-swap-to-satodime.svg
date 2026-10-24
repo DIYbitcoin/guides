@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="170" viewBox="0 0 640 170">
+  <rect width="640" height="170" rx="10" fill="#0a0f0a"/>
+  <rect width="640" height="34" rx="10" fill="#0d140d"/>
+  <rect y="24" width="640" height="10" fill="#0d140d"/>
+  <circle cx="20" cy="17" r="6" fill="#ff6b6b"/>
+  <circle cx="40" cy="17" r="6" fill="#ffb454"/>
+  <circle cx="60" cy="17" r="6" fill="#7dff9b"/>
+  <text x="320.0" y="22" fill="#5f9f6f" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" text-anchor="middle">Terminal: swap Satochip for Satodime</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
+    <text x="20" y="52"><tspan fill="#7dff9b">$</tspan><tspan fill="#e6fff0" font-weight="600"> gp --uninstall SatoChip-v0.15-0.1.cap</tspan></text>
+    <text x="20" y="72" fill="#ffb454" xml:space="preserve">5361746F43686970 deleted.</text>
+    <text x="20" y="92" fill="#b9e5c3" xml:space="preserve"></text>
+    <text x="20" y="112"><tspan fill="#7dff9b">$</tspan><tspan fill="#e6fff0" font-weight="600"> gp --install Satodime-0.1-0.2.cap</tspan></text>
+    <text x="20" y="132" fill="#7dff9b" xml:space="preserve">Satodime-0.1-0.2.cap loaded: org.satodime.applet 5361746F44696D65</text>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="670" height="150" viewBox="0 0 670 150">
+  <rect width="670" height="150" rx="10" fill="#0a0f0a"/>
+  <rect width="670" height="34" rx="10" fill="#0d140d"/>
+  <rect y="24" width="670" height="10" fill="#0d140d"/>
+  <circle cx="20" cy="17" r="6" fill="#ff6b6b"/>
+  <circle cx="40" cy="17" r="6" fill="#ffb454"/>
+  <circle cx="60" cy="17" r="6" fill="#7dff9b"/>
+  <text x="335.0" y="22" fill="#5f9f6f" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" text-anchor="middle">Terminal: STOP if you see this</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
+    <text x="20" y="52"><tspan fill="#7dff9b">$</tspan><tspan fill="#e6fff0" font-weight="600"> gp --list</tspan></text>
+    <text x="20" y="72" fill="#3f7f4f" xml:space="preserve">Read more from https://github.com/martinpaljak/GlobalPlatformPro/wiki/Keys</text>
+    <text x="20" y="92" fill="#ffb454" xml:space="preserve">STRICT WARNING: Card cryptogram invalid!</text>
+    <text x="20" y="112" fill="#ffb454" xml:space="preserve">!!! DO NOT RE-TRY THE SAME COMMAND/KEYS OR YOU MAY BRICK YOUR CARD !!!</text>
+  </g>
+</svg>
