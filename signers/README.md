@@ -252,6 +252,26 @@ esptool --chip esp32p4 -p $PORT write-flash @flash_args
 
 ✅ When it finishes, the board restarts into SeedSigner. 🎉
 
+<a id="battery"></a>
+
+## 🔋 Install the battery
+
+The board comes with a small battery and a small screwdriver, so it can
+run without a cable.
+
+1. On the back of the case, pop off the four small covers with your
+   fingernails. The screws are underneath.
+2. Unscrew the four screws with the screwdriver and lift the back of the
+   case off.
+3. Plug the battery's plug into the battery socket at the bottom right of
+   the board. It only fits one way up, so if it doesn't go in, turn it
+   over. Don't force it.
+4. ✅ A green light should come on next to the power button.
+5. Put the back of the case on again and screw it shut. The case closes
+   normally with the battery inside.
+
+![Waveshare 3.5 inch board with the case open and the battery plugged in](images/battery.jpg)
+
 ## 🩺 Troubleshooting
 
 | You see | What to do |
