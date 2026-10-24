@@ -53,27 +53,64 @@ summary{cursor:pointer;padding:6px 0}
 .t .card:hover{border-color:#7dff9b}
 .t .card h3::before{content:'$ ';color:#3f7f4f}
 
+.lang{margin-left:auto;position:relative;display:inline-flex;border:1px solid #2e5a38;cursor:pointer;user-select:none}
+.lang span{position:relative;z-index:1;padding:0 10px;transition:color .3s}
+.lang .knob{position:absolute;top:0;bottom:0;left:0;width:50%;background:#7dff9b;transition:transform .3s cubic-bezier(.5,1.6,.4,.9)}
+.lang.es .knob{transform:translateX(100%)}
+.lang:not(.es) span.en,.lang.es span.es{color:#0a0f0a}
+.lang span{color:#7dff9b}
+main{transition:opacity .2s}
+main.fade{opacity:0}
 </style></head>
 <body><nav id="nav"></nav><main id="out"></main>
 <script>
 const q = new URLSearchParams(location.search);
 const page = q.get('page') || 'home';
 document.body.className = 't';
-const GUIDES = [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or secrets backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']];
+let lang = q.get('lang') || (() => { try { return localStorage.getItem('lang'); } catch (e) { return null; } })() || 'en';
+if (lang !== 'es') lang = 'en';
+const T = {
+  en: {title: 'DIYbitcoin guides', sub: 'Step by step guides to do bitcoin yourself.', copy: 'copy', copied: 'copied',
+       guides: [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or secrets backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']]},
+  es: {title: 'Guías DIYbitcoin', sub: 'Guías paso a paso para hacer bitcoin tú mismo.', copy: 'copiar', copied: 'copiado',
+       guides: [['javacards','Flashear javacards','Una cartera de bitcoin DIY, tarjeta al portador o copia de seguridad de secretos en una tarjeta J3H145.'],['signers','Signers DIY','SeedSigner, Kern o KISS Signer en la placa con pantalla táctil Waveshare de 3,5 pulgadas.'],['nodes','Monta tu propio nodo','Comprueba tú mismo todas las reglas de bitcoin en un mini PC.']]}
+};
 const href = p => p === 'home' ? './' : `?page=${p}`;
-document.getElementById('nav').innerHTML =
-  `<span class="prompt">diybitcoin@guides:~$</span>` +
-  [['home','home']].concat(GUIDES.map(g => [g[0], g[0]])).map(([p, l]) => `<a class="${p === page ? 'on' : ''}" href="${href(p)}">${l}</a>`).join('');
 const out = document.getElementById('out');
-if (page === 'home') {
-  out.innerHTML = `<h1>DIYbitcoin guides</h1><p>Step by step guides to do bitcoin yourself.</p><div class="cards">` +
-    GUIDES.map(g => `<a class="card" href="${href(g[0])}"><h3>${g[1]}</h3><p>${g[2]}</p></a>`).join('') + `</div>`;
-} else {
-  fetch(`${page}/README.md`, {cache: 'no-cache'}).then(r => r.text()).then(md => {
+const nav = document.getElementById('nav');
+function drawNav() {
+  nav.innerHTML = `<span class="prompt">diybitcoin@guides:~$</span>` +
+    [['home','home']].concat(T.en.guides.map(g => [g[0], g[0]])).map(([p, l]) => `<a class="${p === page ? 'on' : ''}" href="${href(p)}">${l}</a>`).join('') +
+    `<span class="lang ${lang}" role="button" tabindex="0" aria-label="Language"><i class="knob"></i><span class="en">EN</span><span class="es">ES</span></span>`;
+  const t = nav.querySelector('.lang');
+  const flip = () => setLang(lang === 'en' ? 'es' : 'en');
+  t.onclick = flip;
+  t.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } };
+}
+function render() {
+  const L = T[lang];
+  document.documentElement.lang = lang;
+  if (page === 'home') {
+    out.innerHTML = `<h1>${L.title}</h1><p>${L.sub}</p><div class="cards">` +
+      L.guides.map(g => `<a class="card" href="${href(g[0])}"><h3>${g[1]}</h3><p>${g[2]}</p></a>`).join('') + `</div>`;
+    return Promise.resolve();
+  }
+  const file = lang === 'es' ? 'README.es.md' : 'README.md';
+  return fetch(`${page}/${file}`, {cache: 'no-cache'}).then(r => r.text()).then(md => {
     out.innerHTML = marked.parse(md);
     out.querySelectorAll('img').forEach(i => { const s = i.getAttribute('src'); if (!/^https?:/.test(s)) i.src = `${page}/${s}`; });
     out.querySelectorAll('a').forEach(a => { const h = a.getAttribute('href') || ''; const m = h.match(/^\.\.\/(\w+)\/?$/); if (m) a.href = href(m[1]); });
-    out.querySelectorAll('pre').forEach(p => { const b = document.createElement('button'); b.className = 'copy'; b.textContent = 'copy'; b.onclick = () => { navigator.clipboard.writeText(p.innerText.replace(/\ncopy$/, '').replace(/^copy\n/, '').trim()); b.textContent = 'copied'; setTimeout(() => b.textContent = 'copy', 1200); }; p.appendChild(b); });
+    out.querySelectorAll('pre').forEach(p => { const b = document.createElement('button'); b.className = 'copy'; b.textContent = L.copy; b.onclick = () => { navigator.clipboard.writeText(p.querySelector('code').innerText.trim()); b.textContent = L.copied; setTimeout(() => b.textContent = L.copy, 1200); }; p.appendChild(b); });
+    if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
   });
 }
+function setLang(l) {
+  lang = l;
+  try { localStorage.setItem('lang', l); } catch (e) {}
+  nav.querySelector('.lang').className = `lang ${l}`;
+  out.classList.add('fade');
+  setTimeout(() => render().then(() => out.classList.remove('fade')), 200);
+}
+drawNav();
+render();
 </script></body></html>
