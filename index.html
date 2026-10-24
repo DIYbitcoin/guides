@@ -59,7 +59,7 @@ summary{cursor:pointer;padding:6px 0}
 const q = new URLSearchParams(location.search);
 const page = q.get('page') || 'home';
 document.body.className = 't';
-const GUIDES = [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or seed backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']];
+const GUIDES = [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or secrets backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']];
 const href = p => p === 'home' ? './' : `?page=${p}`;
 document.getElementById('nav').innerHTML =
   `<span class="prompt">diybitcoin@guides:~$</span>` +

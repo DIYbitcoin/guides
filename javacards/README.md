@@ -8,8 +8,8 @@ four open source bitcoin applets onto a blank J3H145 javacard:
 - **Satochip:** a DIY bitcoin wallet you use with Sparrow Wallet
 - **Satodime:** a bearer card, so whoever holds the card owns the
   bitcoin on it, like cash
-- **SeedKeeper:** a backup for your seed words and passwords, locked
-  with a PIN
+- **SeedKeeper:** an encrypted backup, locked with a PIN, for your seed
+  words and passphrase, passwords, wallet descriptors and other secrets
 - **Keycard:** another DIY bitcoin wallet you use with Sparrow Wallet
 
 The applets come from [Satochip](https://satochip.io) and
@@ -388,7 +388,7 @@ the app.**
 
 4. 🎉 The menu now has **My secrets**, **Generate secret**, **Import secret**,
    **Backup card** and **Card logs**. Your SeedKeeper is ready to store
-   seeds and passwords.
+   seed words, passphrases, passwords and wallet descriptors.
 
    ![SeedKeeper ready](images/satotools-seedkeeper-4-ready.png)
 
