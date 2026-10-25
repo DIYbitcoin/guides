@@ -3,6 +3,7 @@
 <title>DIYbitcoin Guides</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Serif:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <style>
 *{box-sizing:border-box}
@@ -53,50 +54,87 @@ summary{cursor:pointer;padding:6px 0}
 .t .card:hover{border-color:#7dff9b}
 .t .card h3::before{content:'$ ';color:#3f7f4f}
 
-.lang{margin-left:auto;position:relative;display:inline-flex;border:1px solid #2e5a38;cursor:pointer;user-select:none}
-.lang span{position:relative;z-index:1;padding:0 10px;transition:color .3s}
-.lang .knob{position:absolute;top:0;bottom:0;left:0;width:50%;background:#7dff9b;transition:transform .3s cubic-bezier(.5,1.6,.4,.9)}
-.lang.es .knob{transform:translateX(100%)}
-.lang:not(.es) span.en,.lang.es span.es{color:#0a0f0a}
-.lang span{color:#7dff9b}
+.lang{margin-left:auto;position:relative}
+.lang-btn{display:flex;align-items:center;gap:8px;background:#0a0f0a;color:#7dff9b;border:1px solid #2e5a38;font:inherit;padding:2px 10px;cursor:pointer}
+.lang-btn:hover,.lang.open .lang-btn{border-color:#7dff9b}
+.lang-btn .caret{display:inline-block;transition:transform .25s}
+.lang.open .lang-btn .caret{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 6px);min-width:200px;margin:0;padding:6px 0;list-style:none;background:#0d140d;border:1px solid #2e5a38;z-index:10;transform-origin:top right;transform:scale(.92) translateY(-6px);opacity:0;visibility:hidden;transition:transform .18s ease,opacity .18s ease,visibility .18s}
+.lang.open .lang-menu{transform:none;opacity:1;visibility:visible}
+.lang-menu li{display:flex;align-items:center;gap:10px;padding:6px 14px;cursor:pointer;color:#b9e5c3}
+.lang-menu li:hover,.lang-menu li:focus{background:#132013;color:#7dff9b;outline:none}
+.lang-menu li[aria-selected="true"]{color:#7dff9b}
+.lang-menu li[aria-selected="true"]::after{content:'<';margin-left:auto}
+.lang .fi{border:1px solid #1f3a26}
+.flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:50}
+.flash::before{content:'';position:absolute;inset:0;background:#0a0f0a;animation:veil .8s ease forwards}
+.flash .fi{position:relative;width:min(60vw,420px);height:min(45vw,315px);line-height:1;background-size:cover;border:2px solid #7dff9b;box-shadow:0 0 0 6px #0a0f0a,0 0 0 7px #2e5a38;animation:flagflash .8s ease forwards}
+.flash .fi::before{content:none}
+@keyframes veil{0%{opacity:0}30%{opacity:.9}70%{opacity:.9}100%{opacity:0}}
+@keyframes flagflash{0%{opacity:0;transform:scale(.6) rotate(-6deg)}25%{opacity:1;transform:scale(1.06) rotate(0)}40%{transform:scale(1)}55%{opacity:1;filter:none}62%{opacity:.4;filter:hue-rotate(90deg)}68%{opacity:1;filter:none}100%{opacity:0;transform:scale(1.3)}}
 main{transition:opacity .2s}
 main.fade{opacity:0}
+@media (prefers-reduced-motion:reduce){.flash{display:none}.lang-menu,main{transition:none}}
 </style></head>
 <body><nav id="nav"></nav><main id="out"></main>
 <script>
 const q = new URLSearchParams(location.search);
 const page = q.get('page') || 'home';
 document.body.className = 't';
-let lang = q.get('lang') || (() => { try { return localStorage.getItem('lang'); } catch (e) { return null; } })() || 'en';
-if (lang !== 'es') lang = 'en';
+const LANGS = [['en','gb','English'],['es','es','Español'],['ko','kr','한국어'],['ms','my','Bahasa Melayu'],['tr','tr','Türkçe'],['ja','jp','日本語'],['zh','cn','中文']];
+const known = l => LANGS.some(x => x[0] === l);
+const stored = (() => { try { return localStorage.getItem('lang'); } catch (e) { return null; } })();
+const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
+let lang = [q.get('lang'), stored, browser].find(known) || 'en';
 const T = {
   en: {title: 'DIYbitcoin guides', sub: 'Step by step guides to do bitcoin yourself.', copy: 'copy', copied: 'copied',
        guides: [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or secrets backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']]},
   es: {title: 'Guías DIYbitcoin', sub: 'Guías paso a paso para hacer bitcoin tú mismo.', copy: 'copiar', copied: 'copiado',
-       guides: [['javacards','Flashear javacards','Una cartera de bitcoin DIY, tarjeta al portador o copia de seguridad de secretos en una tarjeta J3H145.'],['signers','Signers DIY','SeedSigner, Kern o KISS Signer en la placa con pantalla táctil Waveshare de 3,5 pulgadas.'],['nodes','Monta tu propio nodo','Comprueba tú mismo todas las reglas de bitcoin en un mini PC.']]}
+       guides: [['javacards','Flashear javacards','Una cartera de bitcoin DIY, tarjeta al portador o copia de seguridad de secretos en una tarjeta J3H145.'],['signers','Signers DIY','SeedSigner, Kern o KISS Signer en la placa con pantalla táctil Waveshare de 3,5 pulgadas.'],['nodes','Monta tu propio nodo','Comprueba tú mismo todas las reglas de bitcoin en un mini PC.']]},
+  ko: {"title": "DIYbitcoin 가이드", "sub": "비트코인을 직접 다뤄 보는 단계별 가이드예요.", "copy": "복사", "copied": "복사됨", "guides": [["javacards", "자바카드 플래싱하기", "J3H145 카드로 DIY 비트코인 지갑, 무기명 카드 또는 비밀 백업을 만들어요."], ["signers", "DIY 서명 기기", "SeedSigner, Kern 또는 KISS Signer를 Waveshare 3.5인치 터치스크린 보드에 설치해요."], ["nodes", "내 노드 직접 운영하기", "미니 PC로 모든 비트코인 규칙을 직접 확인해요."]]},
+  ms: {"title": "Panduan DIYbitcoin", "sub": "Panduan langkah demi langkah untuk menguruskan bitcoin sendiri.", "copy": "salin", "copied": "disalin", "guides": [["javacards", "Flash javacard", "Dompet bitcoin DIY, kad pembawa atau sandaran rahsia pada kad J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern atau KISS Signer pada papan skrin sentuh Waveshare 3.5 inci."], ["nodes", "Jalankan nod anda sendiri", "Semak sendiri setiap peraturan bitcoin pada PC mini."]]},
+  tr: {"title": "DIYbitcoin rehberleri", "sub": "Adım adım rehberlerle bitcoin işlerini kendin yap.", "copy": "kopyala", "copied": "kopyalandı", "guides": [["javacards", "Javacard flaşlama", "J3H145 kartta DIY bir bitcoin cüzdanı, hamiline kart ya da sır yedeği."], ["signers", "DIY signer'lar", "Waveshare 3,5 inç dokunmatik ekranlı kartta SeedSigner, Kern ya da KISS Signer."], ["nodes", "Kendi düğümünü çalıştır", "Bir mini PC üzerinde bitcoinin her kuralını kendin kontrol et."]]},
+  ja: {"title": "DIYbitcoin ガイド", "sub": "ビットコインを自分で扱うための、ステップごとのガイドです。", "copy": "コピー", "copied": "コピーしました", "guides": [["javacards", "javacard への書き込み", "J3H145 カードで作る DIY のビットコインウォレット、無記名カード、または秘密情報のバックアップ。"], ["signers", "DIY 署名デバイス", "Waveshare 3.5インチのタッチスクリーンボードで動く SeedSigner、Kern または KISS Signer。"], ["nodes", "自分のノードを動かす", "ミニ PC で、ビットコインのルールをすべて自分で確認します。"]]},
+  zh: {"title": "DIYbitcoin 指南", "sub": "分步指南，教你自己动手玩转比特币。", "copy": "复制", "copied": "已复制", "guides": [["javacards", "刷写 javacard", "用一张 J3H145 卡做 DIY 比特币钱包、不记名卡或机密信息备份。"], ["signers", "DIY 签名器", "在 Waveshare 3.5 英寸触摸屏开发板上运行 SeedSigner、Kern 或 KISS Signer。"], ["nodes", "运行你自己的节点", "在迷你主机上亲自检查每一条比特币规则。"]]},
 };
 const href = p => p === 'home' ? './' : `?page=${p}`;
 const out = document.getElementById('out');
 const nav = document.getElementById('nav');
+const flagOf = l => LANGS.find(x => x[0] === l)[1];
 function drawNav() {
   nav.innerHTML = `<span class="prompt">diybitcoin@guides:~$</span>` +
     [['home','home']].concat(T.en.guides.map(g => [g[0], g[0]])).map(([p, l]) => `<a class="${p === page ? 'on' : ''}" href="${href(p)}">${l}</a>`).join('') +
-    `<span class="lang ${lang}" role="button" tabindex="0" aria-label="Language"><i class="knob"></i><span class="en">EN</span><span class="es">ES</span></span>`;
-  const t = nav.querySelector('.lang');
-  const flip = () => setLang(lang === 'en' ? 'es' : 'en');
-  t.onclick = flip;
-  t.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } };
+    `<div class="lang"><button class="lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language"></button>` +
+    `<ul class="lang-menu" role="listbox">` + LANGS.map(([c, f, n]) => `<li role="option" tabindex="-1" data-lang="${c}"><span class="fi fi-${f}"></span>${n}</li>`).join('') + `</ul></div>`;
+  const box = nav.querySelector('.lang'), btn = box.querySelector('.lang-btn'), items = [...box.querySelectorAll('li')];
+  const open = on => { box.classList.toggle('open', on); btn.setAttribute('aria-expanded', on); if (on) (items.find(i => i.dataset.lang === lang) || items[0]).focus(); };
+  btn.onclick = e => { e.stopPropagation(); open(!box.classList.contains('open')); };
+  btn.onkeydown = e => { if (e.key === 'ArrowDown') { e.preventDefault(); open(true); } };
+  items.forEach((li, k) => {
+    li.onclick = e => { e.stopPropagation(); open(false); btn.focus(); setLang(li.dataset.lang); };
+    li.onkeydown = e => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(k + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }
+      else if (e.key === 'Escape' || e.key === 'Tab') { open(false); btn.focus(); }
+    };
+  });
+  document.addEventListener('click', () => open(false));
+  showLang();
+}
+function showLang() {
+  nav.querySelector('.lang-btn').innerHTML = `<span class="fi fi-${flagOf(lang)}"></span>${lang.toUpperCase()}<span class="caret">▾</span>`;
+  nav.querySelectorAll('.lang-menu li').forEach(li => li.setAttribute('aria-selected', li.dataset.lang === lang));
 }
 function render() {
-  const L = T[lang];
+  const L = T[lang] || T.en;
   document.documentElement.lang = lang;
   if (page === 'home') {
     out.innerHTML = `<h1>${L.title}</h1><p>${L.sub}</p><div class="cards">` +
       L.guides.map(g => `<a class="card" href="${href(g[0])}"><h3>${g[1]}</h3><p>${g[2]}</p></a>`).join('') + `</div>`;
     return Promise.resolve();
   }
-  const file = lang === 'es' ? 'README.es.md' : 'README.md';
-  return fetch(`${page}/${file}`, {cache: 'no-cache'}).then(r => r.text()).then(md => {
+  const get = f => fetch(`${page}/${f}`, {cache: 'no-cache'}).then(r => { if (!r.ok) throw r.status; return r.text(); });
+  return (lang === 'en' ? get('README.md') : get(`README.${lang}.md`).catch(() => get('README.md'))).then(md => {
     out.innerHTML = marked.parse(md);
     out.querySelectorAll('img').forEach(i => { const s = i.getAttribute('src'); if (!/^https?:/.test(s)) i.src = `${page}/${s}`; });
     out.querySelectorAll('a').forEach(a => { const h = a.getAttribute('href') || ''; const m = h.match(/^\.\.\/(\w+)\/?$/); if (m) a.href = href(m[1]); });
@@ -105,11 +143,17 @@ function render() {
   });
 }
 function setLang(l) {
+  if (l === lang || !known(l)) return;
   lang = l;
   try { localStorage.setItem('lang', l); } catch (e) {}
-  nav.querySelector('.lang').className = `lang ${l}`;
+  showLang();
+  const fx = document.createElement('div');
+  fx.className = 'flash';
+  fx.innerHTML = `<span class="fi fi-${flagOf(l)}"></span>`;
+  document.body.appendChild(fx);
+  setTimeout(() => fx.remove(), 850);
   out.classList.add('fade');
-  setTimeout(() => render().then(() => out.classList.remove('fade')), 200);
+  setTimeout(() => render().then(() => out.classList.remove('fade')), 250);
 }
 drawNav();
 render();
