@@ -68,15 +68,7 @@ summary{cursor:pointer;padding:6px 0}
 .lang-menu li[aria-selected="true"]{color:#7dff9b}
 .lang-menu li[aria-selected="true"]::after{content:'<';margin-left:auto}
 .lang .fi{border:1px solid #1f3a26}
-.flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:50}
-.flash::before{content:'';position:absolute;inset:0;background:#0a0f0a;animation:veil .8s ease forwards}
-.flash .fi{position:relative;width:min(60vw,420px);height:min(45vw,315px);line-height:1;background-size:cover;border:2px solid #7dff9b;box-shadow:0 0 0 6px #0a0f0a,0 0 0 7px #2e5a38;animation:flagflash .8s ease forwards}
-.flash .fi::before{content:none}
-@keyframes veil{0%{opacity:0}30%{opacity:.9}70%{opacity:.9}100%{opacity:0}}
-@keyframes flagflash{0%{opacity:0;transform:scale(.6) rotate(-6deg)}25%{opacity:1;transform:scale(1.06) rotate(0)}40%{transform:scale(1)}55%{opacity:1;filter:none}62%{opacity:.4;filter:hue-rotate(90deg)}68%{opacity:1;filter:none}100%{opacity:0;transform:scale(1.3)}}
-main{transition:opacity .2s}
-main.fade{opacity:0}
-@media (prefers-reduced-motion:reduce){.flash{display:none}.lang-menu,main{transition:none}}
+@media (prefers-reduced-motion:reduce){.lang-menu{transition:none}}
 </style></head>
 <body><nav id="nav"></nav><main id="out"></main>
 <script>
@@ -149,13 +141,7 @@ function setLang(l) {
   lang = l;
   try { localStorage.setItem('lang', l); } catch (e) {}
   showLang();
-  const fx = document.createElement('div');
-  fx.className = 'flash';
-  fx.innerHTML = `<span class="fi fi-${flagOf(l)}"></span>`;
-  document.body.appendChild(fx);
-  setTimeout(() => fx.remove(), 850);
-  out.classList.add('fade');
-  setTimeout(() => render().then(() => out.classList.remove('fade')), 250);
+  render();
 }
 drawNav();
 render();
