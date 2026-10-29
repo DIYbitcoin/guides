@@ -87,8 +87,9 @@ disyorkan.
    masalah sambungan).
 3. Taip `netboot_default` dan tekan **Enter**.
 
-   ⌨️ Papan kekunci ialah susun atur Amerika: untuk `_` tahan **Shift**
-   dan tekan kekunci di sebelah **0**.
+   ⌨️ Petitboot menggunakan susun atur papan kekunci Amerika walau apa
+   pun papan kekunci anda: untuk `_` tahan **Shift** dan tekan kekunci di
+   sebelah **0**.
 
 4. Taip `exit` dan tekan **Enter**.
 5. Skrin utama Petitboot kini menunjukkan senarai imej yang ada. Pergi ke
@@ -98,17 +99,18 @@ disyorkan.
 
 1. **Bahasa:** pilih **English**, lebih mudah diikuti (terjemahannya
    mungkin tidak bagus).
-2. **Lokasi:** pilih negara anda (untuk Itali: **other**, kemudian
-   **Europe**, kemudian **Italy**).
-3. **Tempatan:** anda boleh kekalkan bahasa Inggeris dengan memilih
-   **United Kingdom**.
-4. **Papan kekunci:** pilih papan kekunci yang anda ada (untuk papan
-   kekunci QWERTY Itali, **Italian**).
+2. **Lokasi:** pilih negara tempat anda tinggal, yang menetapkan zon
+   waktu anda. Jika tiada dalam senarai pertama, pilih **other**,
+   kemudian benua anda, kemudian negara anda.
+3. **Tempatan:** jika Debian bertanya, anda boleh kekalkan bahasa
+   Inggeris dengan memilih **United States** atau **United Kingdom**.
+4. **Papan kekunci:** pilih susun atur papan kekunci yang anda pasang.
 5. **Hostname:** pilih nama hos. Domain boleh dibiarkan kosong.
-6. **Negara cermin:** negara tempat Debian dimuat turun (di Itali,
-   **Italy**).
-7. **Cermin:** di Itali, `debian.mirror.garr.it` biasanya laju dan
-   boleh dipercayai.
+6. **Negara cermin:** negara tempat Debian dimuat turun: negara anda,
+   atau yang paling dekat dalam senarai.
+7. **Cermin:** pilih `deb.debian.org` jika ada dalam senarai, ia
+   menghantar anda ke pelayan laju yang dekat. Jika tiada, mana-mana
+   cermin dalam senarai boleh digunakan.
 8. **Proksi:** jika tiada proksi, biarkan kosong dan tekan **Enter**.
 9. **Kata laluan root:** tetapkan kata laluan superuser dan tekan
    **Enter**.
@@ -229,8 +231,8 @@ disyorkan.
    apt upgrade
    ```
 
-   ✅ `apt update` kini sepatutnya bersambung ke repositori di atas,
-   bukan ke `debian.mirror.garr.it/debian` yang lalai.
+   ✅ `apt update` kini sepatutnya bersambung ke `deb.debian.org`,
+   repositori di atas.
 
 ## 🧅 Langkah 7: pasang Tor dan capai SSH melalui Tor
 

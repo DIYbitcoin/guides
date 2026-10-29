@@ -85,8 +85,9 @@ yönetmek için `tor` ve `ssh` kur, bir UPS (kesintisiz güç kaynağı)
    yardımcı olabilir).
 3. `netboot_default` yaz ve **Enter**'a bas.
 
-   ⌨️ Klavye Amerikan düzenindedir: `_` için **Shift**'e basılı tut ve
-   **0**'ın yanındaki tuşa bas.
+   ⌨️ Petitboot, klavyen hangisi olursa olsun Amerikan düzenini
+   kullanır: `_` için **Shift**'e basılı tut ve **0**'ın yanındaki tuşa
+   bas.
 
 4. `exit` yaz ve **Enter**'a bas.
 5. Petitboot'un açılış ekranında artık kullanılabilir imajların listesi
@@ -97,15 +98,17 @@ yönetmek için `tor` ve `ssh` kur, bir UPS (kesintisiz güç kaynağı)
 
 1. **Dil:** **English**'i seç, takip etmesi daha kolay (çeviriler iyi
    olmayabilir).
-2. **Konum:** ülkeni seç (İtalya için: **other**, sonra **Europe**,
-   sonra **Italy**).
-3. **Yerel ayar:** **United Kingdom**'ı seçip İngilizce bırakabilirsin.
-4. **Klavye:** elindeki klavyeyi seç (İtalyan QWERTY klavye için
-   **Italian**).
+2. **Konum:** yaşadığın ülkeyi seç, saat dilimin buna göre ayarlanır.
+   İlk listede yoksa **other**'ı, sonra kıtanı, sonra ülkeni seç.
+3. **Yerel ayar:** Debian sorarsa **United States** ya da
+   **United Kingdom**'ı seçip İngilizce bırakabilirsin.
+4. **Klavye:** taktığın klavyenin düzenini seç.
 5. **Hostname:** bir ana bilgisayar adı seç. Alan adı boş kalabilir.
-6. **Yansı ülkesi:** Debian'ın indirileceği ülke (İtalya'da **Italy**).
-7. **Yansı:** İtalya'da `debian.mirror.garr.it` genellikle hızlı ve
-   güvenilirdir.
+6. **Yansı ülkesi:** Debian'ın indirileceği ülke: kendi ülken ya da
+   listedeki en yakın ülke.
+7. **Yansı:** listede varsa `deb.debian.org`'u seç, seni yakınındaki
+   hızlı bir sunucuya yönlendirir. Yoksa listedeki herhangi bir yansı
+   olur.
 8. **Proxy:** proxy'n yoksa boş bırak ve **Enter**'a bas.
 9. **Root parolası:** süper kullanıcı parolasını belirle ve **Enter**'a
    bas.
@@ -221,8 +224,8 @@ yönetmek için `tor` ve `ssh` kur, bir UPS (kesintisiz güç kaynağı)
    apt upgrade
    ```
 
-   ✅ `apt update` artık varsayılan `debian.mirror.garr.it/debian` yerine
-   yukarıdaki depolara bağlanmalı.
+   ✅ `apt update` artık yukarıdaki depolara, `deb.debian.org`'a
+   bağlanmalı.
 
 ## 🧅 Adım 7: Tor'u kur ve SSH'a Tor üzerinden eriş
 

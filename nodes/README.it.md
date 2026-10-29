@@ -85,8 +85,9 @@ manutenzione remota, e un gruppo di continuità (UPS) è consigliato.
    eventuali problemi di connettività).
 3. Digitiamo `netboot_default` e premiamo **Invio**.
 
-   ⌨️ La tastiera è americana: per ottenere `_` bisogna tenere premuto
-   **Shift** e premere il tasto a fianco dello **0**.
+   ⌨️ Petitboot usa la tastiera americana, qualunque tastiera abbiate:
+   per ottenere `_` bisogna tenere premuto **Shift** e premere il tasto a
+   fianco dello **0**.
 
 4. Digitiamo `exit` e premiamo **Invio**.
 5. Ora nella schermata iniziale di Petitboot vedremo la lista delle
@@ -97,16 +98,18 @@ manutenzione remota, e un gruppo di continuità (UPS) è consigliato.
 
 1. **Lingua:** scegliamo **English** per una migliore comprensione (le
    traduzioni potrebbero non essere fatte bene).
-2. **Posizione geografica:** per l'Italia il percorso è **other**, poi
-   **Europe**, poi **Italy**.
-3. **Localizzazione:** possiamo continuare con quella inglese
-   selezionando **United Kingdom**.
-4. **Tastiera:** se avete una tastiera QWERTY italiana scegliete
-   **Italian**, altrimenti la tastiera che avete a disposizione.
+2. **Posizione geografica:** scegliamo il paese in cui viviamo, che
+   imposta il fuso orario. Se non è nel primo elenco, scegliamo
+   **other**, poi il continente, poi il paese.
+3. **Localizzazione:** se Debian lo chiede, possiamo continuare in
+   inglese selezionando **United States** o **United Kingdom**.
+4. **Tastiera:** scegliamo la disposizione della tastiera collegata.
 5. **Hostname:** scegliamo un hostname. Il dominio può rimanere vuoto.
-6. **Paese del mirror:** se siete in Italia, **Italy**.
-7. **Mirror:** scegliamo `debian.mirror.garr.it` perché è solitamente
-   veloce e affidabile.
+6. **Paese del mirror:** il paese da cui Debian scarica i pacchetti: il
+   nostro, o il più vicino nell'elenco.
+7. **Mirror:** scegliamo `deb.debian.org` se è nell'elenco, perché ci
+   manda a un server veloce vicino a noi. Altrimenti va bene qualsiasi
+   mirror dell'elenco.
 8. **Proxy:** se non abbiamo un proxy lasciamo vuoto il campo e premiamo
    **Invio**.
 9. **Password di root:** impostiamo la password per il superuser e
@@ -228,8 +231,8 @@ manutenzione remota, e un gruppo di continuità (UPS) è consigliato.
    apt upgrade
    ```
 
-   ✅ `apt update` deve connettersi ai repository qui sopra e non a quelli
-   predefiniti di `debian.mirror.garr.it/debian`.
+   ✅ `apt update` deve connettersi a `deb.debian.org`, i repository qui
+   sopra.
 
 ## 🧅 Passo 7: installare Tor e ssh via Tor
 

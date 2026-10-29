@@ -86,8 +86,9 @@ respaldo).
    problemas de conexión).
 3. Escribe `netboot_default` y pulsa **Enter**.
 
-   ⌨️ El teclado es americano: para escribir `_` mantén **Shift** y
-   pulsa la tecla al lado del **0**.
+   ⌨️ Petitboot usa la distribución de teclado americana, tengas el
+   teclado que tengas: para escribir `_` mantén **Shift** y pulsa la
+   tecla al lado del **0**.
 
 4. Escribe `exit` y pulsa **Enter**.
 5. La pantalla de inicio de Petitboot muestra ahora la lista de imágenes
@@ -98,18 +99,19 @@ respaldo).
 
 1. **Idioma:** elige **English**, es más fácil de seguir (las
    traducciones pueden no estar bien).
-2. **Ubicación:** elige tu país (para Italia: **other**, luego
-   **Europe**, luego **Italy**).
-3. **Configuración regional:** puedes quedarte con inglés eligiendo
-   **United Kingdom**.
-4. **Teclado:** elige el teclado que tengas (para un teclado QWERTY
-   italiano, **Italian**).
+2. **Ubicación:** elige el país donde vives, que fija tu zona horaria.
+   Si no está en la primera lista, elige **other**, luego tu continente
+   y luego tu país.
+3. **Configuración regional:** si Debian lo pregunta, puedes quedarte
+   con inglés eligiendo **United States** o **United Kingdom**.
+4. **Teclado:** elige la distribución del teclado que conectaste.
 5. **Hostname:** elige un nombre de equipo. El dominio puede quedar
    vacío.
-6. **País del mirror:** el país desde el que se descarga Debian (en
-   Italia, **Italy**).
-7. **Mirror:** en Italia, `debian.mirror.garr.it` suele ser rápido y
-   fiable.
+6. **País del mirror:** el país desde el que se descarga Debian: el
+   tuyo, o el más cercano de la lista.
+7. **Mirror:** elige `deb.debian.org` si está en la lista, te manda a
+   un servidor rápido cerca de ti. Si no, cualquier mirror de la lista
+   sirve.
 8. **Proxy:** si no tienes proxy, déjalo vacío y pulsa **Enter**.
 9. **Contraseña de root:** pon la contraseña del superusuario y pulsa
    **Enter**.
@@ -226,8 +228,8 @@ respaldo).
    apt upgrade
    ```
 
-   ✅ `apt update` debería conectarse ahora a los repositorios de arriba,
-   no al predeterminado `debian.mirror.garr.it/debian`.
+   ✅ `apt update` debería conectarse ahora a `deb.debian.org`, los
+   repositorios de arriba.
 
 ## 🧅 Paso 7: instala Tor y entra por SSH a través de Tor
 
