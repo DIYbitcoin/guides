@@ -69,6 +69,56 @@ summary{cursor:pointer;padding:6px 0}
 .lang-menu li[aria-selected="true"]::after{content:'<';margin-left:auto}
 .lang .fi{border:1px solid #1f3a26}
 @media (prefers-reduced-motion:reduce){.lang-menu{transition:none}}
+
+main.docs{max-width:1480px;padding-top:40px}
+.docs{--ink:#e6fff0;--muted:#b9e5c3;--dim:#6f9a7a;--line:#1f3a26;--control:#2e5a38;--key:#0f1a10;--accent:#7dff9b;--accent-bg:#132013}
+.docs-layout{display:grid;grid-template-columns:230px minmax(0,1fr) auto;gap:56px;align-items:start}
+.t .docs-rail{position:sticky;top:24px;max-height:calc(100vh - 48px);overflow-y:auto;margin:0;padding:0;border:0}
+.docs-rail>summary{display:none}
+.rail-group{margin:0 0 14px}
+.t .rail-group{border:0;margin:0 0 14px;padding:0}
+.t .rail-group>summary{display:flex;align-items:center;gap:9px;cursor:pointer;list-style:none;padding:6px 0;color:var(--dim);font-size:12px;letter-spacing:.16em;text-transform:uppercase;user-select:none}
+.t .rail-group>summary::marker,.t .rail-group>summary::-webkit-details-marker{content:'';display:none}
+.rail-group>summary:hover{color:var(--ink)}
+.rail-group[open]>summary{color:var(--muted)}
+.rail-group>summary span::before{content:'[ ';color:var(--accent)}
+.rail-group>summary span::after{content:' ]';color:var(--accent)}
+.rail-ico{flex:none;width:16px;height:16px;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rail-chev{flex:none;width:13px;height:13px;margin-left:auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .22s}
+.rail-group[open]>summary .rail-chev{transform:rotate(180deg)}
+.rail-group a{position:relative;display:block;margin:3px 0 3px 0;padding:7px 24px 7px 12px;border:1px solid transparent;border-radius:8px;color:var(--dim);font-size:13px;line-height:1.35;text-decoration:none}
+.rail-group a:hover{color:var(--ink);border-color:var(--line);background:var(--key)}
+.rail-group a[aria-current]{color:var(--accent);border-color:var(--accent);background:var(--accent-bg)}
+.rail-group a.seen::after{content:'';position:absolute;right:10px;top:50%;width:4px;height:4px;margin-top:-2px;border-radius:50%;background:var(--dim)}
+.docs-body{min-width:0;max-width:78ch}
+.docs-head{margin:0 0 34px;color:var(--dim);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.eyebrow{margin:0 0 8px;color:var(--accent);font-size:13px;letter-spacing:.13em;text-transform:uppercase}
+.t .docs-body .topic>h1:first-of-type,.t .docs-body .topic>h2:first-of-type{border:0;margin:0 0 18px;padding:0;color:var(--ink);font-size:30px;font-weight:500;line-height:1.2}
+.t .docs-body .topic>h1:first-of-type::before,.t .docs-body .topic>h2:first-of-type::before,.t .docs-body .topic>h1:first-of-type::after{content:none}
+.docs-body h3{scroll-margin-top:24px}
+.t .docs-toc{position:sticky;top:24px;width:220px;max-height:calc(100vh - 48px);overflow-y:auto}
+.docs-toc[hidden]{display:none}
+.docs-toc p{margin:0 0 12px;color:var(--dim);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.docs-toc a{display:block;border-left:1px solid var(--line);padding:6px 0 6px 12px;color:var(--dim);font-size:13px;line-height:1.4;text-decoration:none}
+.docs-toc a:hover{color:var(--ink);border-left-color:var(--control)}
+.docs-toc a.is-here{color:var(--accent);border-left-color:var(--accent)}
+.docs-pager{display:flex;gap:16px;margin-top:56px;padding-top:24px;border-top:1px solid var(--line)}
+.docs-pager a{display:block;flex:1;max-width:50%;padding:12px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--muted)}
+.docs-pager a:hover{border-color:var(--accent)}
+.docs-pager span{display:block;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.14em}
+.docs-pager strong{display:block;margin-top:4px;color:var(--ink);font-weight:500}
+.docs-pager .pager-next{margin-left:auto;text-align:right}
+@media (max-width:1080px){.docs-layout{grid-template-columns:230px minmax(0,1fr)}.t .docs-toc{display:none}}
+@media (max-width:900px){
+main.docs{padding-top:20px}
+.docs-layout{grid-template-columns:minmax(0,1fr);gap:24px}
+.t .docs-rail{position:static;max-height:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+.docs-rail>summary{display:list-item;color:var(--accent)}
+.t .docs-rail[open]{padding-bottom:12px}
+.docs-pager{flex-direction:column}
+.docs-pager a{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){.rail-chev{transition:none}}
 </style></head>
 <body><nav id="nav"></nav><main id="out"></main>
 <script>
@@ -82,15 +132,16 @@ const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
 let lang = [q.get('lang'), stored, browser].find(known) || 'en';
 const T = {
   en: {title: 'DIYbitcoin guides', sub: 'Step by step guides to do bitcoin yourself.', copy: 'copy', copied: 'copied',
+       "topics": "Topics", "onpage": "On this page", "prev": "Previous", "next": "Next", "intro": "Introduction", "g": {"start": "Start", "install": "Install", "setup": "Set up", "more": "More", "flash": "Flash", "understand": "Understand", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"},
        guides: [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or secrets backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']]},
-  es: {title: 'Guías DIYbitcoin', sub: 'Guías paso a paso para hacer bitcoin tú mismo.', copy: 'copiar', copied: 'copiado',
+  es: {title: 'Guías DIYbitcoin', sub: 'Guías paso a paso para hacer bitcoin tú mismo.', copy: 'copiar', copied: 'copiado', "topics": "Temas", "onpage": "En esta página", "prev": "Anterior", "next": "Siguiente", "intro": "Introducción", "g": {"start": "Empezar", "install": "Instalar", "setup": "Configurar", "more": "Más", "flash": "Flashear", "understand": "Entender", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"},
        guides: [['javacards','Flashear javacards','Una cartera de bitcoin DIY, tarjeta al portador o copia de seguridad de secretos en una tarjeta J3H145.'],['signers','Signers DIY','SeedSigner, Kern o KISS Signer en la placa con pantalla táctil Waveshare de 3,5 pulgadas.'],['nodes','Monta tu propio nodo','Comprueba tú mismo todas las reglas de bitcoin en un mini PC.']]},
-  it: {"title": "Guide DIYbitcoin", "sub": "Guide passo passo per fare bitcoin da te.", "copy": "copia", "copied": "copiato", "guides": [["javacards", "Flashare le javacard", "Un wallet bitcoin DIY, una carta al portatore o un backup di segreti su una carta J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern o KISS Signer sulla scheda touchscreen Waveshare da 3,5 pollici."], ["nodes", "Il tuo nodo bitcoin", "Verifica da te ogni regola di bitcoin su un mini PC."]]},
-  ko: {"title": "DIYbitcoin 가이드", "sub": "비트코인을 직접 다뤄 보는 단계별 가이드예요.", "copy": "복사", "copied": "복사됨", "guides": [["javacards", "자바카드 플래싱하기", "J3H145 카드로 DIY 비트코인 지갑, 무기명 카드 또는 비밀 백업을 만들어요."], ["signers", "DIY 서명 기기", "SeedSigner, Kern 또는 KISS Signer를 Waveshare 3.5인치 터치스크린 보드에 설치해요."], ["nodes", "내 노드 직접 운영하기", "미니 PC로 모든 비트코인 규칙을 직접 확인해요."]]},
-  ms: {"title": "Panduan DIYbitcoin", "sub": "Panduan langkah demi langkah untuk menguruskan bitcoin sendiri.", "copy": "salin", "copied": "disalin", "guides": [["javacards", "Flash javacard", "Dompet bitcoin DIY, kad pembawa atau sandaran rahsia pada kad J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern atau KISS Signer pada papan skrin sentuh Waveshare 3.5 inci."], ["nodes", "Jalankan nod anda sendiri", "Semak sendiri setiap peraturan bitcoin pada PC mini."]]},
-  tr: {"title": "DIYbitcoin rehberleri", "sub": "Adım adım rehberlerle bitcoin işlerini kendin yap.", "copy": "kopyala", "copied": "kopyalandı", "guides": [["javacards", "Javacard flaşlama", "J3H145 kartta DIY bir bitcoin cüzdanı, hamiline kart ya da sır yedeği."], ["signers", "DIY signer'lar", "Waveshare 3,5 inç dokunmatik ekranlı kartta SeedSigner, Kern ya da KISS Signer."], ["nodes", "Kendi düğümünü çalıştır", "Bir mini PC üzerinde bitcoinin her kuralını kendin kontrol et."]]},
-  ja: {"title": "DIYbitcoin ガイド", "sub": "ビットコインを自分で扱うための、ステップごとのガイドです。", "copy": "コピー", "copied": "コピーしました", "guides": [["javacards", "javacard への書き込み", "J3H145 カードで作る DIY のビットコインウォレット、無記名カード、または秘密情報のバックアップ。"], ["signers", "DIY 署名デバイス", "Waveshare 3.5インチのタッチスクリーンボードで動く SeedSigner、Kern または KISS Signer。"], ["nodes", "自分のノードを動かす", "ミニ PC で、ビットコインのルールをすべて自分で確認します。"]]},
-  zh: {"title": "DIYbitcoin 指南", "sub": "分步指南，教你自己动手玩转比特币。", "copy": "复制", "copied": "已复制", "guides": [["javacards", "刷写 javacard", "用一张 J3H145 卡做 DIY 比特币钱包、不记名卡或机密信息备份。"], ["signers", "DIY 签名器", "在 Waveshare 3.5 英寸触摸屏开发板上运行 SeedSigner、Kern 或 KISS Signer。"], ["nodes", "运行你自己的节点", "在迷你主机上亲自检查每一条比特币规则。"]]},
+  it: {"title": "Guide DIYbitcoin", "sub": "Guide passo passo per fare bitcoin da te.", "copy": "copia", "copied": "copiato", "topics": "Argomenti", "onpage": "In questa pagina", "prev": "Precedente", "next": "Successivo", "intro": "Introduzione", "g": {"start": "Inizio", "install": "Installa", "setup": "Configura", "more": "Altro", "flash": "Flash", "understand": "Capire", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"}, "guides": [["javacards", "Flashare le javacard", "Un wallet bitcoin DIY, una carta al portatore o un backup di segreti su una carta J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern o KISS Signer sulla scheda touchscreen Waveshare da 3,5 pollici."], ["nodes", "Il tuo nodo bitcoin", "Verifica da te ogni regola di bitcoin su un mini PC."]]},
+  ko: {"title": "DIYbitcoin 가이드", "sub": "비트코인을 직접 다뤄 보는 단계별 가이드예요.", "copy": "복사", "copied": "복사됨", "topics": "주제", "onpage": "이 페이지에서", "prev": "이전", "next": "다음", "intro": "소개", "g": {"start": "시작", "install": "설치", "setup": "설정", "more": "더 보기", "flash": "플래싱", "understand": "이해하기", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"}, "guides": [["javacards", "자바카드 플래싱하기", "J3H145 카드로 DIY 비트코인 지갑, 무기명 카드 또는 비밀 백업을 만들어요."], ["signers", "DIY 서명 기기", "SeedSigner, Kern 또는 KISS Signer를 Waveshare 3.5인치 터치스크린 보드에 설치해요."], ["nodes", "내 노드 직접 운영하기", "미니 PC로 모든 비트코인 규칙을 직접 확인해요."]]},
+  ms: {"title": "Panduan DIYbitcoin", "sub": "Panduan langkah demi langkah untuk menguruskan bitcoin sendiri.", "copy": "salin", "copied": "disalin", "topics": "Topik", "onpage": "Di halaman ini", "prev": "Sebelumnya", "next": "Seterusnya", "intro": "Pengenalan", "g": {"start": "Mula", "install": "Pasang", "setup": "Sediakan", "more": "Lagi", "flash": "Flash", "understand": "Fahami", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"}, "guides": [["javacards", "Flash javacard", "Dompet bitcoin DIY, kad pembawa atau sandaran rahsia pada kad J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern atau KISS Signer pada papan skrin sentuh Waveshare 3.5 inci."], ["nodes", "Jalankan nod anda sendiri", "Semak sendiri setiap peraturan bitcoin pada PC mini."]]},
+  tr: {"title": "DIYbitcoin rehberleri", "sub": "Adım adım rehberlerle bitcoin işlerini kendin yap.", "copy": "kopyala", "copied": "kopyalandı", "topics": "Konular", "onpage": "Bu sayfada", "prev": "Önceki", "next": "Sonraki", "intro": "Giriş", "g": {"start": "Başla", "install": "Kur", "setup": "Ayarla", "more": "Daha fazla", "flash": "Flaşla", "understand": "Anla", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"}, "guides": [["javacards", "Javacard flaşlama", "J3H145 kartta DIY bir bitcoin cüzdanı, hamiline kart ya da sır yedeği."], ["signers", "DIY signer'lar", "Waveshare 3,5 inç dokunmatik ekranlı kartta SeedSigner, Kern ya da KISS Signer."], ["nodes", "Kendi düğümünü çalıştır", "Bir mini PC üzerinde bitcoinin her kuralını kendin kontrol et."]]},
+  ja: {"title": "DIYbitcoin ガイド", "sub": "ビットコインを自分で扱うための、ステップごとのガイドです。", "copy": "コピー", "copied": "コピーしました", "topics": "トピック", "onpage": "このページの内容", "prev": "前へ", "next": "次へ", "intro": "はじめに", "g": {"start": "はじめる", "install": "インストール", "setup": "設定", "more": "その他", "flash": "書き込み", "understand": "理解する", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"}, "guides": [["javacards", "javacard への書き込み", "J3H145 カードで作る DIY のビットコインウォレット、無記名カード、または秘密情報のバックアップ。"], ["signers", "DIY 署名デバイス", "Waveshare 3.5インチのタッチスクリーンボードで動く SeedSigner、Kern または KISS Signer。"], ["nodes", "自分のノードを動かす", "ミニ PC で、ビットコインのルールをすべて自分で確認します。"]]},
+  zh: {"title": "DIYbitcoin 指南", "sub": "分步指南，教你自己动手玩转比特币。", "copy": "复制", "copied": "已复制", "topics": "主题", "onpage": "本页内容", "prev": "上一页", "next": "下一页", "intro": "简介", "g": {"start": "开始", "install": "安装", "setup": "设置", "more": "更多", "flash": "刷写", "understand": "了解", "odroid": "ODROID-M1", "core": "Bitcoin Core", "electrs": "electrs"}, "guides": [["javacards", "刷写 javacard", "用一张 J3H145 卡做 DIY 比特币钱包、不记名卡或机密信息备份。"], ["signers", "DIY 签名器", "在 Waveshare 3.5 英寸触摸屏开发板上运行 SeedSigner、Kern 或 KISS Signer。"], ["nodes", "运行你自己的节点", "在迷你主机上亲自检查每一条比特币规则。"]]},
 };
 const href = p => p === 'home' ? './' : `?page=${p}`;
 const out = document.getElementById('out');
@@ -124,19 +175,181 @@ function render() {
   const L = T[lang] || T.en;
   document.documentElement.lang = lang;
   if (page === 'home') {
+    out.className = '';
     out.innerHTML = `<h1>${L.title}</h1><p>${L.sub}</p><div class="cards">` +
       L.guides.map(g => `<a class="card" href="${href(g[0])}"><h3>${g[1]}</h3><p>${g[2]}</p></a>`).join('') + `</div>`;
     return Promise.resolve();
   }
   const get = f => fetch(`${page}/${f}`, {cache: 'no-cache'}).then(r => { if (!r.ok) throw r.status; return r.text(); });
   return (lang === 'en' ? get('README.md') : get(`README.${lang}.md`).catch(() => get('README.md'))).then(md => {
-    out.innerHTML = marked.parse(md);
+    out.className = 'docs';
+    out.innerHTML = docsLayout(md, L);
     out.querySelectorAll('img').forEach(i => { const s = i.getAttribute('src'); if (!/^https?:/.test(s)) i.src = `${page}/${s}`; });
-    out.querySelectorAll('a').forEach(a => { const h = a.getAttribute('href') || ''; const m = h.match(/^\.\.\/(\w+)\/?$/); if (m) a.href = href(m[1]); });
+    out.querySelectorAll('.docs-body a').forEach(a => { const h = a.getAttribute('href') || ''; const m = h.match(/^\.\.\/(\w+)\/?$/); if (m) a.href = href(m[1]); });
     out.querySelectorAll('pre').forEach(p => { const b = document.createElement('button'); b.className = 'copy'; b.textContent = L.copy; b.onclick = () => { navigator.clipboard.writeText(p.querySelector('code').innerText.trim()); b.textContent = L.copied; setTimeout(() => b.textContent = L.copy, 1200); }; p.appendChild(b); });
-    if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+    showTopic(location.hash.slice(1), false);
   });
 }
+
+/* A guide is one README and each "##" heading in it is a topic, shown one
+   at a time. Topics are numbered t1, t2, ... in order; the translations
+   keep the same headings, so a number points at the same step in every
+   language. GROUPS sorts each guide's topics into the sidebar sections:
+   the number is the topic that starts the section. */
+const ICONS = {
+  book: '<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 14.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5z"/>',
+  download: '<path d="M12 3v11"/><path d="M8 10.5 12 14.5l4-4"/><path d="M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17"/>',
+  power: '<path d="M12 3v8"/><path d="M6.5 6.4a8 8 0 1 0 11 0"/>',
+  compass: '<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5 13.6 13.6 8.5 15.5l1.9-5.1z"/>',
+  box: '<path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5"/><path d="M12 12v9"/>',
+  chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  bolt: '<path d="M13 3 5 13.5h6L10 21l8-10.5h-6z"/>',
+};
+const GROUPS = {
+  javacards: [[1, 'book', 'start'], [3, 'download', 'install'], [7, 'power', 'setup'], [10, 'compass', 'more']],
+  signers: [[1, 'book', 'start'], [5, 'download', 'flash'], [8, 'compass', 'more']],
+  nodes: [[1, 'book', 'understand'], [6, 'box', 'odroid'], [14, 'chain', 'core'], [17, 'bolt', 'electrs'], [24, 'compass', 'more']],
+};
+const label = (k, L) => L[k] || T.en[k];
+const plain = h => h.replace(/<[^>]+>/g, '').trim();
+const noEmoji = s => s.replace(/^[\p{Extended_Pictographic}\p{Emoji_Modifier}️‍⃣#*0-9]*[\p{Extended_Pictographic}️⃣]+\s*/u, '');
+/* "Step 5: connect with SSH" reads as "Connect with SSH" in the sidebar;
+   the number is already in the label above the title. Names written in
+   lower case on purpose (electrs, bitcoin.conf) keep their case. */
+const short = s => {
+  const e = noEmoji(s), t = e.replace(/^[^\d:：]{0,12}\d+[a-z]?\s*[^\d:：\s]{0,4}\s*[:：]\s*/u, '');
+  return t === e || /^(electrs|bitcoin\.conf|bitcoin-cli|config\.toml)\b/.test(t) ? t : t.charAt(0).toUpperCase() + t.slice(1);
+};
+const svg = k => `<svg class="rail-ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k] || ICONS.book}</svg>`;
+const CHEV = '<svg class="rail-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
+function docsLayout(md, L) {
+  const all = marked.lexer(md);
+  const topics = [];
+  let topic = null, title = '';
+  const anchor = t => /^\s*<a id="[^"]+"><\/a>\s*$/.test(t.raw || '');
+  const start = (tok, name) => {
+    /* "<a id=...>" lines written just above a heading belong to it */
+    let moved = [];
+    while (topic && topic.body.length && (topic.body.at(-1).type === 'space' || anchor(topic.body.at(-1)))) {
+      const t = topic.body.pop();
+      if (anchor(t)) moved.unshift(t);
+    }
+    if (topic && !topic.body.some(t => t.type !== 'space' && !anchor(t) && t !== topic.head)) {
+      moved = topic.body.filter(anchor).concat(moved);
+      topics.pop();
+    }
+    topic = {head: tok, name, body: moved.concat(tok)};
+    topics.push(topic);
+  };
+  for (const tok of all) {
+    if (tok.type === 'heading' && tok.depth === 1) {
+      if (!title) { title = plain(marked.parseInline(tok.text)); start(tok, label('intro', L)); }
+      else start(tok, tok.text);
+    } else if (tok.type === 'heading' && tok.depth === 2 && topic) {
+      start(tok, tok.text);
+    } else if (topic) {
+      topic.body.push(tok);
+    }
+  }
+  if (!topics.length) return marked.parse(md);
+  const plan = GROUPS[page] || [[1, 'book', title]];
+  const gname = k => (L.g && L.g[k]) || T.en.g[k] || k;
+  const groups = plan.map(([from, icon, key]) => ({from, icon, name: gname(key), topics: []}));
+  topics.forEach((t, i) => {
+    t.id = 't' + (i + 1);
+    t.label = short(plain(marked.parseInline(t.name)));
+    t.group = groups.filter(g => g.from <= i + 1).at(-1) || groups[0];
+    t.group.topics.push(t);
+  });
+  const html = toks => { toks.links = all.links; return marked.parser(toks); };
+  const rail = groups.filter(g => g.topics.length).map(g =>
+    `<details class="rail-group" data-from="${g.from}"><summary>${svg(g.icon)}<span>${g.name}</span>${CHEV}</summary>` +
+    g.topics.map(t => `<a href="#${t.id}" data-topic="${t.id}">${t.label}</a>`).join('') + `</details>`).join('');
+  const body = topics.map((t, i) => {
+    const prev = topics[i - 1], next = topics[i + 1];
+    const pager = `<div class="docs-pager">` +
+      (prev ? `<a class="pager-prev" href="#${prev.id}"><span>${label('prev', L)}</span><strong>${prev.label}</strong></a>` : '') +
+      (next ? `<a class="pager-next" href="#${next.id}"><span>${label('next', L)}</span><strong>${next.label}</strong></a>` : '') + `</div>`;
+    const eyebrow = `<p class="eyebrow">${String(i + 1).padStart(2, '0')} / ${t.group.name}</p>`;
+    return `<section class="topic" id="${t.id}" hidden>${eyebrow}${html(t.body)}${pager}</section>`;
+  }).join('');
+  return `<div class="docs-layout">` +
+    `<details class="docs-rail"${matchMedia('(max-width:900px)').matches ? '' : ' open'}><summary>${label('topics', L)}</summary>${rail}</details>` +
+    `<div class="docs-body"><p class="docs-head">${noEmoji(title)}</p>${body}</div>` +
+    `<aside class="docs-toc" hidden></aside></div>`;
+}
+
+/* The right column lists what is in the topic on screen: its subheadings,
+   its fold out boxes, and the first words of each numbered step. */
+function tocEntries(target) {
+  const items = [];
+  [...target.children].forEach(el => {
+    if (el.matches('h3')) items.push([el, el.textContent]);
+    else if (el.matches('details')) items.push([el.querySelector('summary'), el.querySelector('summary').textContent]);
+    else if (el.matches('ol')) [...el.children].forEach(li => {
+      const first = (li.querySelector('p') || li).cloneNode(true);
+      first.querySelectorAll('pre, ol, ul, details').forEach(x => x.remove());
+      let text = first.textContent.trim().split(/[:：](\s|$)/)[0].split(/(?<=[.。!?])\s/)[0];
+      if (text.length > 70) text = text.slice(0, 68).replace(/\s+\S*$/, '') + '…';
+      items.push([li, text]);
+    });
+  });
+  return items.map(([el, text]) => [el, noEmoji(text.trim())]).filter(([, text]) => text);
+}
+
+const seenKey = () => 'seen:' + page;
+function seen() { try { return JSON.parse(localStorage.getItem(seenKey()) || '[]'); } catch (e) { return []; } }
+let spy = null;
+function showTopic(hash, opened) {
+  const sections = [...out.querySelectorAll('.docs-body .topic')];
+  if (!sections.length) { const el = hash && document.getElementById(hash); if (el) el.scrollIntoView(); return; }
+  const el = hash && document.getElementById(hash);
+  const target = (el && el.closest('.topic')) || sections[0];
+  sections.forEach(s => { s.hidden = s !== target; });
+  const head = target.querySelector('h1, h2');
+  if (head && !head.dataset.clean) { head.dataset.clean = 1; const n = head.firstChild; if (n && n.nodeType === 3) n.textContent = noEmoji(n.textContent); }
+  const marks = seen();
+  if (!marks.includes(target.id)) { marks.push(target.id); try { localStorage.setItem(seenKey(), JSON.stringify(marks)); } catch (e) {} }
+  out.querySelectorAll('.rail-group a').forEach(a => {
+    a.toggleAttribute('aria-current', a.dataset.topic === target.id);
+    a.classList.toggle('seen', marks.includes(a.dataset.topic) && a.dataset.topic !== target.id);
+  });
+  out.querySelectorAll('.rail-group').forEach(g => { g.open = !!g.querySelector(`a[data-topic="${target.id}"]`); });
+  const rail = out.querySelector('.docs-rail');
+  if (opened && rail && matchMedia('(max-width:900px)').matches) rail.open = false;
+  const toc = out.querySelector('.docs-toc');
+  const items = tocEntries(target);
+  if (spy) { removeEventListener('scroll', spy); spy = null; }
+  if (items.length < 2) { toc.hidden = true; toc.innerHTML = ''; }
+  else {
+    items.forEach(([e], i) => { if (!e.id) e.id = `${target.id}-${i + 1}`; e.style.scrollMarginTop = '24px'; });
+    toc.innerHTML = `<p>${label('onpage', T[lang] || T.en)}</p>` + items.map(([e, text]) => `<a href="#${e.id}">${text}</a>`).join('');
+    toc.hidden = false;
+    const links = [...toc.querySelectorAll('a')];
+    spy = () => {
+      let here = 0;
+      items.forEach(([e], i) => { if (e.getBoundingClientRect().top < 140) here = i; });
+      links.forEach((a, i) => a.classList.toggle('is-here', i === here));
+    };
+    addEventListener('scroll', spy, {passive: true});
+  }
+  if (el && el !== target) {
+    const box = el.closest('details');
+    if (box && !box.open) box.open = true;
+    el.scrollIntoView();
+  } else {
+    window.scrollTo(0, 0);
+  }
+  /* Keep the current topic in sight when the sidebar is taller than the screen. */
+  const cur = rail && rail.querySelector('a[aria-current]');
+  if (cur && rail.scrollHeight > rail.clientHeight) {
+    const r = rail.getBoundingClientRect(), c = cur.getBoundingClientRect();
+    if (c.top < r.top || c.bottom > r.bottom) rail.scrollTop += c.top - r.top - rail.clientHeight / 3;
+  }
+  if (spy) spy();
+}
+addEventListener('hashchange', () => showTopic(location.hash.slice(1), true));
 function setLang(l) {
   if (l === lang || !known(l)) return;
   lang = l;
