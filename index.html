@@ -75,7 +75,7 @@ summary{cursor:pointer;padding:6px 0}
 const q = new URLSearchParams(location.search);
 const page = q.get('page') || 'home';
 document.body.className = 't';
-const LANGS = [['en','gb','English'],['es','es','Español'],['ko','kr','한국어'],['ms','my','Bahasa Melayu'],['tr','tr','Türkçe'],['ja','jp','日本語'],['zh','cn','中文']];
+const LANGS = [['en','gb','English'],['es','es','Español'],['it','it','Italiano'],['ko','kr','한국어'],['ms','my','Bahasa Melayu'],['tr','tr','Türkçe'],['ja','jp','日本語'],['zh','cn','中文']];
 const known = l => LANGS.some(x => x[0] === l);
 const stored = (() => { try { return localStorage.getItem('lang'); } catch (e) { return null; } })();
 const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
@@ -85,6 +85,7 @@ const T = {
        guides: [['javacards','Flashing javacards','A DIY bitcoin wallet, bearer card or secrets backup on a J3H145 card.'],['signers','DIY signers','SeedSigner, Kern or KISS Signer on the Waveshare 3.5 inch touchscreen board.'],['nodes','Run your own node','Check every bitcoin rule yourself on a mini PC.']]},
   es: {title: 'Guías DIYbitcoin', sub: 'Guías paso a paso para hacer bitcoin tú mismo.', copy: 'copiar', copied: 'copiado',
        guides: [['javacards','Flashear javacards','Una cartera de bitcoin DIY, tarjeta al portador o copia de seguridad de secretos en una tarjeta J3H145.'],['signers','Signers DIY','SeedSigner, Kern o KISS Signer en la placa con pantalla táctil Waveshare de 3,5 pulgadas.'],['nodes','Monta tu propio nodo','Comprueba tú mismo todas las reglas de bitcoin en un mini PC.']]},
+  it: {"title": "Guide DIYbitcoin", "sub": "Guide passo passo per fare bitcoin da te.", "copy": "copia", "copied": "copiato", "guides": [["javacards", "Flashare le javacard", "Un wallet bitcoin DIY, una carta al portatore o un backup di segreti su una carta J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern o KISS Signer sulla scheda touchscreen Waveshare da 3,5 pollici."], ["nodes", "Il tuo nodo bitcoin", "Verifica da te ogni regola di bitcoin su un mini PC."]]},
   ko: {"title": "DIYbitcoin 가이드", "sub": "비트코인을 직접 다뤄 보는 단계별 가이드예요.", "copy": "복사", "copied": "복사됨", "guides": [["javacards", "자바카드 플래싱하기", "J3H145 카드로 DIY 비트코인 지갑, 무기명 카드 또는 비밀 백업을 만들어요."], ["signers", "DIY 서명 기기", "SeedSigner, Kern 또는 KISS Signer를 Waveshare 3.5인치 터치스크린 보드에 설치해요."], ["nodes", "내 노드 직접 운영하기", "미니 PC로 모든 비트코인 규칙을 직접 확인해요."]]},
   ms: {"title": "Panduan DIYbitcoin", "sub": "Panduan langkah demi langkah untuk menguruskan bitcoin sendiri.", "copy": "salin", "copied": "disalin", "guides": [["javacards", "Flash javacard", "Dompet bitcoin DIY, kad pembawa atau sandaran rahsia pada kad J3H145."], ["signers", "Signer DIY", "SeedSigner, Kern atau KISS Signer pada papan skrin sentuh Waveshare 3.5 inci."], ["nodes", "Jalankan nod anda sendiri", "Semak sendiri setiap peraturan bitcoin pada PC mini."]]},
   tr: {"title": "DIYbitcoin rehberleri", "sub": "Adım adım rehberlerle bitcoin işlerini kendin yap.", "copy": "kopyala", "copied": "kopyalandı", "guides": [["javacards", "Javacard flaşlama", "J3H145 kartta DIY bir bitcoin cüzdanı, hamiline kart ya da sır yedeği."], ["signers", "DIY signer'lar", "Waveshare 3,5 inç dokunmatik ekranlı kartta SeedSigner, Kern ya da KISS Signer."], ["nodes", "Kendi düğümünü çalıştır", "Bir mini PC üzerinde bitcoinin her kuralını kendin kontrol et."]]},
