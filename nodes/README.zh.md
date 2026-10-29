@@ -2,8 +2,12 @@
 
 你自己的节点会亲自检查每一条比特币规则，这样你就不用信任任何其他人的服务器。这些指南帮你在家里搭建一个节点。
 
-本指南是意大利 [Satoshi Spritz](https://satoshispritz.it/) 节点讲座的中文版（见[致谢](#credits)）：先概览节点的软件和硬件，再一步步在 ODROID-M1 上装好 Bitcoin Core、Tor 和 electrs。
+有两份指南可以选：
 
+- 🛠️ [在 ODROID-M1 上搭建节点](#odroid)：在一块小小的 ARM 板上一步步装好 Debian 12、Bitcoin Core、Tor 和 electrs。内容来自 [Satoshi Spritz](https://satoshispritz.it/) 比特币聚会的节点讲座（见[致谢](#credits)）。
+- 🧱 [MiniBolt](#minibolt)：用一台装有 Intel 或 AMD 处理器的迷你主机搭建节点。
+
+先是两份指南都适用的概览：为什么要运行节点、节点软件和硬件。
 ## 🤔 为什么要运行比特币节点？
 
 - 亲自验证整条比特币区块链
@@ -47,6 +51,26 @@
 - **瘦客户机（30 到 100 €）：** Fujitsu Futro S920、HP t620
 
 操作系统用 **Debian 13**，一个支持多年的长期支持版 Linux。更新所有软件包，安装 `tor` 和 `ssh` 以便远程维护，并推荐配一台 UPS（不间断电源）。
+
+<a id="minibolt"></a>
+
+## 🧱 另一个选择：MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/)：用一台装有大约 2010
+  年以后的 Intel 或 AMD 处理器的迷你主机搭建节点。
+
+💬 在 Malaga 2140 的 Telegram 群聊里发现的。
+
+MiniBolt 自己的[硬件要求](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)是：
+
+- CPU：Intel/AMD 处理器（2010 年以后的型号）
+- RAM：2 GB 以上（只运行比特币），推荐 4 GB
+  以上（比特币、闪电网络和额外功能）
+- 存储：推荐 2 TB 以上的 SATA/NVMe SSD
+- 一个 4 GB 以上的 U 盘或 SD 卡，用来安装
+- 首次设置时临时使用的显示器或电视，以及一个 USB 或 PS2 键盘
+
+<a id="odroid"></a>
 
 # 🛠️ 在 ODROID-M1 上搭建节点
 
@@ -682,22 +706,6 @@ electrs 是用 Rust 编程语言写的 Electrum 服务器，所以设备上需�
 - [Bitcoin Core 配置生成器](https://jlopp.github.io/bitcoin-core-config-generator/)
 - [Mempool](https://mempool.space/)
 - [ODROID-M1 的 Petitboot 自动启动](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)和 [ODROID 论坛帖子](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 另一份指南
-
-- [MiniBolt](https://minibolt.minibolt.info/)：用一台装有大约 2010
-  年以后的 Intel 或 AMD 处理器的迷你主机搭建节点。
-
-💬 在 Malaga 2140 的 Telegram 群聊里发现的。
-
-MiniBolt 自己的[硬件要求](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)是：
-
-- CPU：Intel/AMD 处理器（2010 年以后的型号）
-- RAM：2 GB 以上（只运行比特币），推荐 4 GB
-  以上（比特币、闪电网络和额外功能）
-- 存储：推荐 2 TB 以上的 SATA/NVMe SSD
-- 一个 4 GB 以上的 U 盘或 SD 卡，用来安装
-- 首次设置时临时使用的显示器或电视，以及一个 USB 或 PS2 键盘
 
 <a id="credits"></a>
 

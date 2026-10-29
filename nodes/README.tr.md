@@ -4,11 +4,17 @@ Kendi düğümün bitcoinin her kuralını kendisi kontrol eder, böylece başka
 kimsenin sunucusuna güvenmek zorunda kalmazsın. Bu rehberler evde bir tane
 kurmana yardım eder.
 
-Bu rehber, İtalya'daki [Satoshi Spritz](https://satoshispritz.it/)
-düğüm sunumlarının Türkçe hâlidir ([Emeği geçenler](#credits) bölümüne bak):
-önce düğüm yazılımı ve donanımına genel bir bakış, sonra bir ODROID-M1
-üzerinde Bitcoin Core, Tor ve electrs ile adım adım kurulum.
+Seçebileceğin iki rehber var:
 
+- 🛠️ [ODROID-M1 üzerinde düğüm kur](#odroid): Debian 12, Bitcoin Core, Tor ve electrs
+  çalıştıran küçük bir ARM kart, adım adım.
+  [Satoshi Spritz](https://satoshispritz.it/) bitcoin buluşmalarının
+  düğüm sunumlarından geliyor ([Emeği geçenler](#credits) bölümüne bak).
+- 🧱 [MiniBolt](#minibolt): Intel ya da AMD işlemcili bir mini PC
+  üzerinde düğüm kur.
+
+Önce ikisine de uyan bir genel bakış geliyor: neden düğüm çalıştırmalı,
+düğüm yazılımı ve donanım.
 ## 🤔 Neden bir bitcoin düğümü?
 
 - Bitcoin blok zincirinin tamamını kendin doğrula
@@ -59,6 +65,28 @@ Seçenekler:
 Linux olan **Debian 13**'ü kullan. Tüm paketleri güncelle, düğümü uzaktan
 yönetmek için `tor` ve `ssh` kur, bir UPS (kesintisiz güç kaynağı)
 önerilir.
+
+<a id="minibolt"></a>
+
+## 🧱 Başka bir seçenek: MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/): yaklaşık 2010 ve sonrasına
+  ait Intel ya da AMD işlemcili bir mini PC üzerinde düğüm kur.
+
+💬 Malaga 2140 Telegram sohbetinde bulundu.
+
+MiniBolt'un kendi [donanım gereksinimleri](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
+şunları istiyor:
+
+- CPU: 2010 ve sonrası nesil Intel/AMD işlemci
+- RAM: 2 GB ya da üzeri (yalnızca Bitcoin), 4 GB ya da üzeri önerilir
+  (Bitcoin, Lightning ve ekstralar)
+- Depolama: 2 TB ya da üzeri SSD SATA/NVMe önerilir
+- Kurulum için 4 GB ya da üzeri bir USB bellek ya da SD kart
+- İlk kurulum için geçici olarak bir monitör ya da televizyon ve bir USB ya
+  da PS2 klavye
+
+<a id="odroid"></a>
 
 # 🛠️ ODROID-M1 üzerinde düğüm kur
 
@@ -773,24 +801,6 @@ her şeyi listeler.
 - [Mempool](https://mempool.space/)
 - [ODROID-M1 Petitboot otomatik açılış](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)
   ve [ODROID forum konusu](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 Başka bir rehber
-
-- [MiniBolt](https://minibolt.minibolt.info/): yaklaşık 2010 ve sonrasına
-  ait Intel ya da AMD işlemcili bir mini PC üzerinde düğüm kur.
-
-💬 Malaga 2140 Telegram sohbetinde bulundu.
-
-MiniBolt'un kendi [donanım gereksinimleri](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
-şunları istiyor:
-
-- CPU: 2010 ve sonrası nesil Intel/AMD işlemci
-- RAM: 2 GB ya da üzeri (yalnızca Bitcoin), 4 GB ya da üzeri önerilir
-  (Bitcoin, Lightning ve ekstralar)
-- Depolama: 2 TB ya da üzeri SSD SATA/NVMe önerilir
-- Kurulum için 4 GB ya da üzeri bir USB bellek ya da SD kart
-- İlk kurulum için geçici olarak bir monitör ya da televizyon ve bir USB ya
-  da PS2 klavye
 
 <a id="credits"></a>
 

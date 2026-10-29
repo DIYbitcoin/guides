@@ -3,11 +3,16 @@
 내 노드는 모든 비트코인 규칙을 스스로 확인해요. 그래서 다른 누구의 서버도
 믿을 필요가 없어요. 이 가이드들이 집에서 노드를 설치하도록 도와줘요.
 
-이 가이드는 이탈리아 [Satoshi Spritz](https://satoshispritz.it/)의 노드
-발표를 한국어로 옮긴 거예요([출처](#credits) 참고). 먼저 노드 소프트웨어와
-하드웨어를 살펴보고, 그다음 ODROID-M1에 Bitcoin Core, Tor, electrs를
-단계별로 설치해요.
+두 가지 가이드 중에서 고를 수 있어요.
 
+- 🛠️ [ODROID-M1으로 노드 만들기](#odroid): 작은 ARM 보드에 Debian 12, Bitcoin Core, Tor,
+  electrs를 단계별로 설치해요. [Satoshi Spritz](https://satoshispritz.it/)
+  비트코인 밋업의 노드 발표에서 가져왔어요([출처](#credits) 참고).
+- 🧱 [MiniBolt](#minibolt): Intel이나 AMD 프로세서가 달린 미니 PC로
+  노드를 만들어요.
+
+먼저 두 가이드 모두에 맞는 개요가 나와요: 왜 노드를 운영하는지, 노드
+소프트웨어, 하드웨어.
 ## 🤔 왜 비트코인 노드를 운영할까요?
 
 - 비트코인 블록체인 전체를 직접 검증해요
@@ -55,6 +60,27 @@
 운영체제는 여러 해 지원되는 장기 지원 Linux인 **Debian 13**을 써요. 모든
 패키지를 업데이트하고, 원격 관리를 위해 `tor`와 `ssh`를 설치하고, UPS(무정전
 전원 장치)를 권장해요.
+
+<a id="minibolt"></a>
+
+## 🧱 다른 방법: MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/): 대략 2010년 이후에 나온
+  Intel이나 AMD 프로세서가 달린 미니 PC로 노드를 만들어요.
+
+💬 Malaga 2140 텔레그램 채팅방에서 찾았어요.
+
+MiniBolt가 직접 정한 [하드웨어 요구 사항](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)은
+이래요:
+
+- CPU: 2010년 이후 세대의 Intel/AMD 프로세서
+- RAM: 2GB 이상(비트코인만), 4GB 이상 권장(비트코인,
+  라이트닝, 추가 기능)
+- 저장 공간: SATA/NVMe SSD 2TB 이상 권장
+- 설치에 쓸 4GB 이상의 USB 메모리나 SD 카드
+- 처음 설정할 때 쓸 임시 모니터나 TV, 그리고 USB 또는 PS2 키보드
+
+<a id="odroid"></a>
 
 # 🛠️ ODROID-M1으로 노드 만들기
 
@@ -749,23 +775,6 @@ help`가 모든 명령을 보여 줘요.
 - [Mempool](https://mempool.space/)
 - [ODROID-M1 Petitboot 자동 부팅](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)과
   [ODROID 포럼 글](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 다른 가이드
-
-- [MiniBolt](https://minibolt.minibolt.info/): 대략 2010년 이후에 나온
-  Intel이나 AMD 프로세서가 달린 미니 PC로 노드를 만들어요.
-
-💬 Malaga 2140 텔레그램 채팅방에서 찾았어요.
-
-MiniBolt가 직접 정한 [하드웨어 요구 사항](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)은
-이래요:
-
-- CPU: 2010년 이후 세대의 Intel/AMD 프로세서
-- RAM: 2GB 이상(비트코인만), 4GB 이상 권장(비트코인,
-  라이트닝, 추가 기능)
-- 저장 공간: SATA/NVMe SSD 2TB 이상 권장
-- 설치에 쓸 4GB 이상의 USB 메모리나 SD 카드
-- 처음 설정할 때 쓸 임시 모니터나 TV, 그리고 USB 또는 PS2 키보드
 
 <a id="credits"></a>
 

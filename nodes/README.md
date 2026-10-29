@@ -3,11 +3,17 @@
 Your own node checks every bitcoin rule itself, so you don't have to trust
 anyone else's server. These guides help you set one up at home.
 
-This guide is an English version of the node talks from
-[Satoshi Spritz](https://satoshispritz.it/) in Italy (see
-[Credits](#credits)): first an overview of node software and hardware,
-then a step by step build on an ODROID-M1 with Bitcoin Core, Tor and
-electrs.
+There are two guides to choose from:
+
+- 🛠️ [Build a node on an ODROID-M1](#odroid): a small ARM board
+  running Debian 12, Bitcoin Core, Tor and electrs, step by step. It comes
+  from the node talks of the [Satoshi Spritz](https://satoshispritz.it/)
+  bitcoin meetups (see [Credits](#credits)).
+- 🧱 [MiniBolt](#minibolt): build a node on a mini PC with an Intel or
+  AMD processor.
+
+First comes an overview that fits both: why run a node, the node
+software and the hardware.
 
 ## 🤔 Why run a bitcoin node?
 
@@ -58,6 +64,27 @@ For the operating system use **Debian 13**, a long term support Linux
 with years of updates.
 Update all packages, install `tor` and `ssh` to look after the node
 remotely, and a UPS (backup battery) is recommended.
+
+<a id="minibolt"></a>
+
+## 🧱 Another option: MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/): build a node on a mini PC
+  with an Intel or AMD processor from about 2010 onwards.
+
+💬 Found in the Malaga 2140 Telegram chat.
+
+MiniBolt's own [hardware requirements](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
+ask for:
+
+- CPU: "Intel/AMD processor (2010+ gen)"
+- RAM: "2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin +
+  Lightning + bonus)"
+- Storage: "SSD SATA/NVMe 2+ TB is recommended"
+- A USB pen drive or SD card of "4+ GB" to install from
+- A temporary monitor or TV and a USB or PS2 keyboard for the first setup
+
+<a id="odroid"></a>
 
 # 🛠️ Build a node on an ODROID-M1
 
@@ -767,23 +794,6 @@ help` lists everything.
 - [Mempool](https://mempool.space/)
 - [ODROID-M1 Petitboot autoboot](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)
   and the [ODROID forum thread](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 Another guide
-
-- [MiniBolt](https://minibolt.minibolt.info/): build a node on a mini PC
-  with an Intel or AMD processor from about 2010 onwards.
-
-💬 Found in the Malaga 2140 Telegram chat.
-
-MiniBolt's own [hardware requirements](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
-ask for:
-
-- CPU: "Intel/AMD processor (2010+ gen)"
-- RAM: "2+ GB RAM (only Bitcoin), 4+ GB RAM is recommended (Bitcoin +
-  Lightning + bonus)"
-- Storage: "SSD SATA/NVMe 2+ TB is recommended"
-- A USB pen drive or SD card of "4+ GB" to install from
-- A temporary monitor or TV and a USB or PS2 keyboard for the first setup
 
 <a id="credits"></a>
 

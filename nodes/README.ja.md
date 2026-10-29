@@ -2,8 +2,12 @@
 
 自分のノードはビットコインのルールをすべて自ら確認するので、他人のサーバーを信頼する必要がありません。これらのガイドを使えば、自宅でノードを立ち上げられます。
 
-このガイドは、イタリアの [Satoshi Spritz](https://satoshispritz.it/) によるノードの発表を日本語にしたものです（[クレジット](#credits)を参照）。まずノードのソフトウェアとハードウェアを概観し、そのあと ODROID-M1 に Bitcoin Core、Tor、electrs を順番に組み込んでいきます。
+選べるガイドは2つあります。
 
+- 🛠️ [ODROID-M1 でノードを組み立てる](#odroid)：小さな ARM ボードに Debian 12、Bitcoin Core、Tor、electrs を順番に入れていきます。[Satoshi Spritz](https://satoshispritz.it/) のビットコインミートアップでのノードの発表がもとになっています（[クレジット](#credits)を参照）。
+- 🧱 [MiniBolt](#minibolt)：Intel または AMD のプロセッサを積んだミニ PC で、ノードを組み立てます。
+
+まず、どちらにも共通の概要があります：なぜノードを動かすのか、ノードのソフトウェア、ハードウェア。
 ## 🤔 なぜビットコインノードを動かすのか
 
 - ビットコインのブロックチェーン全体を自分で検証する
@@ -47,6 +51,24 @@
 - **シンクライアント（30〜100 €）：** Fujitsu Futro S920、HP t620
 
 OS には、何年もサポートされる長期サポート版 Linux の **Debian 13** を使います。すべてのパッケージを更新し、リモートで保守するために `tor` と `ssh` を入れ、UPS（無停電電源装置）を推奨します。
+
+<a id="minibolt"></a>
+
+## 🧱 もうひとつの方法：MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/)：2010年ごろ以降の Intel または AMD のプロセッサを積んだミニ PC で、ノードを組み立てます。
+
+💬 Malaga 2140 の Telegram チャットで見つけました。
+
+MiniBolt 自身の [ハードウェア要件](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)では、次のものが必要です。
+
+- CPU：2010年以降の世代の Intel/AMD プロセッサ
+- RAM：2 GB 以上（ビットコインのみ）、4 GB 以上を推奨（ビットコイン、Lightning、追加機能）
+- ストレージ：2 TB 以上の SATA/NVMe SSD を推奨
+- インストール用の 4 GB 以上の USB メモリまたは SD カード
+- 最初の設定のときだけ使うモニターかテレビと、USB または PS2 のキーボード
+
+<a id="odroid"></a>
 
 # 🛠️ ODROID-M1 でノードを組み立てる
 
@@ -682,20 +704,6 @@ electrs は Rust というプログラミング言語で書かれた Electrum �
 - [Bitcoin Core 設定ジェネレーター](https://jlopp.github.io/bitcoin-core-config-generator/)
 - [Mempool](https://mempool.space/)
 - [ODROID-M1 の Petitboot 自動起動](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)と [ODROID フォーラムのスレッド](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 ほかのガイド
-
-- [MiniBolt](https://minibolt.minibolt.info/)：2010年ごろ以降の Intel または AMD のプロセッサを積んだミニ PC で、ノードを組み立てます。
-
-💬 Malaga 2140 の Telegram チャットで見つけました。
-
-MiniBolt 自身の [ハードウェア要件](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)では、次のものが必要です。
-
-- CPU：2010年以降の世代の Intel/AMD プロセッサ
-- RAM：2 GB 以上（ビットコインのみ）、4 GB 以上を推奨（ビットコイン、Lightning、追加機能）
-- ストレージ：2 TB 以上の SATA/NVMe SSD を推奨
-- インストール用の 4 GB 以上の USB メモリまたは SD カード
-- 最初の設定のときだけ使うモニターかテレビと、USB または PS2 のキーボード
 
 <a id="credits"></a>
 

@@ -4,12 +4,17 @@ Tu propio nodo comprueba él mismo todas las reglas de bitcoin, así no
 tienes que fiarte del servidor de nadie. Estas guías te ayudan a montar
 uno en casa.
 
-Esta guía es una versión en español de las charlas sobre nodos de
-[Satoshi Spritz](https://satoshispritz.it/) en Italia (ver
-[Créditos](#credits)): primero un repaso del software y el hardware
-para nodos, después el montaje paso a paso en un ODROID-M1 con Bitcoin
-Core, Tor y electrs.
+Hay dos guías para elegir:
 
+- 🛠️ [Monta un nodo en un ODROID-M1](#odroid): una pequeña placa ARM con Debian 12, Bitcoin Core,
+  Tor y electrs, paso a paso. Viene de las charlas sobre nodos de los
+  meetups de bitcoin [Satoshi Spritz](https://satoshispritz.it/) (ver
+  [Créditos](#credits)).
+- 🧱 [MiniBolt](#minibolt): monta un nodo en un mini PC con un procesador
+  Intel o AMD.
+
+Primero viene un repaso que sirve para las dos: por qué tener un nodo,
+el software y el hardware.
 ## 🤔 ¿Por qué un nodo de bitcoin?
 
 - Comprobar tú mismo toda la blockchain de bitcoin
@@ -60,6 +65,28 @@ Como sistema operativo usa **Debian 13**, un Linux con soporte de largo
 plazo durante años. Actualiza todos los paquetes, instala `tor` y `ssh`
 para mantener el nodo a distancia, y se recomienda un SAI (batería de
 respaldo).
+
+<a id="minibolt"></a>
+
+## 🧱 Otra opción: MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/): monta un nodo en un mini
+  PC con un procesador Intel o AMD de más o menos 2010 en adelante.
+
+💬 Encontrado en el chat de Telegram de Malaga 2140.
+
+Los [requisitos de hardware](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
+de MiniBolt piden:
+
+- CPU: procesador Intel/AMD de 2010 en adelante
+- RAM: 2 GB o más (solo Bitcoin), 4 GB o más recomendado (Bitcoin,
+  Lightning y extras)
+- Almacenamiento: SSD SATA/NVMe de 2 TB o más recomendado
+- Un pendrive USB o tarjeta SD de 4 GB o más para instalar
+- Un monitor o televisor y un teclado USB o PS2, solo para la primera
+  configuración
+
+<a id="odroid"></a>
 
 # 🛠️ Monta un nodo en un ODROID-M1
 
@@ -780,24 +807,6 @@ help` lo lista todo.
 - [Mempool](https://mempool.space/)
 - [Autoboot de Petitboot en el ODROID-M1](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)
   y el [hilo del foro de ODROID](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 Otra guía
-
-- [MiniBolt](https://minibolt.minibolt.info/): monta un nodo en un mini
-  PC con un procesador Intel o AMD de más o menos 2010 en adelante.
-
-💬 Encontrado en el chat de Telegram de Malaga 2140.
-
-Los [requisitos de hardware](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements)
-de MiniBolt piden:
-
-- CPU: procesador Intel/AMD de 2010 en adelante
-- RAM: 2 GB o más (solo Bitcoin), 4 GB o más recomendado (Bitcoin,
-  Lightning y extras)
-- Almacenamiento: SSD SATA/NVMe de 2 TB o más recomendado
-- Un pendrive USB o tarjeta SD de 4 GB o más para instalar
-- Un monitor o televisor y un teclado USB o PS2, solo para la primera
-  configuración
 
 <a id="credits"></a>
 

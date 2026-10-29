@@ -4,12 +4,17 @@ Nod anda sendiri menyemak setiap peraturan bitcoin dengan sendirinya, jadi
 anda tidak perlu mempercayai pelayan orang lain. Panduan ini membantu anda
 menyediakannya di rumah.
 
-Panduan ini ialah versi Bahasa Melayu bagi ceramah tentang nod daripada
-[Satoshi Spritz](https://satoshispritz.it/) di Itali (lihat
-[Kredit](#credits)): mula-mula gambaran keseluruhan perisian dan
-perkakasan nod, kemudian binaan langkah demi langkah pada ODROID-M1
-dengan Bitcoin Core, Tor dan electrs.
+Ada dua panduan untuk dipilih:
 
+- 🛠️ [Bina nod pada ODROID-M1](#odroid): papan ARM kecil yang menjalankan Debian 12,
+  Bitcoin Core, Tor dan electrs, langkah demi langkah. Ia datang daripada
+  ceramah tentang nod di meetup bitcoin
+  [Satoshi Spritz](https://satoshispritz.it/) (lihat [Kredit](#credits)).
+- 🧱 [MiniBolt](#minibolt): bina nod pada PC mini dengan pemproses Intel
+  atau AMD.
+
+Mula-mula ada gambaran keseluruhan yang sesuai untuk kedua-duanya:
+kenapa menjalankan nod, perisian nod dan perkakasan.
 ## 🤔 Kenapa jalankan nod bitcoin?
 
 - Semak sendiri seluruh blockchain bitcoin
@@ -60,6 +65,28 @@ Untuk sistem pengendalian, gunakan **Debian 13**, Linux sokongan jangka
 panjang dengan kemas kini bertahun-tahun. Kemas kini semua pakej, pasang
 `tor` dan `ssh` untuk menjaga nod dari jauh, dan UPS (bateri sandaran)
 disyorkan.
+
+<a id="minibolt"></a>
+
+## 🧱 Pilihan lain: MiniBolt
+
+- [MiniBolt](https://minibolt.minibolt.info/): bina nod pada PC mini
+  dengan pemproses Intel atau AMD dari sekitar tahun 2010 dan seterusnya.
+
+💬 Ditemui dalam sembang Telegram Malaga 2140.
+
+[Keperluan perkakasan](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements) MiniBolt sendiri
+menyenaraikan:
+
+- CPU: pemproses Intel/AMD (generasi 2010 ke atas)
+- RAM: 2 GB RAM atau lebih (Bitcoin sahaja), 4 GB RAM atau lebih disyorkan
+  (Bitcoin, Lightning dan tambahan)
+- Storan: SSD SATA/NVMe 2 TB atau lebih disyorkan
+- Pemacu pen USB atau kad SD 4 GB atau lebih untuk memasang
+- Monitor atau TV sementara dan papan kekunci USB atau PS2 untuk persediaan
+  pertama
+
+<a id="odroid"></a>
 
 # 🛠️ Bina nod pada ODROID-M1
 
@@ -784,24 +811,6 @@ help` menyenaraikan semuanya.
 - [Mempool](https://mempool.space/)
 - [Autoboot Petitboot ODROID-M1](https://wiki.odroid.com/getting_started/petitboot/os_installation_using_otg?s[]=autoboot#set_autoboot)
   dan [bebenang forum ODROID](https://forum.odroid.com/viewtopic.php?t=37109)
-
-## 🧱 Panduan lain
-
-- [MiniBolt](https://minibolt.minibolt.info/): bina nod pada PC mini
-  dengan pemproses Intel atau AMD dari sekitar tahun 2010 dan seterusnya.
-
-💬 Ditemui dalam sembang Telegram Malaga 2140.
-
-[Keperluan perkakasan](https://github.com/minibolt-guide/minibolt/blob/main/index-1/preparations.md#hardware-requirements) MiniBolt sendiri
-menyenaraikan:
-
-- CPU: pemproses Intel/AMD (generasi 2010 ke atas)
-- RAM: 2 GB RAM atau lebih (Bitcoin sahaja), 4 GB RAM atau lebih disyorkan
-  (Bitcoin, Lightning dan tambahan)
-- Storan: SSD SATA/NVMe 2 TB atau lebih disyorkan
-- Pemacu pen USB atau kad SD 4 GB atau lebih untuk memasang
-- Monitor atau TV sementara dan papan kekunci USB atau PS2 untuk persediaan
-  pertama
 
 <a id="credits"></a>
 
