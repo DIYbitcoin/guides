@@ -109,6 +109,7 @@ main.docs{max-width:1480px;padding-top:40px}
 .docs-pager span{display:block;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.14em}
 .docs-pager strong{display:block;margin-top:4px;color:var(--ink);font-weight:500}
 .docs-pager .pager-next{margin-left:auto;text-align:right}
+.docs-pager.picks .pager-next{margin-left:0;text-align:left}
 @media (max-width:1080px){.docs-layout{grid-template-columns:230px minmax(0,1fr)}.t .docs-toc{display:none}}
 @media (max-width:900px){
 main.docs{padding-top:20px}
@@ -256,7 +257,7 @@ function docsLayout(md, L) {
   if (!topics.length) return marked.parse(md);
   const plan = GROUPS[page] || [[1, 'book', title]];
   const gname = k => (L.g && L.g[k]) || T.en.g[k] || k;
-  const groups = plan.map(([from, icon, key]) => ({from, icon, name: gname(key), topics: []}));
+  const groups = plan.map(([from, icon, key, track]) => ({from, icon, name: gname(key), track: !!track, topics: []}));
   topics.forEach((t, i) => {
     t.id = 't' + (i + 1);
     t.label = short(plain(marked.parseInline(t.name)));
@@ -267,12 +268,23 @@ function docsLayout(md, L) {
   const rail = groups.filter(g => g.topics.length).map(g =>
     `<details class="rail-group" data-from="${g.from}"><summary>${svg(g.icon)}<span>${g.name}</span>${CHEV}</summary>` +
     g.topics.map(t => `<a href="#${t.id}" data-topic="${t.id}">${t.label}</a>`).join('') + `</details>`).join('');
+  /* A track is one path through a guide, such as one signer. Previous and
+     Next never cross from one track into another: leaving a track goes to
+     the pages after all the tracks, coming back goes to the introduction,
+     and the page before the tracks offers each track's first page. */
   const body = topics.map((t, i) => {
-    const prev = topics[i - 1], next = topics[i + 1];
-    const pager = `<div class="docs-pager">` +
+    let prev = topics[i - 1], next = topics[i + 1], picks = [];
+    if (prev && prev.group !== t.group && (prev.group.track || t.group.track)) prev = topics[0] === t ? null : topics[0];
+    if (next && next.group !== t.group && next.group.track) {
+      if (t.group.track) next = topics.slice(i + 1).find(x => !x.group.track);
+      else { picks = groups.filter(g => g.track && g.from > i && g.topics.length).map(g => [g.topics[0], g.name]); next = null; }
+    }
+    const nextLink = (to, name) => `<a class="pager-next" href="#${to.id}"><span>${label('next', L)}</span><strong>${name}</strong></a>`;
+    const pager = `<div class="docs-pager${picks.length ? ' picks' : ''}">` +
       (prev ? `<a class="pager-prev" href="#${prev.id}"><span>${label('prev', L)}</span><strong>${prev.label}</strong></a>` : '') +
-      (next ? `<a class="pager-next" href="#${next.id}"><span>${label('next', L)}</span><strong>${next.label}</strong></a>` : '') + `</div>`;
-    const eyebrow = `<p class="eyebrow">${String(i + 1).padStart(2, '0')} / ${t.group.name}</p>`;
+      (next ? nextLink(next, next.label) : '') + picks.map(([to, name]) => nextLink(to, name)).join('') + `</div>`;
+    const g = t.group, k = g.topics.indexOf(t) + 1;
+    const eyebrow = `<p class="eyebrow">${g.track ? g.name + (g.topics.length > 1 ? ` · ${k} / ${g.topics.length}` : '') : `${String(i + 1).padStart(2, '0')} / ${g.name}`}</p>`;
     return `<section class="topic" id="${t.id}" hidden>${eyebrow}${html(t.body)}${pager}</section>`;
   }).join('');
   return `<div class="docs-layout">` +
