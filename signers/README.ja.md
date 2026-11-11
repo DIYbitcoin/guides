@@ -256,55 +256,37 @@ Keith のビルドは GitHub で作られていて、ダウンロードには無
 
 ## 💻 SeedSigner 4：展開して書き込む
 
-1. ダウンロードフォルダに移動します：
+1. ボードは **UART** ポートにつないだままにします。自分のパソコンとチップに合う行を**1つだけ**実行します。ダウンロードフォルダに移動し、ビルドを展開して（ブラウザがすでに展開していればそのフォルダを使います）書き込みます。
+
+   🍎 Mac, v1.x チップ：
 
    ```bash
-   cd ~/Downloads
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
-2. **自分の**チップに合う2行で、展開してフォルダに入ります：
-
-   **v1.x：**
+   🍎 Mac, v3.x チップ：
 
    ```bash
-   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
+   🐧 Linux, v1.x チップ：
+
    ```bash
-   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
-   **v3.x：**
+   🐧 Linux, v3.x チップ：
 
    ```bash
-   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-   ```
-
-   ```bash
-   cd seedsigner-v3
-   ```
-
-   💡 Mac では Safari がすでに展開していることがあります。`unzip` がファイルを見つけられないと言ったら、その行は飛ばして `cd` の行だけを実行してください。
-
-3. 自分のパソコンに合う行で書き込みます：
-
-   🍎 Mac：
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
-   ```
-
-   🐧 Linux：
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
    4分ほどかかるので、ボードを抜かないでください。最初に出るいくつかの `Deprecated` の警告は問題ありません。
 
    ✅ 終わると、ボードが再起動して SeedSigner が立ち上がります。🎉
 
-4. テスト用データで試してみましょう：パソコンで [testqrs.com](https://testqrs.com) を開き、ボードのカメラをその QR コードに向けます。そのシードワードは公開されているので、練習だけに使ってください。
+2. テスト用データで試してみましょう：パソコンで [testqrs.com](https://testqrs.com) を開き、ボードのカメラをその QR コードに向けます。そのシードワードは公開されているので、練習だけに使ってください。
 
 次へ：[🔋 バッテリーを取り付ける](#battery)、うまくいかなかったときは[🩺 困ったときは](#troubleshooting)。
 
@@ -336,7 +318,7 @@ Keith のビルドは GitHub で作られていて、ダウンロードには無
 | 🍎 `brew: command not found` | Homebrew のインストールが終わったときに表示された **Next steps** のコマンドを実行してください。 |
 | 🐧 `esptool: command not found` | ログアウトしてもう一度ログインし、新しいターミナルを開いてください。 |
 | `requires chip revision in range` | ビルドがチップに合っていません：[SeedSigner 2](#ss-chip) をやり直して、もう一方のビルドをダウンロードしてください。 |
-| `flash_args` が見つからない | 展開したフォルダの中にいません：[SeedSigner 4](#ss-flash) の手順2をやり直してください。 |
+| `cd: no such file or directory: …` or `cd: …: No such file or directory` | ビルドがダウンロードフォルダにないか、もう一方のチップ用のビルドです：[SeedSigner 3](#ss-download) をやり直してください。 |
 | 書き込み後、画面に何も表示されない | 抜いて3秒待ってから差し直してください。ビルドがチップに合っているか確認してください。 |
 | `esptool` がチップに書き込めない | 5.3 以上が必要です：🍎 `brew upgrade esptool`、🐧 `pipx upgrade esptool`。 |
 

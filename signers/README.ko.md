@@ -317,49 +317,32 @@ Keith의 빌드는 GitHub에서 나와서, 내려받으려면 무료 GitHub 계�
 
 ## 💻 SeedSigner 4: 압축 풀고 플래싱하기
 
-1. 다운로드 폴더로 이동해요:
+1. 보드는 **UART** 포트에 꽂아 둔 채로 두세요. 내 컴퓨터와 칩에 맞는 줄
+   **하나**만 실행해요. 다운로드 폴더로 가서 빌드 압축을 풀고(브라우저가
+   이미 풀었다면 그 폴더를 써요) 플래싱해요.
+
+   🍎 Mac, v1.x 칩:
 
    ```bash
-   cd ~/Downloads
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
-2. **내** 칩에 맞는 두 줄로 압축을 풀고 폴더로 들어가요:
-
-   **v1.x:**
+   🍎 Mac, v3.x 칩:
 
    ```bash
-   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
+   🐧 Linux, v1.x 칩:
+
    ```bash
-   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
-   **v3.x:**
+   🐧 Linux, v3.x 칩:
 
    ```bash
-   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-   ```
-
-   ```bash
-   cd seedsigner-v3
-   ```
-
-   💡 Mac에서는 Safari가 이미 압축을 풀었을 수도 있어요. `unzip`이
-   파일을 못 찾는다고 하면 그 줄은 건너뛰고 `cd` 줄만 실행하세요.
-
-3. 내 컴퓨터에 맞는 줄로 플래싱해요:
-
-   🍎 Mac:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
-   ```
-
-   🐧 Linux:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
    4분쯤 걸리니까 보드를 뽑지 마세요. 처음에 나오는 `Deprecated`
@@ -367,7 +350,7 @@ Keith의 빌드는 GitHub에서 나와서, 내려받으려면 무료 GitHub 계�
 
    ✅ 끝나면 보드가 다시 시작되면서 SeedSigner가 켜져요. 🎉
 
-4. 테스트 데이터로 써 보세요: 컴퓨터에서
+2. 테스트 데이터로 써 보세요: 컴퓨터에서
    [testqrs.com](https://testqrs.com)을 열고 보드 카메라로 QR 코드를
    비춰요. 그 시드 단어는 공개된 것이니까 연습용으로만 쓰세요.
 
@@ -406,7 +389,7 @@ Keith의 빌드는 GitHub에서 나와서, 내려받으려면 무료 GitHub 계�
 | 🍎 `brew: command not found` | Homebrew 설치가 끝날 때 나온 **Next steps** 명령어를 실행하세요. |
 | 🐧 `esptool: command not found` | 로그아웃했다가 다시 로그인한 다음, 새 터미널을 여세요. |
 | `requires chip revision in range` | 빌드가 칩과 맞지 않아요: [SeedSigner 2](#ss-chip)를 다시 하고 다른 빌드를 내려받으세요. |
-| `flash_args`를 찾을 수 없어요 | 압축을 푼 폴더 안에 있지 않아요: [SeedSigner 4](#ss-flash)의 2단계를 다시 하세요. |
+| `cd: no such file or directory: …` or `cd: …: No such file or directory` | 빌드가 다운로드 폴더에 없거나 다른 칩용 빌드예요: [SeedSigner 3](#ss-download)을 다시 하세요. |
 | 플래싱 후 화면에 아무것도 안 나와요 | 뽑고 3초 기다린 다음 다시 꽂으세요. 빌드가 칩과 맞는지 확인하세요. |
 | `esptool`이 칩을 플래싱하지 못해요 | 5.3 이상이어야 해요: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
 

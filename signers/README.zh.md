@@ -257,55 +257,37 @@ Keith 的版本是在 GitHub 上构建的，下载需要一个免费的 GitHub �
 
 ## 💻 SeedSigner 4：解压并刷写
 
-1. 进入下载文件夹：
+1. 开发板保持插在 **UART** 接口上。只运行适合你电脑和芯片的**那一行**。它会进入下载文件夹，解压版本（如果浏览器已经解压好，就直接用那个文件夹），然后刷写。
+
+   🍎 Mac, v1.x 芯片：
 
    ```bash
-   cd ~/Downloads
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
-2. 用适合**你**芯片的两行，解压并进入文件夹：
-
-   **v1.x：**
+   🍎 Mac, v3.x 芯片：
 
    ```bash
-   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
+   🐧 Linux, v1.x 芯片：
+
    ```bash
-   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
-   **v3.x：**
+   🐧 Linux, v3.x 芯片：
 
    ```bash
-   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-   ```
-
-   ```bash
-   cd seedsigner-v3
-   ```
-
-   💡 在 Mac 上，Safari 可能已经帮你解压好了。如果 `unzip` 说找不到文件，就跳过那一行，只运行 `cd` 那一行。
-
-3. 用适合你电脑的那一行刷写：
-
-   🍎 Mac：
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
-   ```
-
-   🐧 Linux：
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
    大约需要 4 分钟，所以不要拔开发板。开头出现几条 `Deprecated` 警告没关系。
 
    ✅ 完成后，开发板会重启进入 SeedSigner。🎉
 
-4. 用测试数据试一试：在电脑上打开 [testqrs.com](https://testqrs.com)，把开发板的摄像头对准上面的二维码。那里的助记词是公开的，只能用来练习。
+2. 用测试数据试一试：在电脑上打开 [testqrs.com](https://testqrs.com)，把开发板的摄像头对准上面的二维码。那里的助记词是公开的，只能用来练习。
 
 下一步：[🔋 安装电池](#battery)；如果出了问题，看[🩺 故障排除](#troubleshooting)。
 
@@ -337,7 +319,7 @@ Keith 的版本是在 GitHub 上构建的，下载需要一个免费的 GitHub �
 | 🍎 `brew: command not found` | 运行 Homebrew 装完时显示的 **Next steps** 命令。 |
 | 🐧 `esptool: command not found` | 注销再重新登录，然后打开一个新终端。 |
 | `requires chip revision in range` | 版本和芯片不匹配：重做 [SeedSigner 2](#ss-chip)，下载另一个版本。 |
-| 找不到 `flash_args` | 你不在解压出来的文件夹里：重做 [SeedSigner 4](#ss-flash) 的第 2 步。 |
+| `cd: no such file or directory: …` or `cd: …: No such file or directory` | 下载文件夹里没有这个版本，或者它是另一种芯片的版本：重做 [SeedSigner 3](#ss-download)。 |
 | 刷写后屏幕上什么都没有 | 拔下来，等 3 秒，再插回去。检查版本和芯片是否匹配。 |
 | `esptool` 刷不了芯片 | 必须是 5.3 或更新：🍎 `brew upgrade esptool`，🐧 `pipx upgrade esptool`。 |
 

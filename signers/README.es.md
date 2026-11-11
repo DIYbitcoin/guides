@@ -317,50 +317,33 @@ Siguiente: [SeedSigner 4: descomprime y flashea](#ss-flash).
 
 ## 💻 SeedSigner 4: descomprime y flashea
 
-1. Entra en Descargas:
+1. Deja la placa conectada al puerto **UART**. Ejecuta **una** sola línea, la
+   de tu ordenador y tu chip. Va a tu carpeta Descargas, descomprime la
+   versión (o usa la carpeta si tu navegador ya la descomprimió) y la
+   flashea.
+
+   🍎 Mac, v1.x chip:
 
    ```bash
-   cd ~/Downloads
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
-2. Descomprime y entra en la carpeta, con las dos líneas de **tu** chip:
-
-   **v1.x:**
+   🍎 Mac, v3.x chip:
 
    ```bash
-   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
+   🐧 Linux, v1.x chip:
+
    ```bash
-   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
-   **v3.x:**
+   🐧 Linux, v3.x chip:
 
    ```bash
-   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-   ```
-
-   ```bash
-   cd seedsigner-v3
-   ```
-
-   💡 En un Mac, Safari puede haberlo descomprimido ya. Si `unzip` dice
-   que no encuentra el archivo, sáltate esa línea y ejecuta solo la de
-   `cd`.
-
-3. Flashea, con la línea de tu ordenador:
-
-   🍎 Mac:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
-   ```
-
-   🐧 Linux:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
    Tarda unos 4 minutos, así que no desconectes la placa. Unos avisos
@@ -368,7 +351,7 @@ Siguiente: [SeedSigner 4: descomprime y flashea](#ss-flash).
 
    ✅ Al terminar, la placa se reinicia en SeedSigner. 🎉
 
-4. Pruébalo con datos de prueba: abre [testqrs.com](https://testqrs.com)
+2. Pruébalo con datos de prueba: abre [testqrs.com](https://testqrs.com)
    en tu ordenador y apunta la cámara de la placa a sus códigos QR. Sus
    palabras semilla son públicas, así que úsalas solo para practicar.
 
@@ -409,7 +392,7 @@ que pueda funcionar sin cable.
 | 🍎 `brew: command not found` | Ejecuta los comandos de **Next steps** que mostró Homebrew al terminar de instalarse. |
 | 🐧 `esptool: command not found` | Cierra la sesión y vuelve a entrar, y abre un Terminal nuevo. |
 | `requires chip revision in range` | La versión no coincide con tu chip: repite [SeedSigner 2](#ss-chip) y descarga la otra versión. |
-| No encuentra `flash_args` | No estás en la carpeta descomprimida: repite el paso 2 de [SeedSigner 4](#ss-flash). |
+| `cd: no such file or directory: …` or `cd: …: No such file or directory` | La versión no está en tu carpeta Descargas, o es la del otro chip: repite [SeedSigner 3](#ss-download). |
 | No sale nada en la pantalla tras flashear | Desconecta, espera 3 segundos y vuelve a conectar. Comprueba que la versión coincide con tu chip. |
 | `esptool` no puede flashear el chip | Tiene que ser la 5.3 o superior: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
 

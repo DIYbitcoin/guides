@@ -317,49 +317,33 @@ Seterusnya: [SeedSigner 4: nyahzip dan flash](#ss-flash).
 
 ## 💻 SeedSigner 4: nyahzip dan flash
 
-1. Masuk ke Downloads:
+1. Biarkan papan bersambung ke port **UART**. Jalankan **satu** baris
+   sahaja, untuk komputer dan cip anda. Ia pergi ke folder Downloads,
+   menyahzip binaan (atau guna folder itu jika pelayar sudah menyahzipnya)
+   dan flash.
+
+   🍎 Mac, v1.x cip:
 
    ```bash
-   cd ~/Downloads
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
-2. Nyahzip dan masuk ke folder, dengan dua baris untuk cip **anda**:
-
-   **v1.x:**
+   🍎 Mac, v3.x cip:
 
    ```bash
-   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
+   🐧 Linux, v1.x cip:
+
    ```bash
-   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
-   **v3.x:**
+   🐧 Linux, v3.x cip:
 
    ```bash
-   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-   ```
-
-   ```bash
-   cd seedsigner-v3
-   ```
-
-   💡 Pada Mac, Safari mungkin sudah menyahzipnya. Jika `unzip` kata ia
-   tidak jumpa fail itu, langkau baris itu dan jalankan baris `cd` sahaja.
-
-3. Flash, dengan baris untuk komputer anda:
-
-   🍎 Mac:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
-   ```
-
-   🐧 Linux:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
    Ia mengambil kira-kira 4 minit, jadi jangan cabut papan. Beberapa
@@ -367,7 +351,7 @@ Seterusnya: [SeedSigner 4: nyahzip dan flash](#ss-flash).
 
    ✅ Apabila selesai, papan dimulakan semula ke dalam SeedSigner. 🎉
 
-4. Cuba dengan data ujian: buka [testqrs.com](https://testqrs.com) pada
+2. Cuba dengan data ujian: buka [testqrs.com](https://testqrs.com) pada
    komputer anda dan halakan kamera papan ke kod QR di situ. Perkataan
    benihnya awam, jadi gunakan untuk latihan sahaja.
 
@@ -407,7 +391,7 @@ boleh berjalan tanpa kabel.
 | 🍎 `brew: command not found` | Jalankan arahan **Next steps** yang Homebrew paparkan apabila selesai dipasang. |
 | 🐧 `esptool: command not found` | Log keluar dan log masuk semula, kemudian buka Terminal baharu. |
 | `requires chip revision in range` | Binaan tidak sepadan dengan cip anda: ulang [SeedSigner 2](#ss-chip) dan muat turun binaan yang satu lagi. |
-| `flash_args` tidak dijumpai | Anda tiada dalam folder yang dinyahzip: ulang langkah 2 [SeedSigner 4](#ss-flash). |
+| `cd: no such file or directory: …` or `cd: …: No such file or directory` | Binaan tiada dalam folder Downloads, atau ia binaan untuk cip yang satu lagi: ulang [SeedSigner 3](#ss-download). |
 | Tiada apa-apa pada skrin selepas flash | Cabut, tunggu 3 saat, pasang semula. Semak binaan sepadan dengan cip anda. |
 | `esptool` tidak boleh flash cip | Ia mesti 5.3 atau lebih baharu: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
 

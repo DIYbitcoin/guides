@@ -313,49 +313,32 @@ Sonraki: [SeedSigner 4: zip'i aç ve flaşla](#ss-flash).
 
 ## 💻 SeedSigner 4: zip'i aç ve flaşla
 
-1. İndirilenler'e geç:
+1. Kart **UART** portuna takılı kalsın. Bilgisayarına ve çipine uyan
+   **tek** satırı çalıştır. İndirilenler klasörüne gider, derlemeyi zip'ten
+   çıkarır (tarayıcın zaten çıkardıysa o klasörü kullanır) ve flaşlar.
+
+   🍎 Mac, v1.x çip:
 
    ```bash
-   cd ~/Downloads
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
-2. **Senin** çipine uyan iki satırla zip'i aç ve klasöre gir:
-
-   **v1.x:**
+   🍎 Mac, v3.x çip:
 
    ```bash
-   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
    ```
 
+   🐧 Linux, v1.x çip:
+
    ```bash
-   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   cd ~/Downloads && { [ -f seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip ] && unzip -oq seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip; cd seedsigner-waveshare-p4-35-pre-rev3-touchfix; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
-   **v3.x:**
+   🐧 Linux, v3.x çip:
 
    ```bash
-   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-   ```
-
-   ```bash
-   cd seedsigner-v3
-   ```
-
-   💡 Mac'te Safari zip'i zaten açmış olabilir. `unzip` dosyayı
-   bulamadığını söylerse o satırı atla ve yalnızca `cd` satırını çalıştır.
-
-3. Bilgisayarına uyan satırla flaşla:
-
-   🍎 Mac:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
-   ```
-
-   🐧 Linux:
-
-   ```bash
-   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   cd ~/Downloads && { [ -f flashable-dist-waveshare-esp32-p4-35.zip ] && unzip -oq flashable-dist-waveshare-esp32-p4-35.zip -d flashable-dist-waveshare-esp32-p4-35; cd flashable-dist-waveshare-esp32-p4-35; } && esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
    ```
 
    Yaklaşık 4 dakika sürer, bu yüzden kartı çıkarma. Başta çıkan birkaç
@@ -363,7 +346,7 @@ Sonraki: [SeedSigner 4: zip'i aç ve flaşla](#ss-flash).
 
    ✅ Bitince kart yeniden başlar ve SeedSigner açılır. 🎉
 
-4. Test verisiyle dene: bilgisayarında [testqrs.com](https://testqrs.com)
+2. Test verisiyle dene: bilgisayarında [testqrs.com](https://testqrs.com)
    adresini aç ve kartın kamerasını oradaki QR kodlara tut. Seed
    kelimeleri herkese açık, bu yüzden yalnızca alıştırma için kullan.
 
@@ -402,7 +385,7 @@ gelir.
 | 🍎 `brew: command not found` | Homebrew kurulumu bitince yazdığı **Next steps** komutlarını çalıştır. |
 | 🐧 `esptool: command not found` | Çıkış yapıp yeniden giriş yap, sonra yeni bir Terminal aç. |
 | `requires chip revision in range` | Derleme çipine uymuyor: [SeedSigner 2](#ss-chip)'yi yeniden yap ve diğer derlemeyi indir. |
-| `flash_args` bulunamadı | Zip'ten çıkan klasörde değilsin: [SeedSigner 4](#ss-flash)'ün 2. adımını yeniden yap. |
+| `cd: no such file or directory: …` or `cd: …: No such file or directory` | Derleme İndirilenler klasöründe değil ya da diğer çipin derlemesi: [SeedSigner 3](#ss-download)'ü yeniden yap. |
 | Flaşladıktan sonra ekranda bir şey yok | Çıkar, 3 saniye bekle, yeniden tak. Derlemenin çipine uyduğunu kontrol et. |
 | `esptool` çipi flaşlayamıyor | 5.3 ya da daha yeni olmalı: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
 
