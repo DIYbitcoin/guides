@@ -4,50 +4,134 @@
 [Waveshare ESP32-P4-WIFI6-Touch-LCD-3.5](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-3.5.htm)
 上，这是一块带摄像头和 microSD 卡槽的 3.5 英寸触摸屏开发板。不需要焊接。
 
-| 签名器 | 刷写方式 | 状态 |
-|---|---|---|
-| [Kern](https://github.com/odudex/Kern) | 在网页浏览器里 | 测试版 |
-| [KISS Signer](https://github.com/DIYbitcoin/kiss-signer) | 在网页浏览器里 | Beta 版 |
-| [SeedSigner](https://github.com/kdmukai/seedsigner-micropython-builder) | 在终端里 | 测试版 |
-
 📷 **使用方式**：签名器永远不联网。你用它的摄像头扫描二维码，把它和
 Sparrow 这类钱包应用配对，签署交易也是用同样的方式。
 
 ⚠️ **这三个签名器在这块开发板上都还是早期版本。只能用练习用的助记词和 testnet（没有价值的练习用比特币），或者极少的金额，绝对不要用你真正的积蓄。**
 
-## 🔌 第 1 步：插上开发板
+### 🧰 你需要准备
 
-把 USB-C 线插到标有 **UART** 的接口上。
+- 📟 Waveshare 3.5 英寸开发板
+- 🔌 一根能传数据的 USB-C 线。只能充电的线可以给开发板供电，但电脑完全识别不到它。
+- 💻 一台电脑：SeedSigner 需要 Mac 或 Linux；Kern 和 KISS Signer 只要电脑上有 **Chrome** 或 **Brave** 就行
 
-💡 要用确定能传数据的线。只能充电的线可以给开发板供电，但电脑完全识别不到它。
+### 👉 选择你的签名器
 
-<a id="step-2"></a>
+每一个都是一条完整的路线，从插上开发板一直到签名器的第一个画面。只跟着你选的那一个做。
 
-## 💻 第 2 步：准备好你的电脑
+- 🌐 **[Kern](#kern)**：最简单。在 Chrome 或 Brave 里点几下就能刷写。
+- 🌐 **[KISS Signer](#kiss)**：也是在 Chrome 或 Brave 里刷写。
+- 💻 **[SeedSigner](#seedsigner)**：在终端里输入几条命令来刷写。一共四个短页面。
 
-🌐 **Kern** 和 **KISS Signer** 是在 **Chrome** 或
-**Brave** 里用网页刷写工具刷写的，所以它们只需要这个浏览器（如果用 Linux，还要做下面 Linux 部分里的第 2 步）。
+<a id="kern"></a>
 
-💻 **SeedSigner** 是在终端里用 `esptool` 刷写的：按下面的步骤安装它。
+## 🌐 Kern
+
+需要 **Chrome** 或 **Brave**。Safari 和 Firefox 不能刷写。
+
+1. 把 USB-C 线插到开发板上标有 **UART** 的接口，另一头插到电脑上。
+
+   🐧 **在 Linux 上**，先做下面的 [Linux 步骤](#linux-kern)。
+
+2. 打开 [Kern 网页刷写工具](https://odudex.github.io/Kern/flash/)。
+3. 保持 **📦 Latest CI Build** 选中。
+4. 在 **Board** 里选 **Waveshare ESP32-P4 3.5" (320×480 SPI)**。列表默认是另一块板子，所以一定要确认这一项。
+5. 点 **🔌 Connect**。会弹出一个小窗口：在里面选你的开发板（🍎 名字里有 `usbmodem`，🐧 有 `ttyACM`），然后点 **连接**。
+
+   ✅ 按钮下面的黑框里会显示 `Connected to: ESP32-P4`。刷写工具会读取你的芯片，自动选 v1.x 或 v3.x 的版本。
+
+6. 点 **⚡ Flash**，然后等待，不要拔线。
+
+   ✅ 会显示 `Device reset. Flash successful! ✓`。
+
+7. 拔下开发板，等 3 秒，再插回去。
+
+   ✅ 开发板上启动了 Kern。🎉
+
+<details id="linux-kern">
+<summary><b>🐧 Linux 步骤：让浏览器能和开发板通信</b></summary>
+
+1. 打开**终端**：按 **Ctrl + Alt + T**。
+2. 运行：
+
+   ```bash
+   sudo usermod -aG dialout $USER
+   ```
+
+   🔒 它会要你输入电脑的密码。输入时什么都不显示，这是正常的，直接输入然后按 **Enter**。
+
+3. **注销电脑再重新登录**，然后回到上面的第 2 步。
+
+</details>
+
+📦 官方的 [Kern 发布版](https://github.com/odudex/Kern/releases)只支持 **v1.x** 芯片，所以请用网页刷写工具。
+
+下一步：[🔋 安装电池](#battery)；如果出了问题，看[🩺 故障排除](#troubleshooting)。
+
+<a id="kiss"></a>
+
+## 🌐 KISS Signer
+
+需要 **Chrome** 或 **Brave**。Safari 和 Firefox 不能刷写。
+
+1. 把 USB-C 线插到开发板上标有 **UART** 的接口，另一头插到电脑上。
+
+   🐧 **在 Linux 上**，先做下面的 [Linux 步骤](#linux-kiss)。
+
+2. 打开 [KISS Signer 安装页面](https://diybitcoin.github.io/kiss-signer/)。
+3. 在 **Which board is it?** 下面选 **Waveshare 3.5in**。
+4. 勾选 **This erases the device. I'm starting with keys that hold nothing.**
+5. 点 **Connect and install**。会弹出一个小窗口：在里面选你的开发板（🍎 名字里有 `usbmodem`，🐧 有 `ttyACM`），然后点 **连接**。
+6. 在下一个窗口里点 **Install KISS Signer (Waveshare 3.5in)**。勾选 **Erase device**，点 **Next**，再点 **Install**。等待，不要拔线。
+
+   ✅ 会显示 **Installation complete!**
+
+7. 拔下开发板，等 3 秒，再插回去。
+
+   ✅ 开发板会启动到 **FRUIT ISLAND**，这是 KISS Signer 首先显示的游戏。🎉
+
+8. 屏幕一直是黑的？说明你的开发板是较新的 **v3.x** 芯片，而这个版本是给 v1.x 的。请用[测试安装页面](https://diybitcoin.github.io/kiss-signer/test/)重新刷写：在 **1. Your board** 下面选你的开发板，然后点 **Connect and install**。它会读取你的芯片并选出适合的版本。
+
+   ⚠️ 测试安装页面里是没有签名的测试版本，还没有在真正的 v3.x 开发板上试过。
+
+<details id="linux-kiss">
+<summary><b>🐧 Linux 步骤：让浏览器能和开发板通信</b></summary>
+
+1. 打开**终端**：按 **Ctrl + Alt + T**。
+2. 运行：
+
+   ```bash
+   sudo usermod -aG dialout $USER
+   ```
+
+   🔒 它会要你输入电脑的密码。输入时什么都不显示，这是正常的，直接输入然后按 **Enter**。
+
+3. **注销电脑再重新登录**，然后回到上面的第 2 步。
+
+</details>
+
+下一步：[🔋 安装电池](#battery)；如果出了问题，看[🩺 故障排除](#troubleshooting)。
+
+<a id="seedsigner"></a>
+
+## 💻 SeedSigner 1：准备好你的电脑
+
+这块开发板上的 SeedSigner 是 Keith（kdmukai）做的早期版本。你要在**终端**里用芯片厂商的工具 `esptool` 输入命令来刷写。下面每条命令都有一个**复制**按钮：复制，粘贴到终端里，按 **Enter**。
 
 <details>
 <summary><b>🍎 我用的是 Mac</b></summary>
 
-1. 打开**终端**：按 **Cmd + Space**，输入 `Terminal`，按
-   **Enter**。
+1. 打开**终端**：按 **Cmd + 空格**，输入 `Terminal`，按 **Enter**。
 
-2. 安装 **Homebrew**，这是在终端里使用的 Mac 应用安装工具。如果已经装过就跳过这一步（`brew --version`
-   会显示版本号）。
+2. 安装 **Homebrew**，它是 Mac 上给终端用的软件安装工具。如果已经装过就跳过（`brew --version` 会显示版本号）。
 
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 
-   🔒 它会要求输入你的 Mac 密码。输入时屏幕上什么都不会显示，这是正常的，直接输入然后按
-   **Enter**。
+   🔒 它会要你输入 Mac 的密码。输入时什么都不显示，这是正常的，直接输入然后按 **Enter**。
 
-   ⚠️ 安装完成后，它会显示 **Next steps** 和两三条命令。把这些命令也复制并运行，不然
-   Mac 会找不到 `brew`。
+   ⚠️ 装完后它会显示 **Next steps**，里面有两三条命令。把它们也复制并运行，不然 Mac 找不到 `brew`。
 
 3. 安装 esptool：
 
@@ -60,21 +144,17 @@ Sparrow 这类钱包应用配对，签署交易也是用同样的方式。
 <details>
 <summary><b>🐧 我用的是 Linux</b></summary>
 
-1. 打开**终端**：按 **Ctrl + Alt + T**，或者在应用列表里找到**终端**。
+1. 打开**终端**：按 **Ctrl + Alt + T**。
 
-2. 让你的用户账户可以和开发板通信（三个签名器都需要，包括在浏览器里刷写的
-   Kern）：
+2. 让你的用户能和开发板通信：
 
    ```bash
    sudo usermod -aG dialout $USER
    ```
 
-   🔒 它会要求输入你电脑的密码。输入时屏幕上什么都不会显示，这是正常的，直接输入然后按
-   **Enter**。
+   🔒 它会要你输入电脑的密码。输入时什么都不显示，这是正常的，直接输入然后按 **Enter**。
 
-3. **退出登录，再重新登录电脑**，让更改生效。
-
-4. 如果要刷写 SeedSigner，安装 `esptool` 和 `unzip`。再次打开终端，运行：
+3. 安装 `esptool` 和 `unzip`，一次运行一行：
 
    ```bash
    sudo apt update
@@ -92,177 +172,177 @@ Sparrow 这类钱包应用配对，签署交易也是用同样的方式。
    pipx ensurepath
    ```
 
-5. **关掉终端，再打开一个新的**，这样它才能找到 `esptool`。
+4. **注销电脑再重新登录**，然后重新打开终端。
 
 </details>
 
-✅ 如果要刷写 SeedSigner，检查 esptool 是否能用：
+✅ 检查 esptool 能不能用：
 
 ```bash
 esptool version
 ```
 
-显示的必须是 **5.3 或更新的版本**。
+必须显示 **5.3 或更新**。旧版本刷不了新的芯片：🍎 `brew upgrade esptool`，🐧 `pipx upgrade esptool`。
 
-<a id="step-3"></a>
+下一步：[SeedSigner 2：插上开发板并查看芯片](#ss-chip)。
 
-## 🧬 第 3 步：了解你的芯片
+<a id="ss-chip"></a>
 
-3.5 英寸开发板出厂时带的是 ESP32-P4 芯片两个版本中的一个：较早的板子是
-**v1.x**，较新的板子是 **v3.x**，所以最近买的板子很可能是
-v3.x。每个签名器都需要专门为你的芯片制作的版本：v1.x 的版本在 v3.x
-芯片上无法启动，反过来也一样。
+## 💻 SeedSigner 2：插上开发板并查看芯片
 
-| 签名器 | v1.x 芯片 | v3.x 芯片 |
-|---|---|---|
-| Kern | 网页刷写工具，或官方发布版 | 只能用网页刷写工具（测试版） |
-| KISS Signer | 安装页面（已签名的 beta 版） | 测试安装程序（测试版） |
-| SeedSigner | 触摸修复版 | builder 的测试版 |
+这块开发板的芯片有两个版本：旧板子是 **v1.x**，新板子是 **v3.x**，每个版本需要各自的 SeedSigner 版本。这一页告诉你自己的是哪一种。
 
-🌐 **Kern** 和 **KISS Signer**：不需要检查，下面它们各自的部分会告诉你怎么做。
+1. 把 USB-C 线插到开发板上标有 **UART** 的接口，另一头插到电脑上。
 
-💻 **SeedSigner**：现在就用 `esptool`（[第 2 步](#step-2)）检查一下，这样才能下载正确的版本：
-
-1. 告诉终端开发板在哪里。这会把它保存为 `$PORT`。
+2. 运行适合你电脑的那一行：
 
    🍎 Mac：
 
    ```bash
-   PORT=$(ls /dev/cu.usbmodem* | head -n 1)
+   esptool -p $(ls /dev/cu.usbmodem* | head -n 1) chip-id
    ```
 
    🐧 Linux：
 
    ```bash
-   PORT=$(ls /dev/ttyACM* | head -n 1)
+   esptool -p $(ls /dev/ttyACM* | head -n 1) chip-id
    ```
 
-2. 检查芯片：
+3. 找到写着 `ESP32-P4 (revision ...)` 的那一行：
 
-   ```bash
-   esptool -p $PORT chip-id
-   ```
+   - `revision v1.3` 或任何 **v1**：你的是 **v1.x** 芯片。
+   - `revision v3.0`、`v3.2` 或任何 **v3**：你的是 **v3.x** 芯片。
 
-   ✅ 它会显示 `ESP32-P4 (revision v1.3)` 或类似内容：这就是 **v1.x**
-   芯片。`v3.0` 或更高就是 **v3.x** 芯片。
+   记下来：下一页要用到。
 
-## Kern
+下一步：[SeedSigner 3：下载适合你芯片的版本](#ss-download)。
 
-1. 在 **Chrome** 或 **Brave** 里打开 [Kern 网页刷写工具](https://odudex.github.io/Kern/flash/)（Safari 和 Firefox 无法刷写）。
-2. 连接开发板，刷写 **Latest CI Build**。刷写工具会读取你的芯片，自动选择 v1.x 或
-   v3.x 版本。
-3. ✅ 拔掉线，等 3 秒，再插回去。
+<a id="ss-download"></a>
 
-📦 官方的 [Kern 发布版](https://github.com/odudex/Kern/releases)只支持
-**v1.x** 芯片。
+## 💻 SeedSigner 3：下载适合你芯片的版本
 
-## KISS Signer
+**只用适合你芯片的版本**（在 SeedSigner 2 里查到的）。另一个启动不了。
 
-1. 在 **Chrome** 或 **Brave** 里打开[安装页面](https://diybitcoin.github.io/kiss-signer/)，连接开发板并刷写。
-2. ✅ 拔掉线，等 3 秒，再插回去。
-3. 屏幕一直是黑的？说明你的开发板用的是较新的 v3.x
-   芯片：改用[测试安装程序](https://diybitcoin.github.io/kiss-signer/test/)重新刷写。
+<details open>
+<summary><b>1️⃣ 我的芯片是 v1.x</b></summary>
 
-⚠️ 测试安装程序里是未签名的测试版，还没在真正的 v3.x
-开发板上试过。
+点击把
+[seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip](https://github.com/DIYbitcoin/guides/releases/download/seedsigner-p4-35-touchfix/seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip)
+下载到你的**下载**文件夹。
 
-## SeedSigner
+它带有一个**触摸修复**，让滑动时滚动菜单，而不是按下按钮。这个修复还是一个[未合并的 pull request](https://github.com/kdmukai/esp-board-common/pull/21)，还没有正式进入 SeedSigner。已在一块 v1.3 开发板上测试过。
 
-这块开发板上的 SeedSigner 是早期版本，在终端里用 `esptool`（[第 2 步](#step-2)）刷写。
-
-### 1️⃣ 下载适合你芯片的版本
-
-把它保存到你的**下载**文件夹：
-
-- **v1.x**：[seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip](https://github.com/DIYbitcoin/guides/releases/download/seedsigner-p4-35-touchfix/seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip)
-- **v3.x**：`flashable-dist-waveshare-esp32-p4-35`，来自 builder 的
-  [Actions 构建](https://github.com/kdmukai/seedsigner-micropython-builder/actions)（需要登录
-  GitHub）
-
-<details>
-<summary><b>👆 关于 v1.x 版本</b></summary>
-
-它包含一个**触摸修复**，让手指滑动时菜单跟着滚动，而不是变成按下按钮。这个修复目前还是一个[尚未合并的 pull request](https://github.com/kdmukai/esp-board-common/pull/21)，还没有正式加入
-SeedSigner。已在 v1.3 开发板上测试过。
-
-zip 文件的 SHA256：
+zip 的 SHA256：
 `d372f345a1895f2e90ed5d86cf473136bd69948ec2384de7c8dd9313eea169e5`
 
 </details>
 
-<a id="seedsigner-unzip"></a>
+<details open>
+<summary><b>3️⃣ 我的芯片是 v3.x</b></summary>
 
-### 2️⃣ 解压
+Keith 的版本是在 GitHub 上构建的，下载需要一个免费的 GitHub 账号。
 
-进入下载文件夹：
+1. 在 [github.com/login](https://github.com/login) 登录，或者先在那里注册一个账号。
+2. 打开 [SeedSigner 的最新构建](https://github.com/kdmukai/seedsigner-micropython-builder/actions/workflows/build-firmware.yml?query=branch%3Amain+is%3Asuccess)。
+3. 点列表**最上面**的那一个构建，它是最新的。
+4. 往下滚到 **Artifacts**，点 **flashable-dist-waveshare-esp32-p4-35**，把它下载到你的**下载**文件夹。
 
-```bash
-cd ~/Downloads
-```
+   ⚠️ 一定要确认名字以 **35** 结尾。`43` 的是给 4.3 英寸开发板的，Keith 的 Releases 页面上的文件也是 4.3 英寸的。它们在这块开发板上都启动不了。
 
-然后运行**你的**版本对应的两行命令。
+</details>
 
-**v1.x:**
+下一步：[SeedSigner 4：解压并刷写](#ss-flash)。
 
-```bash
-unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
-```
+<a id="ss-flash"></a>
 
-```bash
-cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
-```
+## 💻 SeedSigner 4：解压并刷写
 
-**v3.x:**
+1. 进入下载文件夹：
 
-```bash
-unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-```
+   ```bash
+   cd ~/Downloads
+   ```
 
-```bash
-cd seedsigner-v3
-```
+2. 用适合**你**芯片的两行，解压并进入文件夹：
 
-### 3️⃣ 刷写
+   **v1.x：**
 
-💡 如果在[第 3 步](#step-3)之后你打开过新的终端，先重新运行那一步里的
-`PORT=` 这一行。
+   ```bash
+   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   ```
 
-```bash
-esptool --chip esp32p4 -p $PORT write-flash @flash_args
-```
+   ```bash
+   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   ```
 
-✅ 完成后，开发板会重启并进入 SeedSigner。🎉
+   **v3.x：**
+
+   ```bash
+   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
+   ```
+
+   ```bash
+   cd seedsigner-v3
+   ```
+
+   💡 在 Mac 上，Safari 可能已经帮你解压好了。如果 `unzip` 说找不到文件，就跳过那一行，只运行 `cd` 那一行。
+
+3. 用适合你电脑的那一行刷写：
+
+   🍎 Mac：
+
+   ```bash
+   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
+   ```
+
+   🐧 Linux：
+
+   ```bash
+   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   ```
+
+   大约需要 4 分钟，所以不要拔开发板。开头出现几条 `Deprecated` 警告没关系。
+
+   ✅ 完成后，开发板会重启进入 SeedSigner。🎉
+
+4. 用测试数据试一试：在电脑上打开 [testqrs.com](https://testqrs.com)，把开发板的摄像头对准上面的二维码。那里的助记词是公开的，只能用来练习。
+
+下一步：[🔋 安装电池](#battery)；如果出了问题，看[🩺 故障排除](#troubleshooting)。
 
 <a id="battery"></a>
 
 ## 🔋 安装电池
 
-开发板附带一块小电池和一把小螺丝刀，这样它不插线也能运行。
+开发板附带一块小电池和一把小螺丝刀，这样不接线也能用。
 
-1. 在外壳背面，用指甲把四个小盖子撬下来。螺丝就在下面。
-2. 用螺丝刀拧下四颗螺丝，把外壳后盖取下来。
-3. 把电池的插头插到开发板右下角的电池插座上。插头只有一个方向能插进去，所以插不进去的话就翻过来。不要硬插。
-4. ✅ 电源按钮旁边应该会亮起绿灯。
-5. 把外壳后盖装回去，拧紧螺丝。电池放在里面，外壳也能正常合上。
+1. 用指甲撬开外壳背面的四个小盖子，螺丝就在下面。
+2. 用螺丝刀拧下四颗螺丝，把外壳后盖拿下来。
+3. 把电池插头插到开发板右下角的电池插座上。它只能朝一个方向插进去，插不进去就翻过来。不要硬插。
+4. ✅ 电源按钮旁边应该会亮起一个绿灯。
+5. 把外壳后盖装回去并拧紧螺丝。装着电池时外壳也能正常合上。
 
-![外壳打开、电池已插上的 Waveshare 3.5 英寸开发板](images/battery.jpg)
+![打开外壳、插好电池的 Waveshare 3.5 英寸开发板](images/battery.jpg)
+
+<a id="troubleshooting"></a>
 
 ## 🩺 故障排除
 
-| 你看到的 | 怎么办 |
+| 你看到 | 怎么办 |
 |---|---|
-| 网页刷写工具里没有可选的开发板 | 用 **Chrome** 或 **Brave**，接 **UART** 接口，用能传数据的线。🐧 在 Linux 上要做[第 2 步](#step-2)。 |
-| `port is busy` 或 `could not open port` | 关掉网页刷写工具的标签页和其他正在使用开发板的终端，然后重试。 |
-| 电脑识别不到开发板，或者运行 `PORT=` 那一行后出现 🍎 `no matches found: /dev/cu.usbmodem*` / 🐧 `No such file or directory` | 接 **UART** 接口，用确定能传数据的线。 |
-| 🐧 `Permission denied`，或者浏览器无法打开开发板 | 在 Linux 上做[第 2 步](#step-2)，包括退出登录再重新登录。 |
-| 🍎 `brew: command not found` | 运行 Homebrew 安装完成时显示的 **Next steps** 里的命令。 |
-| 🐧 `esptool: command not found` | 关掉终端，再打开一个新的。 |
-| 找不到 `flash_args` | 你不在解压出来的文件夹里：重新做 [SeedSigner 第 2 步](#seedsigner-unzip)。 |
-| 刷写后屏幕上什么都没有 | 拔掉线，等 3 秒，再插回去。检查版本是否和你的芯片匹配。 |
-| `esptool` 无法刷写芯片 | 必须是 5.3 或更新的版本：🍎 `brew upgrade esptool`，🐧 `pipx upgrade esptool`。 |
+| 浏览器窗口里没有可以选的开发板 | 用 **Chrome** 或 **Brave**、**UART** 接口和能传数据的线。🐧 做 [Kern](#linux-kern) 或 [KISS Signer](#linux-kiss) 页面上的 Linux 步骤。 |
+| `port is busy` 或 `could not open port` | 关掉网页刷写工具的标签页，以及其他正在用开发板的终端，然后再试。 |
+| 🍎 `no matches found: /dev/cu.usbmodem*` 或 🐧 `No such file or directory` | 电脑没识别到开发板：用 **UART** 接口和确定能传数据的线。 |
+| 🐧 `Permission denied`，或者浏览器打不开开发板 | 做 Linux 步骤，包括注销再重新登录。 |
+| `Failed to connect` | 关掉所有正在用开发板的程序，拔下开发板再插回去，然后再试。 |
+| 🍎 `brew: command not found` | 运行 Homebrew 装完时显示的 **Next steps** 命令。 |
+| 🐧 `esptool: command not found` | 注销再重新登录，然后打开一个新终端。 |
+| `requires chip revision in range` | 版本和芯片不匹配：重做 [SeedSigner 2](#ss-chip)，下载另一个版本。 |
+| 找不到 `flash_args` | 你不在解压出来的文件夹里：重做 [SeedSigner 4](#ss-flash) 的第 2 步。 |
+| 刷写后屏幕上什么都没有 | 拔下来，等 3 秒，再插回去。检查版本和芯片是否匹配。 |
+| `esptool` 刷不了芯片 | 必须是 5.3 或更新：🍎 `brew upgrade esptool`，🐧 `pipx upgrade esptool`。 |
 
 ## 🙏 致谢
 
-- [Kern](https://github.com/odudex/Kern)，作者 odudex。
-- [SeedSigner](https://github.com/kdmukai/seedsigner-micropython-builder)，作者 kdmukai。
-- [KISS Signer](https://github.com/DIYbitcoin/kiss-signer)，作者 DIYbitcoin。
+- [Kern](https://github.com/odudex/Kern)：odudex
+- [SeedSigner](https://github.com/kdmukai/seedsigner-micropython-builder)：kdmukai
+- [KISS Signer](https://github.com/DIYbitcoin/kiss-signer)：DIYbitcoin

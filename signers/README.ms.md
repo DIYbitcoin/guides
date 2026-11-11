@@ -6,12 +6,6 @@ atau telefon. Panduan ini memasang ("flash") signer sumber terbuka pada
 [Waveshare ESP32-P4-WIFI6-Touch-LCD-3.5](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-3.5.htm),
 papan skrin sentuh 3.5 inci dengan kamera dan slot microSD. Tidak perlu memateri.
 
-| Signer | Cara flash | Status |
-|---|---|---|
-| [Kern](https://github.com/odudex/Kern) | Dalam pelayar web anda | Versi ujian |
-| [KISS Signer](https://github.com/DIYbitcoin/kiss-signer) | Dalam pelayar web anda | Beta |
-| [SeedSigner](https://github.com/kdmukai/seedsigner-micropython-builder) | Dalam Terminal | Versi ujian |
-
 📷 **Cara menggunakannya:** signer tidak pernah bersambung ke internet. Anda
 menggandingkannya dengan aplikasi dompet seperti Sparrow dengan mengimbas
 kod QR menggunakan kameranya, dan menandatangani transaksi dengan cara yang sama.
@@ -20,23 +14,147 @@ kod QR menggunakan kameranya, dan menandatangani transaksi dengan cara yang sama
 latihan dan testnet (bitcoin latihan yang tiada nilai) atau jumlah yang sangat
 kecil sahaja, jangan sekali-kali gunakan simpanan sebenar anda.**
 
-## 🔌 Langkah 1: sambungkan papan
+### 🧰 Apa yang anda perlukan
 
-Sambungkan kabel USB-C ke port yang bertanda **UART**.
+- 📟 Papan Waveshare 3.5 inci
+- 🔌 Kabel USB-C yang boleh membawa data. Kabel cas sahaja menghidupkan
+  papan, tetapi komputer tidak nampak apa-apa.
+- 💻 Komputer: Mac atau Linux untuk SeedSigner; mana-mana komputer dengan
+  **Chrome** atau **Brave** untuk Kern dan KISS Signer
 
-💡 Gunakan kabel yang anda tahu boleh membawa data. Kabel yang hanya untuk mengecas memberi
-kuasa kepada papan, tetapi komputer tidak nampak apa-apa langsung.
+### 👉 Pilih signer anda
 
-<a id="step-2"></a>
+Setiap satu ialah laluan lengkap, dari menyambungkan papan hingga skrin
+pertama signer. Ikut yang anda pilih sahaja.
 
-## 💻 Langkah 2: sediakan komputer anda
+- 🌐 **[Kern](#kern):** paling mudah. Flash dalam Chrome atau Brave dengan
+  beberapa klik.
+- 🌐 **[KISS Signer](#kiss):** juga di-flash dalam Chrome atau Brave.
+- 💻 **[SeedSigner](#seedsigner):** di-flash dengan menaip beberapa arahan
+  dalam Terminal. Empat halaman pendek.
 
-🌐 Untuk **Kern** dan **KISS Signer**, anda flash melalui pemasang web dalam
-**Chrome** atau **Brave**, jadi pelayar itu sahaja yang anda perlukan (pada
-Linux, lakukan juga langkah 2 dalam kotak Linux di bawah).
+<a id="kern"></a>
 
-💻 Untuk **SeedSigner**, anda flash dari Terminal dengan `esptool`: pasang
-alat itu di bawah.
+## 🌐 Kern
+
+Anda perlukan **Chrome** atau **Brave**. Safari dan Firefox tidak boleh
+flash.
+
+1. Pasang kabel USB-C ke port pada papan yang bertanda **UART**, dan
+   hujung satu lagi ke komputer anda.
+
+   🐧 **Di Linux**, buat [langkah Linux](#linux-kern) di bawah dahulu.
+
+2. Buka [pemancar web Kern](https://odudex.github.io/Kern/flash/).
+3. Biarkan **📦 Latest CI Build** dipilih.
+4. Di bawah **Board**, pilih **Waveshare ESP32-P4 3.5" (320×480 SPI)**.
+   Senarai bermula pada papan lain, jadi semak yang ini.
+5. Klik **🔌 Connect**. Tetingkap kecil terbuka: pilih papan anda di situ
+   (🍎 namanya ada `usbmodem`, 🐧 `ttyACM`), kemudian klik **Sambung**.
+
+   ✅ Kotak hitam di bawah butang memaparkan `Connected to: ESP32-P4`.
+   Pemancar membaca cip anda dan memilih binaan v1.x atau v3.x sendiri.
+
+6. Klik **⚡ Flash** dan tunggu, tanpa mencabut kabel.
+
+   ✅ Ia memaparkan `Device reset. Flash successful! ✓`.
+
+7. Cabut papan, tunggu 3 saat, pasang semula.
+
+   ✅ Kern bermula pada papan. 🎉
+
+<details id="linux-kern">
+<summary><b>🐧 Langkah Linux: benarkan pelayar bercakap dengan papan</b></summary>
+
+1. Buka **Terminal**: tekan **Ctrl + Alt + T**.
+2. Jalankan:
+
+   ```bash
+   sudo usermod -aG dialout $USER
+   ```
+
+   🔒 Ia meminta kata laluan komputer anda. Tiada apa-apa dipaparkan
+   semasa anda menaip; itu normal, taip sahaja dan tekan **Enter**.
+
+3. **Log keluar dari komputer anda dan log masuk semula**, kemudian
+   kembali ke langkah 2 di atas.
+
+</details>
+
+📦 [Keluaran rasmi Kern](https://github.com/odudex/Kern/releases) hanya
+untuk cip **v1.x**, jadi gunakan pemancar web.
+
+Seterusnya: [🔋 pasang bateri](#battery), atau
+[🩺 penyelesaian masalah](#troubleshooting) jika ada yang tidak kena.
+
+<a id="kiss"></a>
+
+## 🌐 KISS Signer
+
+Anda perlukan **Chrome** atau **Brave**. Safari dan Firefox tidak boleh
+flash.
+
+1. Pasang kabel USB-C ke port pada papan yang bertanda **UART**, dan
+   hujung satu lagi ke komputer anda.
+
+   🐧 **Di Linux**, buat [langkah Linux](#linux-kiss) di bawah dahulu.
+
+2. Buka [halaman pemasangan KISS Signer](https://diybitcoin.github.io/kiss-signer/).
+3. Di bawah **Which board is it?**, pilih **Waveshare 3.5in**.
+4. Tandakan kotak **This erases the device. I'm starting with keys that
+   hold nothing.**
+5. Klik **Connect and install**. Tetingkap kecil terbuka: pilih papan anda
+   di situ (🍎 namanya ada `usbmodem`, 🐧 `ttyACM`), kemudian klik
+   **Sambung**.
+6. Dalam tetingkap seterusnya, klik **Install KISS Signer (Waveshare
+   3.5in)**. Tandakan **Erase device**, klik **Next**, kemudian klik
+   **Install**. Tunggu, tanpa mencabut kabel.
+
+   ✅ Ia memaparkan **Installation complete!**
+
+7. Cabut papan, tunggu 3 saat, pasang semula.
+
+   ✅ Papan bermula pada **FRUIT ISLAND**, permainan yang KISS Signer
+   tunjukkan dahulu. 🎉
+
+8. Skrin kekal hitam? Papan anda ada cip **v3.x** yang lebih baharu, dan
+   keluaran ini untuk v1.x. Flash semula dari
+   [pemasang ujian](https://diybitcoin.github.io/kiss-signer/test/):
+   pilih papan anda di bawah **1. Your board**, kemudian klik **Connect
+   and install**. Ia membaca cip anda dan memilih binaan yang sesuai.
+
+   ⚠️ Pemasang ujian ada versi ujian yang tidak ditandatangani, belum
+   dicuba pada papan v3.x sebenar.
+
+<details id="linux-kiss">
+<summary><b>🐧 Langkah Linux: benarkan pelayar bercakap dengan papan</b></summary>
+
+1. Buka **Terminal**: tekan **Ctrl + Alt + T**.
+2. Jalankan:
+
+   ```bash
+   sudo usermod -aG dialout $USER
+   ```
+
+   🔒 Ia meminta kata laluan komputer anda. Tiada apa-apa dipaparkan
+   semasa anda menaip; itu normal, taip sahaja dan tekan **Enter**.
+
+3. **Log keluar dari komputer anda dan log masuk semula**, kemudian
+   kembali ke langkah 2 di atas.
+
+</details>
+
+Seterusnya: [🔋 pasang bateri](#battery), atau
+[🩺 penyelesaian masalah](#troubleshooting) jika ada yang tidak kena.
+
+<a id="seedsigner"></a>
+
+## 💻 SeedSigner 1: sediakan komputer anda
+
+SeedSigner untuk papan ini ialah versi awal oleh Keith (kdmukai). Anda
+flash dengan menaip arahan dalam **Terminal** menggunakan `esptool`, alat
+daripada pembuat cip. Setiap arahan di bawah ada butang **salin**: salin,
+tampal ke dalam Terminal, tekan **Enter**.
 
 <details>
 <summary><b>🍎 Saya guna Mac</b></summary>
@@ -45,19 +163,17 @@ alat itu di bawah.
    **Enter**.
 
 2. Pasang **Homebrew**, pemasang aplikasi Mac untuk Terminal. Langkau
-   langkah ini jika anda sudah memilikinya (`brew --version` memaparkan
-   satu versi).
+   jika anda sudah ada (`brew --version` memaparkan versi).
 
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 
-   🔒 Ia meminta kata laluan Mac anda. Tiada apa-apa yang dipaparkan
-   semasa anda menaip; itu perkara biasa, taip sahaja dan tekan **Enter**.
+   🔒 Ia meminta kata laluan Mac anda. Tiada apa-apa dipaparkan semasa
+   anda menaip; itu normal, taip sahaja dan tekan **Enter**.
 
    ⚠️ Apabila selesai, ia memaparkan **Next steps** dengan dua atau tiga
-   arahan. Salin dan jalankan arahan itu juga, jika tidak Mac tidak akan
-   menjumpai `brew`.
+   arahan. Salin dan jalankan juga, atau Mac tidak akan jumpa `brew`.
 
 3. Pasang esptool:
 
@@ -70,24 +186,18 @@ alat itu di bawah.
 <details>
 <summary><b>🐧 Saya guna Linux</b></summary>
 
-1. Buka **Terminal**: tekan **Ctrl + Alt + T**, atau cari **Terminal**
-   dalam aplikasi anda.
+1. Buka **Terminal**: tekan **Ctrl + Alt + T**.
 
-2. Benarkan pengguna anda berhubung dengan papan (diperlukan untuk
-   ketiga-tiga signer, termasuk Kern dalam pelayar):
+2. Benarkan pengguna anda bercakap dengan papan:
 
    ```bash
    sudo usermod -aG dialout $USER
    ```
 
-   🔒 Ia meminta kata laluan komputer anda. Tiada apa-apa yang dipaparkan
-   semasa anda menaip; itu perkara biasa, taip sahaja dan tekan **Enter**.
+   🔒 Ia meminta kata laluan komputer anda. Tiada apa-apa dipaparkan
+   semasa anda menaip; itu normal, taip sahaja dan tekan **Enter**.
 
-3. **Log keluar dari komputer anda dan log masuk semula**, supaya perubahan
-   itu berkuat kuasa.
-
-4. Untuk SeedSigner, pasang `esptool` dan `unzip`. Buka Terminal sekali
-   lagi dan jalankan:
+3. Pasang `esptool` dan `unzip`, satu baris pada satu masa:
 
    ```bash
    sudo apt update
@@ -105,190 +215,201 @@ alat itu di bawah.
    pipx ensurepath
    ```
 
-5. **Tutup Terminal dan buka yang baharu**, supaya ia menjumpai `esptool`.
+4. **Log keluar dari komputer anda dan log masuk semula**, kemudian buka
+   Terminal sekali lagi.
 
 </details>
 
-✅ Untuk SeedSigner, semak esptool berfungsi:
+✅ Semak esptool berfungsi:
 
 ```bash
 esptool version
 ```
 
-Ia mesti memaparkan **5.3 atau lebih baharu**.
+Ia mesti memaparkan **5.3 atau lebih baharu**. Versi lama tidak boleh
+flash cip yang lebih baharu: 🍎 `brew upgrade esptool`,
+🐧 `pipx upgrade esptool`.
 
-<a id="step-3"></a>
+Seterusnya: [SeedSigner 2: sambungkan papan dan semak cip anda](#ss-chip).
 
-## 🧬 Langkah 3: kenali cip anda
+<a id="ss-chip"></a>
 
-Papan 3.5 inci ini datang dengan salah satu daripada dua versi cip ESP32-P4:
-**v1.x** pada papan lama, atau **v3.x** pada papan baharu, jadi papan yang
-dibeli baru-baru ini mungkin mempunyai v3.x. Setiap signer memerlukan binaan
-yang dibuat untuk cip anda: binaan v1.x tidak akan berjalan pada cip v3.x,
-dan begitu juga sebaliknya.
+## 💻 SeedSigner 2: sambungkan papan dan semak cip anda
 
-| Signer | Cip v1.x | Cip v3.x |
-|---|---|---|
-| Kern | Pemasang web, atau keluaran rasmi | Pemasang web sahaja (versi ujian) |
-| KISS Signer | Halaman pemasangan (beta bertandatangan) | Pemasang ujian (versi ujian) |
-| SeedSigner | Binaan pembaikan sentuhan | Binaan ujian daripada builder |
+Papan ini datang dengan salah satu daripada dua versi cip, **v1.x** pada
+papan lama atau **v3.x** pada papan baharu, dan setiap satu perlukan
+binaan SeedSigner sendiri. Halaman ini memberitahu yang mana anda ada.
 
-🌐 **Kern** dan **KISS Signer:** tidak perlu menyemak, bahagian masing-masing
-di bawah menunjukkan caranya.
+1. Pasang kabel USB-C ke port pada papan yang bertanda **UART**, dan
+   hujung satu lagi ke komputer anda.
 
-💻 **SeedSigner:** semak sekarang dengan `esptool` ([Langkah 2](#step-2)),
-supaya anda memuat turun binaan yang betul:
-
-1. Beritahu Terminal di mana papan itu berada. Ini menyimpannya sebagai `$PORT`.
+2. Jalankan baris untuk komputer anda:
 
    🍎 Mac:
 
    ```bash
-   PORT=$(ls /dev/cu.usbmodem* | head -n 1)
+   esptool -p $(ls /dev/cu.usbmodem* | head -n 1) chip-id
    ```
 
    🐧 Linux:
 
    ```bash
-   PORT=$(ls /dev/ttyACM* | head -n 1)
+   esptool -p $(ls /dev/ttyACM* | head -n 1) chip-id
    ```
 
-2. Semak cip:
+3. Cari baris yang berbunyi `ESP32-P4 (revision ...)`:
 
-   ```bash
-   esptool -p $PORT chip-id
-   ```
+   - `revision v1.3` atau mana-mana **v1**: anda ada cip **v1.x**.
+   - `revision v3.0`, `v3.2` atau mana-mana **v3**: anda ada cip **v3.x**.
 
-   ✅ Ia memaparkan `ESP32-P4 (revision v1.3)` atau seumpamanya: itu cip
-   **v1.x**. `v3.0` atau lebih tinggi ialah cip **v3.x**.
+   Catatkan: halaman seterusnya memerlukannya.
 
-## Kern
+Seterusnya: [SeedSigner 3: muat turun binaan untuk cip anda](#ss-download).
 
-1. Buka [pemasang web Kern](https://odudex.github.io/Kern/flash/) dalam
-   **Chrome** atau **Brave** (Safari dan Firefox tidak boleh flash).
-2. Sambungkan papan dan flash **Latest CI Build**. Pemasang itu membaca
-   cip anda dan memilih binaan v1.x atau v3.x dengan sendirinya.
-3. ✅ Cabut, tunggu 3 saat, sambungkan semula.
+<a id="ss-download"></a>
 
-📦 [Keluaran rasmi Kern](https://github.com/odudex/Kern/releases) hanya
-menyokong cip **v1.x**.
+## 💻 SeedSigner 3: muat turun binaan untuk cip anda
 
-## KISS Signer
+Gunakan **hanya binaan untuk cip anda** daripada SeedSigner 2. Yang satu
+lagi tidak akan bermula.
 
-1. Buka [halaman pemasangan](https://diybitcoin.github.io/kiss-signer/) dalam
-   **Chrome** atau **Brave**, sambungkan papan dan flash.
-2. ✅ Cabut, tunggu 3 saat, sambungkan semula.
-3. Skrin kekal hitam? Papan anda mempunyai cip v3.x yang lebih baharu: flash
-   sekali lagi dari [pemasang ujian](https://diybitcoin.github.io/kiss-signer/test/)
-   sebagai ganti.
+<details open>
+<summary><b>1️⃣ Cip saya v1.x</b></summary>
 
-⚠️ Pemasang ujian mempunyai versi ujian yang tidak bertandatangan, belum
-dicuba pada papan v3.x yang sebenar.
+Klik untuk memuat turun
+[seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip](https://github.com/DIYbitcoin/guides/releases/download/seedsigner-p4-35-touchfix/seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip)
+ke folder **Downloads** anda.
 
-## SeedSigner
+Ia termasuk **pembetulan sentuhan** supaya leretan menatal menu dan bukan
+menekan butang. Pembetulan ini masih
+[pull request terbuka](https://github.com/kdmukai/esp-board-common/pull/21),
+belum menjadi sebahagian SeedSigner. Diuji pada papan v1.3.
 
-SeedSigner untuk papan ini ialah versi awal, yang anda flash dari Terminal
-dengan `esptool` ([Langkah 2](#step-2)).
-
-### 1️⃣ Muat turun binaan untuk cip anda
-
-Simpan dalam folder **Downloads** anda:
-
-- **v1.x**:
-  [seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip](https://github.com/DIYbitcoin/guides/releases/download/seedsigner-p4-35-touchfix/seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip)
-- **v3.x**: `flashable-dist-waveshare-esp32-p4-35` dari
-  [binaan Actions](https://github.com/kdmukai/seedsigner-micropython-builder/actions)
-  builder (perlu log masuk GitHub)
-
-<details>
-<summary><b>👆 Tentang binaan v1.x</b></summary>
-
-Ia mengandungi **pembaikan sentuhan** supaya leretan menatal menu dan
-bukannya menekan butang. Pembaikan ini masih dalam
-[pull request yang terbuka](https://github.com/kdmukai/esp-board-common/pull/21),
-belum lagi menjadi sebahagian daripada SeedSigner. Diuji pada papan v1.3.
-
-SHA256 fail zip itu:
+SHA256 zip:
 `d372f345a1895f2e90ed5d86cf473136bd69948ec2384de7c8dd9313eea169e5`
 
 </details>
 
-<a id="seedsigner-unzip"></a>
+<details open>
+<summary><b>3️⃣ Cip saya v3.x</b></summary>
 
-### 2️⃣ Nyahzip
+Binaan Keith datang dari GitHub, dan anda perlukan akaun GitHub percuma
+untuk memuat turunnya.
 
-Masuk ke Downloads:
+1. Log masuk di [github.com/login](https://github.com/login), atau buat
+   akaun di sana dahulu.
+2. Buka
+   [binaan terkini SeedSigner](https://github.com/kdmukai/seedsigner-micropython-builder/actions/workflows/build-firmware.yml?query=branch%3Amain+is%3Asuccess).
+3. Klik binaan **paling atas** dalam senarai, iaitu yang terbaharu.
+4. Tatal ke bawah ke **Artifacts** dan klik
+   **flashable-dist-waveshare-esp32-p4-35** untuk memuat turunnya ke
+   folder **Downloads** anda.
 
-```bash
-cd ~/Downloads
-```
+   ⚠️ Pastikan namanya berakhir dengan **35**. Yang `43` untuk papan 4.3
+   inci, dan fail di halaman Releases Keith juga untuk 4.3 inci. Kedua-duanya
+   tidak bermula pada papan ini.
 
-Kemudian jalankan dua baris untuk binaan **anda**.
+</details>
 
-**v1.x:**
+Seterusnya: [SeedSigner 4: nyahzip dan flash](#ss-flash).
 
-```bash
-unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
-```
+<a id="ss-flash"></a>
 
-```bash
-cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
-```
+## 💻 SeedSigner 4: nyahzip dan flash
 
-**v3.x:**
+1. Masuk ke Downloads:
 
-```bash
-unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-```
+   ```bash
+   cd ~/Downloads
+   ```
 
-```bash
-cd seedsigner-v3
-```
+2. Nyahzip dan masuk ke folder, dengan dua baris untuk cip **anda**:
 
-### 3️⃣ Flash
+   **v1.x:**
 
-💡 Jika anda telah membuka Terminal baharu sejak [Langkah 3](#step-3),
-jalankan baris `PORT=` dalam langkah itu sekali lagi dahulu.
+   ```bash
+   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   ```
 
-```bash
-esptool --chip esp32p4 -p $PORT write-flash @flash_args
-```
+   ```bash
+   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   ```
 
-✅ Apabila selesai, papan itu dimulakan semula dan membuka SeedSigner. 🎉
+   **v3.x:**
+
+   ```bash
+   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
+   ```
+
+   ```bash
+   cd seedsigner-v3
+   ```
+
+   💡 Pada Mac, Safari mungkin sudah menyahzipnya. Jika `unzip` kata ia
+   tidak jumpa fail itu, langkau baris itu dan jalankan baris `cd` sahaja.
+
+3. Flash, dengan baris untuk komputer anda:
+
+   🍎 Mac:
+
+   ```bash
+   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
+   ```
+
+   🐧 Linux:
+
+   ```bash
+   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   ```
+
+   Ia mengambil kira-kira 4 minit, jadi jangan cabut papan. Beberapa
+   amaran `Deprecated` pada permulaan tidak mengapa.
+
+   ✅ Apabila selesai, papan dimulakan semula ke dalam SeedSigner. 🎉
+
+4. Cuba dengan data ujian: buka [testqrs.com](https://testqrs.com) pada
+   komputer anda dan halakan kamera papan ke kod QR di situ. Perkataan
+   benihnya awam, jadi gunakan untuk latihan sahaja.
+
+Seterusnya: [🔋 pasang bateri](#battery), atau
+[🩺 penyelesaian masalah](#troubleshooting) jika ada yang tidak kena.
 
 <a id="battery"></a>
 
 ## 🔋 Pasang bateri
 
-Papan ini datang dengan bateri kecil dan pemutar skru kecil, jadi ia boleh
-berfungsi tanpa kabel.
+Papan ini datang dengan bateri kecil dan pemutar skru kecil, supaya ia
+boleh berjalan tanpa kabel.
 
-1. Di bahagian belakang bekas, tanggalkan empat penutup kecil dengan kuku
-   anda. Skru berada di bawahnya.
-2. Buka empat skru itu dengan pemutar skru dan angkat bahagian belakang
-   bekas.
-3. Sambungkan palam bateri ke soket bateri di bahagian bawah kanan papan.
-   Ia hanya muat dalam satu arah, jadi jika tidak masuk, terbalikkan palam
-   itu. Jangan paksa.
+1. Di belakang sarung, tanggalkan empat penutup kecil dengan kuku anda.
+   Skru ada di bawahnya.
+2. Buka empat skru dengan pemutar skru dan angkat bahagian belakang
+   sarung.
+3. Pasang palam bateri ke soket bateri di bahagian bawah kanan papan. Ia
+   hanya muat satu arah, jadi jika tidak masuk, terbalikkan. Jangan paksa.
 4. ✅ Lampu hijau sepatutnya menyala di sebelah butang kuasa.
-5. Pasang semula bahagian belakang bekas dan skru hingga tertutup. Bekas
-   itu tertutup seperti biasa dengan bateri di dalamnya.
+5. Letak semula bahagian belakang sarung dan skru rapat. Sarung tertutup
+   seperti biasa dengan bateri di dalam.
 
-![Papan Waveshare 3.5 inci dengan bekas terbuka dan bateri disambungkan](images/battery.jpg)
+![Papan Waveshare 3.5 inci dengan sarung terbuka dan bateri dipasang](images/battery.jpg)
+
+<a id="troubleshooting"></a>
 
 ## 🩺 Penyelesaian masalah
 
 | Anda nampak | Apa yang perlu dibuat |
 |---|---|
-| Pemasang web tidak menunjukkan papan untuk dipilih | Gunakan **Chrome** atau **Brave**, port **UART** dan kabel data. 🐧 Lakukan [Langkah 2](#step-2) pada Linux. |
-| `port is busy` atau `could not open port` | Tutup tab pemasang web dan mana-mana Terminal lain yang menggunakan papan, kemudian cuba lagi. |
-| Komputer tidak nampak papan, atau 🍎 `no matches found: /dev/cu.usbmodem*` / 🐧 `No such file or directory` selepas baris `PORT=` | Gunakan port **UART** dan kabel yang anda tahu boleh membawa data. |
-| 🐧 `Permission denied`, atau pelayar tidak boleh membuka papan | Lakukan [Langkah 2](#step-2) pada Linux, termasuk log keluar dan log masuk semula. |
-| 🍎 `brew: command not found` | Jalankan arahan **Next steps** yang dipaparkan oleh Homebrew selepas ia selesai dipasang. |
-| 🐧 `esptool: command not found` | Tutup Terminal dan buka yang baharu. |
-| `flash_args` tidak dijumpai | Anda tidak berada dalam folder yang telah dinyahzip: ulang [langkah 2 SeedSigner](#seedsigner-unzip). |
-| Tiada apa-apa pada skrin selepas flash | Cabut, tunggu 3 saat, sambungkan semula. Semak binaan itu sepadan dengan cip anda. |
-| `esptool` tidak boleh flash cip | Ia mesti versi 5.3 atau lebih baharu: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
+| Tetingkap pelayar tidak menyenaraikan papan untuk dipilih | Gunakan **Chrome** atau **Brave**, port **UART** dan kabel data. 🐧 Buat langkah Linux di halaman [Kern](#linux-kern) atau [KISS Signer](#linux-kiss). |
+| `port is busy` atau `could not open port` | Tutup tab pemancar web dan Terminal lain yang menggunakan papan, kemudian cuba lagi. |
+| 🍎 `no matches found: /dev/cu.usbmodem*` atau 🐧 `No such file or directory` | Komputer tidak nampak papan: gunakan port **UART** dan kabel yang anda tahu membawa data. |
+| 🐧 `Permission denied`, atau pelayar tidak boleh membuka papan | Buat langkah Linux, termasuk log keluar dan log masuk semula. |
+| `Failed to connect` | Tutup apa-apa yang menggunakan papan, cabut, pasang semula dan cuba lagi. |
+| 🍎 `brew: command not found` | Jalankan arahan **Next steps** yang Homebrew paparkan apabila selesai dipasang. |
+| 🐧 `esptool: command not found` | Log keluar dan log masuk semula, kemudian buka Terminal baharu. |
+| `requires chip revision in range` | Binaan tidak sepadan dengan cip anda: ulang [SeedSigner 2](#ss-chip) dan muat turun binaan yang satu lagi. |
+| `flash_args` tidak dijumpai | Anda tiada dalam folder yang dinyahzip: ulang langkah 2 [SeedSigner 4](#ss-flash). |
+| Tiada apa-apa pada skrin selepas flash | Cabut, tunggu 3 saat, pasang semula. Semak binaan sepadan dengan cip anda. |
+| `esptool` tidak boleh flash cip | Ia mesti 5.3 atau lebih baharu: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
 
 ## 🙏 Penghargaan
 

@@ -6,12 +6,6 @@ installs ("flashes") an open source signer onto the
 [Waveshare ESP32-P4-WIFI6-Touch-LCD-3.5](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-3.5.htm),
 a 3.5 inch touchscreen board with a camera and a microSD slot. No soldering.
 
-| Signer | How you flash it | Status |
-|---|---|---|
-| [Kern](https://github.com/odudex/Kern) | In your web browser | Test versions |
-| [KISS Signer](https://github.com/DIYbitcoin/kiss-signer) | In your web browser | Beta |
-| [SeedSigner](https://github.com/kdmukai/seedsigner-micropython-builder) | In the Terminal | Test versions |
-
 📷 **How you use it:** the signer never connects to the internet. You
 pair it with a wallet app like Sparrow by scanning QR codes with its
 camera, and sign transactions the same way.
@@ -20,23 +14,146 @@ camera, and sign transactions the same way.
 and testnet (practice bitcoin with no value) or tiny amounts only, never
 your real savings.**
 
-## 🔌 Step 1: plug in the board
+### 🧰 What you need
 
-Plug a USB-C cable into the port marked **UART**.
+- 📟 The Waveshare 3.5 inch board
+- 🔌 A USB-C cable that carries data. A charge only cable powers the
+  board, but the computer sees nothing at all.
+- 💻 A computer: a Mac or Linux for SeedSigner; any computer with
+  **Chrome** or **Brave** for Kern and KISS Signer
 
-💡 Use a cable you know carries data. A charge only cable powers the
-board, but the computer sees nothing at all.
+### 👉 Pick your signer
 
-<a id="step-2"></a>
+Each one is a complete path, from plugging in to the signer's first
+screen. Follow only the one you pick.
 
-## 💻 Step 2: get your computer ready
+- 🌐 **[Kern](#kern):** the easiest. Flash it in Chrome or Brave in a few
+  clicks.
+- 🌐 **[KISS Signer](#kiss):** also flashed in Chrome or Brave.
+- 💻 **[SeedSigner](#seedsigner):** flashed by typing a few commands in
+  the Terminal. Four short pages.
 
-🌐 **Kern** and **KISS Signer** flash from a web flasher in **Chrome** or
-**Brave**, so that browser is all you need for them (on Linux, also do
-step 2 in the Linux box below).
+<a id="kern"></a>
 
-💻 **SeedSigner** flashes from the Terminal with `esptool`: install it
-below.
+## 🌐 Kern
+
+You need **Chrome** or **Brave**. Safari and Firefox can't flash.
+
+1. Plug the USB-C cable into the port on the board marked **UART**, and
+   the other end into your computer.
+
+   🐧 **On Linux**, do the [Linux step](#linux-kern) below first.
+
+2. Open the [Kern web flasher](https://odudex.github.io/Kern/flash/).
+3. Leave **📦 Latest CI Build** selected.
+4. Under **Board**, pick **Waveshare ESP32-P4 3.5" (320×480 SPI)**. The
+   list starts on a different board, so check this one.
+5. Click **🔌 Connect**. A small window opens: pick your board in it
+   (🍎 its name has `usbmodem` in it, 🐧 `ttyACM`), then click
+   **Connect**.
+
+   ✅ The black box under the buttons prints `Connected to: ESP32-P4`.
+   The flasher reads your chip and picks the v1.x or v3.x build itself.
+
+6. Click **⚡ Flash** and wait, without unplugging.
+
+   ✅ It prints `Device reset. Flash successful! ✓`.
+
+7. Unplug the board, wait 3 seconds, plug it back in.
+
+   ✅ Kern starts on the board. 🎉
+
+<details id="linux-kern">
+<summary><b>🐧 Linux step: let the browser talk to the board</b></summary>
+
+1. Open the **Terminal**: press **Ctrl + Alt + T**.
+2. Run:
+
+   ```bash
+   sudo usermod -aG dialout $USER
+   ```
+
+   🔒 It asks for your computer's password. Nothing shows while you type;
+   that's normal, just type it and press **Enter**.
+
+3. **Log out of your computer and log back in**, then go back to step 2
+   above.
+
+</details>
+
+📦 The official [Kern releases](https://github.com/odudex/Kern/releases)
+only cover **v1.x** chips, so use the web flasher.
+
+Next: [🔋 install the battery](#battery), or
+[🩺 troubleshooting](#troubleshooting) if something went wrong.
+
+<a id="kiss"></a>
+
+## 🌐 KISS Signer
+
+You need **Chrome** or **Brave**. Safari and Firefox can't flash.
+
+1. Plug the USB-C cable into the port on the board marked **UART**, and
+   the other end into your computer.
+
+   🐧 **On Linux**, do the [Linux step](#linux-kiss) below first.
+
+2. Open the [KISS Signer install page](https://diybitcoin.github.io/kiss-signer/).
+3. Under **Which board is it?**, pick **Waveshare 3.5in**.
+4. Tick the box **This erases the device. I'm starting with keys that
+   hold nothing.**
+5. Click **Connect and install**. A small window opens: pick your board in
+   it (🍎 its name has `usbmodem` in it, 🐧 `ttyACM`), then click
+   **Connect**.
+6. In the next window, click **Install KISS Signer (Waveshare 3.5in)**.
+   Tick **Erase device**, click **Next**, then click **Install**. Wait,
+   without unplugging.
+
+   ✅ It says **Installation complete!**
+
+7. Unplug the board, wait 3 seconds, plug it back in.
+
+   ✅ The board starts on **FRUIT ISLAND**, the game KISS Signer shows
+   first. 🎉
+
+8. Screen stays black? Your board has the newer **v3.x** chip, and this
+   release is for v1.x. Flash it again from the
+   [test installer](https://diybitcoin.github.io/kiss-signer/test/): pick
+   your board under **1. Your board**, then click **Connect and install**.
+   It reads your chip and picks the build that fits.
+
+   ⚠️ The test installer has unsigned test versions, not yet tried on a
+   real v3.x board.
+
+<details id="linux-kiss">
+<summary><b>🐧 Linux step: let the browser talk to the board</b></summary>
+
+1. Open the **Terminal**: press **Ctrl + Alt + T**.
+2. Run:
+
+   ```bash
+   sudo usermod -aG dialout $USER
+   ```
+
+   🔒 It asks for your computer's password. Nothing shows while you type;
+   that's normal, just type it and press **Enter**.
+
+3. **Log out of your computer and log back in**, then go back to step 2
+   above.
+
+</details>
+
+Next: [🔋 install the battery](#battery), or
+[🩺 troubleshooting](#troubleshooting) if something went wrong.
+
+<a id="seedsigner"></a>
+
+## 💻 SeedSigner 1: get your computer ready
+
+SeedSigner for this board is an early version by Keith (kdmukai). You
+flash it by typing commands in the **Terminal** with `esptool`, a tool
+from the chip's maker. Each command below has a **copy** button: copy it,
+paste it into the Terminal, press **Enter**.
 
 <details>
 <summary><b>🍎 I'm on a Mac</b></summary>
@@ -68,11 +185,9 @@ below.
 <details>
 <summary><b>🐧 I'm on Linux</b></summary>
 
-1. Open the **Terminal**: press **Ctrl + Alt + T**, or find **Terminal**
-   in your apps.
+1. Open the **Terminal**: press **Ctrl + Alt + T**.
 
-2. Let your user talk to the board (needed for all three signers,
-   including Kern in the browser):
+2. Let your user talk to the board:
 
    ```bash
    sudo usermod -aG dialout $USER
@@ -81,10 +196,7 @@ below.
    🔒 It asks for your computer's password. Nothing shows while you type;
    that's normal, just type it and press **Enter**.
 
-3. **Log out of your computer and log back in**, so the change applies.
-
-4. For SeedSigner, install `esptool` and `unzip`. Open the Terminal again
-   and run:
+3. Install `esptool` and `unzip`, one line at a time:
 
    ```bash
    sudo apt update
@@ -102,102 +214,69 @@ below.
    pipx ensurepath
    ```
 
-5. **Close the Terminal and open a new one**, so it finds `esptool`.
+4. **Log out of your computer and log back in**, then open the Terminal
+   again.
 
 </details>
 
-✅ For SeedSigner, check esptool works:
+✅ Check esptool works:
 
 ```bash
 esptool version
 ```
 
-It must print **5.3 or newer**.
+It must print **5.3 or newer**. An older one can't flash the newer chips:
+🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`.
 
-<a id="step-3"></a>
+Next: [SeedSigner 2: plug in and check your chip](#ss-chip).
 
-## 🧬 Step 3: know your chip
+<a id="ss-chip"></a>
 
-The 3.5 inch board ships with one of two versions of the ESP32-P4 chip:
-**v1.x** on older boards, or **v3.x** on newer ones, so a board bought
-recently likely has v3.x. Each signer needs the build made for your chip:
-a v1.x build does not start on a v3.x chip, and the other way round.
+## 💻 SeedSigner 2: plug in and check your chip
 
-| Signer | v1.x chip | v3.x chip |
-|---|---|---|
-| Kern | Web flasher, or the official release | Web flasher only (test version) |
-| KISS Signer | Install page (signed beta) | Test installer (test version) |
-| SeedSigner | Touch fix build | Builder's test build |
+The board ships with one of two versions of its chip, **v1.x** on older
+boards or **v3.x** on newer ones, and each needs its own SeedSigner
+build. This page tells you which one you have.
 
-🌐 **Kern** and **KISS Signer:** no need to check, their sections below
-show you how.
+1. Plug the USB-C cable into the port on the board marked **UART**, and
+   the other end into your computer.
 
-💻 **SeedSigner:** check it now with `esptool` ([Step 2](#step-2)), so you
-download the right build:
-
-1. Tell the Terminal where the board is. This saves it as `$PORT`.
+2. Run the line for your computer:
 
    🍎 Mac:
 
    ```bash
-   PORT=$(ls /dev/cu.usbmodem* | head -n 1)
+   esptool -p $(ls /dev/cu.usbmodem* | head -n 1) chip-id
    ```
 
    🐧 Linux:
 
    ```bash
-   PORT=$(ls /dev/ttyACM* | head -n 1)
+   esptool -p $(ls /dev/ttyACM* | head -n 1) chip-id
    ```
 
-2. Check the chip:
+3. Find the line that says `ESP32-P4 (revision ...)`:
 
-   ```bash
-   esptool -p $PORT chip-id
-   ```
+   - `revision v1.3` or any **v1**: you have a **v1.x** chip.
+   - `revision v3.0`, `v3.2` or any **v3**: you have a **v3.x** chip.
 
-   ✅ It prints `ESP32-P4 (revision v1.3)` or similar: that's a **v1.x**
-   chip. `v3.0` or higher is a **v3.x** chip.
+   Write it down: the next page asks for it.
 
-## Kern
+Next: [SeedSigner 3: download the build for your chip](#ss-download).
 
-1. Open the [Kern web flasher](https://odudex.github.io/Kern/flash/) in
-   **Chrome** or **Brave** (Safari and Firefox can't flash).
-2. Connect the board and flash **Latest CI Build**. The flasher reads
-   your chip and picks the v1.x or v3.x build itself.
-3. ✅ Unplug, wait 3 seconds, plug back in.
+<a id="ss-download"></a>
 
-📦 The official [Kern releases](https://github.com/odudex/Kern/releases)
-only cover **v1.x** chips.
+## 💻 SeedSigner 3: download the build for your chip
 
-## KISS Signer
+Use **only the build for your chip** from SeedSigner 2. The other one
+won't start.
 
-1. Open the [install page](https://diybitcoin.github.io/kiss-signer/) in
-   **Chrome** or **Brave**, connect the board and flash.
-2. ✅ Unplug, wait 3 seconds, plug back in.
-3. Screen stays black? Your board has the newer v3.x chip: flash it again
-   from the [test installer](https://diybitcoin.github.io/kiss-signer/test/)
-   instead.
+<details open>
+<summary><b>1️⃣ My chip is v1.x</b></summary>
 
-⚠️ The test installer has unsigned test versions, not yet tried on a real
-v3.x board.
-
-## SeedSigner
-
-SeedSigner for this board is an early version, flashed from the Terminal
-with `esptool` ([Step 2](#step-2)).
-
-### 1️⃣ Download the build for your chip
-
-Save it into your **Downloads** folder:
-
-- **v1.x**:
-  [seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip](https://github.com/DIYbitcoin/guides/releases/download/seedsigner-p4-35-touchfix/seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip)
-- **v3.x**: `flashable-dist-waveshare-esp32-p4-35` from the builder's
-  [Actions builds](https://github.com/kdmukai/seedsigner-micropython-builder/actions)
-  (needs a GitHub login)
-
-<details>
-<summary><b>👆 About the v1.x build</b></summary>
+Click to download
+[seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip](https://github.com/DIYbitcoin/guides/releases/download/seedsigner-p4-35-touchfix/seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip)
+into your **Downloads** folder.
 
 It includes a **touch fix** so swipes scroll through menus instead of
 pressing a button. The fix is still an
@@ -209,48 +288,90 @@ SHA256 of the zip:
 
 </details>
 
-<a id="seedsigner-unzip"></a>
+<details open>
+<summary><b>3️⃣ My chip is v3.x</b></summary>
 
-### 2️⃣ Unzip it
+Keith's builds come from GitHub, and you need a free GitHub account to
+download them.
 
-Move into Downloads:
+1. Sign in at [github.com/login](https://github.com/login), or make an
+   account there first.
+2. Open
+   [SeedSigner's latest builds](https://github.com/kdmukai/seedsigner-micropython-builder/actions/workflows/build-firmware.yml?query=branch%3Amain+is%3Asuccess).
+3. Click the **top** build in the list, which is the newest.
+4. Scroll down to **Artifacts** and click
+   **flashable-dist-waveshare-esp32-p4-35** to download it into your
+   **Downloads** folder.
 
-```bash
-cd ~/Downloads
-```
+   ⚠️ Make sure the name ends in **35**. The `43` ones are for the 4.3
+   inch board, and the file on Keith's Releases page is the 4.3 inch one
+   too. Neither starts on this board.
 
-Then run the two lines for **your** build.
+</details>
 
-**v1.x:**
+Next: [SeedSigner 4: unzip and flash](#ss-flash).
 
-```bash
-unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
-```
+<a id="ss-flash"></a>
 
-```bash
-cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
-```
+## 💻 SeedSigner 4: unzip and flash
 
-**v3.x:**
+1. Move into Downloads:
 
-```bash
-unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
-```
+   ```bash
+   cd ~/Downloads
+   ```
 
-```bash
-cd seedsigner-v3
-```
+2. Unzip it and move into the folder, with the two lines for **your**
+   chip:
 
-### 3️⃣ Flash
+   **v1.x:**
 
-💡 If you opened a new Terminal since [Step 3](#step-3), run its `PORT=`
-line again first.
+   ```bash
+   unzip seedsigner-waveshare-p4-35-pre-rev3-touchfix.zip
+   ```
 
-```bash
-esptool --chip esp32p4 -p $PORT write-flash @flash_args
-```
+   ```bash
+   cd seedsigner-waveshare-p4-35-pre-rev3-touchfix
+   ```
 
-✅ When it finishes, the board restarts into SeedSigner. 🎉
+   **v3.x:**
+
+   ```bash
+   unzip flashable-dist-waveshare-esp32-p4-35.zip -d seedsigner-v3
+   ```
+
+   ```bash
+   cd seedsigner-v3
+   ```
+
+   💡 On a Mac, Safari may have unzipped it already. If `unzip` says it
+   can't find the file, skip that line and run just the `cd` line.
+
+3. Flash, with the line for your computer:
+
+   🍎 Mac:
+
+   ```bash
+   esptool --chip esp32p4 -p $(ls /dev/cu.usbmodem* | head -n 1) write-flash @flash_args
+   ```
+
+   🐧 Linux:
+
+   ```bash
+   esptool --chip esp32p4 -p $(ls /dev/ttyACM* | head -n 1) write-flash @flash_args
+   ```
+
+   It takes about 4 minutes, so don't unplug the board. A few
+   `Deprecated` warnings at the start are harmless.
+
+   ✅ When it finishes, the board restarts into SeedSigner. 🎉
+
+4. Try it with test data: open [testqrs.com](https://testqrs.com) on
+   your computer and point the board's camera at its QR codes. Its seed
+   words are public, so use them only for practice.
+
+Next: [🔋 install the battery](#battery), or
+[🩺 troubleshooting](#troubleshooting) if something went wrong.
 
 <a id="battery"></a>
 
@@ -272,17 +393,21 @@ run without a cable.
 
 ![Waveshare 3.5 inch board with the case open and the battery plugged in](images/battery.jpg)
 
+<a id="troubleshooting"></a>
+
 ## 🩺 Troubleshooting
 
 | You see | What to do |
 |---|---|
-| The browser flasher shows no board to pick | Use **Chrome** or **Brave**, the **UART** port and a data cable. 🐧 Do [Step 2](#step-2) on Linux. |
+| The browser window lists no board to pick | Use **Chrome** or **Brave**, the **UART** port and a data cable. 🐧 Do the Linux step on the [Kern](#linux-kern) or [KISS Signer](#linux-kiss) page. |
 | `port is busy` or `could not open port` | Close the browser flasher tab and any other Terminal using the board, then try again. |
-| The computer doesn't see the board, or 🍎 `no matches found: /dev/cu.usbmodem*` / 🐧 `No such file or directory` after the `PORT=` line | Use the **UART** port and a cable you know carries data. |
-| 🐧 `Permission denied`, or the browser can't open the board | Do [Step 2](#step-2) on Linux, including logging out and back in. |
+| 🍎 `no matches found: /dev/cu.usbmodem*` or 🐧 `No such file or directory` | The computer doesn't see the board: use the **UART** port and a cable you know carries data. |
+| 🐧 `Permission denied`, or the browser can't open the board | Do the Linux step, including logging out and back in. |
+| `Failed to connect` | Close anything else using the board, unplug it, plug it back in and try again. |
 | 🍎 `brew: command not found` | Run the **Next steps** commands Homebrew printed when it finished installing. |
-| 🐧 `esptool: command not found` | Close the Terminal and open a new one. |
-| `flash_args` not found | You're not in the unzipped folder: redo [SeedSigner step 2](#seedsigner-unzip). |
+| 🐧 `esptool: command not found` | Log out and back in, then open a new Terminal. |
+| `requires chip revision in range` | The build doesn't match your chip: redo [SeedSigner 2](#ss-chip) and download the other build. |
+| `flash_args` not found | You're not in the unzipped folder: redo step 2 of [SeedSigner 4](#ss-flash). |
 | Nothing on screen after flashing | Unplug, wait 3 seconds, plug back in. Check the build matches your chip. |
 | `esptool` can't flash the chip | It must be 5.3 or newer: 🍎 `brew upgrade esptool`, 🐧 `pipx upgrade esptool`. |
 
