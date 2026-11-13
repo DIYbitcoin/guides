@@ -14,7 +14,7 @@ lives and where to ask questions about it.
 | Specter-DIY | STM32F469 discovery board | STM32 | In development |
 | Satochip-DIY | J3H145 or J3R180 javacard | Smartcard | |
 | Kern | Waveshare ESP32-P4 touch boards, Elecrow CrowPanel | ESP32-P4 | Runs today |
-| KISS Signer | Guition 4.3 inch, Waveshare 3.5 inch | ESP32-P4 | Runs today |
+| KISS Signer | Guition 4.3 inch, Waveshare 3.5 inch, Guition 7 inch | ESP32-P4 | Runs today |
 
 ## 💬 Code and help chats
 
