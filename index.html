@@ -70,6 +70,14 @@ summary{cursor:pointer;padding:6px 0}
 .lang-menu li[aria-selected="true"]::after{content:'<';margin-left:auto}
 .lang .fi{border:1px solid #1f3a26}
 @media (prefers-reduced-motion:reduce){.lang-menu{transition:none}}
+.navdrop{position:relative;margin:0;padding:0}
+.navdrop>summary{list-style:none;padding:0;color:#7dff9b}
+.navdrop>summary::-webkit-details-marker{display:none}
+.navdrop>summary.on{background:#7dff9b;color:#0a0f0a;padding:0 6px}
+.navdrop-menu{position:absolute;left:0;top:calc(100% + 6px);min-width:180px;padding:6px 0;background:#0d140d;border:1px solid #2e5a38;z-index:10}
+.navdrop-menu a{display:block;padding:6px 14px}
+.navdrop-menu a:hover,.navdrop-menu a:focus{background:#132013;outline:none}
+.t nav .navdrop-menu a.on{padding:6px 14px}
 
 main.docs{max-width:1480px;padding-top:40px}
 .docs{--ink:#e6fff0;--muted:#b9e5c3;--dim:#6f9a7a;--line:#1f3a26;--control:#2e5a38;--key:#0f1a10;--accent:#7dff9b;--accent-bg:#132013}
@@ -149,9 +157,20 @@ const href = p => p === 'home' ? './' : `?page=${p}`;
 const out = document.getElementById('out');
 const nav = document.getElementById('nav');
 const flagOf = l => LANGS.find(x => x[0] === l)[1];
+/* A guide listed in UNDER shows in a drop-down under another guide's
+   menu entry instead of getting its own, so related guides sit together. */
+const UNDER = {'signers-list': 'signers'};
+const link = (p, l) => `<a class="${p === page ? 'on' : ''}" href="${href(p)}">${l}</a>`;
+function navItem(p, l) {
+  const kids = Object.keys(UNDER).filter(k => UNDER[k] === p);
+  if (!kids.length) return link(p, l);
+  const on = [p].concat(kids).includes(page) ? 'on' : '';
+  return `<details class="navdrop"><summary class="${on}">${l} ▾</summary><div class="navdrop-menu">` +
+    [p].concat(kids).map(k => link(k, k)).join('') + `</div></details>`;
+}
 function drawNav() {
   nav.innerHTML = `<span class="prompt">diybitcoin@guides:~$</span>` +
-    [['home','home']].concat(T.en.guides.map(g => [g[0], g[0]])).map(([p, l]) => `<a class="${p === page ? 'on' : ''}" href="${href(p)}">${l}</a>`).join('') +
+    [['home','home']].concat(T.en.guides.map(g => [g[0], g[0]])).filter(([p]) => !UNDER[p]).map(([p, l]) => navItem(p, l)).join('') +
     `<div class="lang"><button class="lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language"></button>` +
     `<ul class="lang-menu" role="listbox">` + LANGS.map(([c, f, n]) => `<li role="option" tabindex="-1" data-lang="${c}"><span class="fi fi-${f}"></span>${n}</li>`).join('') + `</ul></div>`;
   const box = nav.querySelector('.lang'), btn = box.querySelector('.lang-btn'), items = [...box.querySelectorAll('li')];
@@ -167,6 +186,7 @@ function drawNav() {
     };
   });
   document.addEventListener('click', () => open(false));
+  document.addEventListener('click', e => nav.querySelectorAll('.navdrop[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
   showLang();
 }
 function showLang() {
