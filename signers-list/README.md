@@ -1,7 +1,8 @@
 # 🗂️ All DIY signers
 
-Every open source DIY signer, the boards it runs on, where its code
-lives and where to ask questions about it.
+Every open source DIY signer: the boards it runs on, where its code
+lives, where to ask questions, how to try it first and where to buy
+its boards.
 
 ## 📟 Every signer and its boards
 

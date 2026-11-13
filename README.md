@@ -9,8 +9,8 @@ Step by step guides to do bitcoin yourself.
   Keycard on a J3H145 card
 - 📟 [DIY signers](signers/): SeedSigner, Kern or KISS Signer on the
   Waveshare 3.5 inch touchscreen board
-- 🗂️ [All DIY signers](signers-list/): every signer, its boards, its code
-  and its Telegram chat
+- 🗂️ [All DIY signers](signers-list/): every signer with its boards,
+  code, Telegram chat, simulator and where to buy
 
 Website icon: 🦾 from [Twemoji](https://github.com/jdecked/twemoji),
 licensed [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
