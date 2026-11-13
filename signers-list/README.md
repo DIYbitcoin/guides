@@ -31,3 +31,19 @@ takes questions about any of these signers.
 | Satochip-DIY | [3rdIteration/Satochip-DIY](https://github.com/3rdIteration/Satochip-DIY) | [DIYbitcoin chat](https://t.me/DIYbitcoin) |
 | Kern | [odudex/Kern](https://github.com/odudex/Kern) | [t.me/kern_custody](https://t.me/kern_custody) |
 | KISS Signer | [DIYbitcoin/kiss-signer](https://github.com/DIYbitcoin/kiss-signer) | [t.me/KISS_signer](https://t.me/KISS_signer) |
+
+## 🛒 Where to buy
+
+Where each project says to buy its boards. KISS Signer's README names
+its boards without a store, so its row lists where they are sold.
+
+| Signer | Where to buy |
+|---|---|
+| Krux | [Krux parts list](https://selfcustody.github.io/krux/parts/) |
+| Jade | [Jade DIY hardware guide](https://github.com/Blockstream/Jade/tree/master/diy) |
+| SeedSigner | Raspberry Pi Zero: [SeedSigner shopping list](https://github.com/SeedSigner/seedsigner#shopping-list). ESP32-P4: [board list with store links](https://github.com/kdmukai/seedsigner-micropython-builder#readme) |
+| ShieldSigner | [ShieldSigner shopping list](https://github.com/3rdIteration/seedsigner/blob/dev/docs/shopping_list.md) |
+| Specter-DIY | STM32F469 discovery board: [Specter-DIY shopping guide](https://github.com/cryptoadvance/specter-diy/blob/master/docs/shopping.md). ESP32-P4: TBA |
+| Satochip-DIY | [Satochip-DIY where to buy](https://github.com/3rdIteration/Satochip-DIY#where-to-buy) |
+| Kern | [Kern hardware list](https://github.com/odudex/Kern#hardware), with a store link for each board |
+| KISS Signer | Waveshare 3.5 inch: [Waveshare's store](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-3.5.htm) or a [Waveshare distributor](https://www.waveshare.com/distributors) in your country. Guition 4.3 inch and 7 inch: search AliExpress for [JC4880P443C](https://www.aliexpress.com/w/wholesale-JC4880P443C.html) or [JC1060P470C](https://www.aliexpress.com/w/wholesale-JC1060P470C.html), or Amazon in your country for the same model numbers |
