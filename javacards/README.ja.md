@@ -15,7 +15,7 @@ javacard には **セキュアエレメント** があります。カードが�
 
 ## 🧰 必要なもの
 
-- 💳 **J3H145** の javacard。買う場合は、このガイドで使ったものがこちらです：[Alibaba の J3H145](https://www.alibaba.com/x/B2cDpJ?ck=pdp)
+- 💳 **J3H145** の javacard。買う場合は、このガイドで使ったものがこちらです：[Alibaba の J3H145](https://www.alibaba.com/x/B2cDpJ?ck=pdp) **J3R180** も使えますが、このガイドではまだ試していません。
 - 🔌 **USB スマートカードリーダー**：パソコンにつないで、カードをチップ側から差し込む小さな箱です。カードをかざして使う NFC リーダーの **ACS ACR122U** は使わないでください。[Satochip-DIY のガイド](https://github.com/3rdIteration/Satochip-DIY#smartcard-readers)では、アプレットをインストールするときは動作が不安定で、カードを壊すおそれがあると注意しています。アプレットをインストールした後にカードを使うだけなら問題ありません。
 - 🛡️ [ShieldSigner](https://github.com/3rdIteration/seedsigner) を持っていますか？パソコンとリーダーの代わりに、ShieldSigner でもこれらのアプレットをカードにインストールできます。
 - 💻 **Mac**、**Linux**（Debian、Ubuntu、Raspberry Pi OS）または **Windows** のパソコン

@@ -22,6 +22,7 @@ The applets come from [Satochip](https://satochip.io) and
 
 - 💳 A **J3H145** javacard. If you want to buy some, these are the ones
   used for this guide: [J3H145 on Alibaba](https://www.alibaba.com/x/B2cDpJ?ck=pdp)
+  A **J3R180** also works, but this guide has not been tested on one yet.
 - 🔌 A **USB smartcard reader**: a small box you plug into your computer
   and slide the card into, chip first. Don't use the **ACS ACR122U**, an
   NFC reader you tap the card on: the

@@ -17,7 +17,7 @@ javacard 里有一个**安全芯片**：这是一种专门用来保护机密信�
 
 ## 🧰 需要准备的东西
 
-- 💳 一张 **J3H145** javacard。如果想买，本指南用的就是这款：[阿里巴巴上的 J3H145](https://www.alibaba.com/x/B2cDpJ?ck=pdp)
+- 💳 一张 **J3H145** javacard。如果想买，本指南用的就是这款：[阿里巴巴上的 J3H145](https://www.alibaba.com/x/B2cDpJ?ck=pdp) **J3R180** 也可以用，但本指南还没有在它上面测试过。
 - 🔌 一个 **USB 智能卡读卡器**：插在电脑上的小盒子，卡要芯片朝前插进去。不要用
   **ACS ACR122U**，它是一种把卡贴上去读取的 NFC
   读卡器：[Satochip-DIY 指南](https://github.com/3rdIteration/Satochip-DIY#smartcard-readers)提醒，用它安装

@@ -23,6 +23,7 @@ Applet'ler [Satochip](https://satochip.io) ve
 
 - 💳 Bir **J3H145** javacard. Satın almak istersen, bu rehberde kullanılanlar
   şunlar: [Alibaba'da J3H145](https://www.alibaba.com/x/B2cDpJ?ck=pdp)
+  Bir **J3R180** de çalışır, ancak bu rehber henüz onunla denenmedi.
 - 🔌 Bir **USB akıllı kart okuyucu**: bilgisayarına taktığın ve kartı çip
   önde olacak şekilde içine sürdüğün küçük bir kutu. Kartı üzerine
   dokundurduğun bir NFC okuyucu olan **ACS ACR122U**'yu kullanma:

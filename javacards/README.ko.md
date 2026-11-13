@@ -22,6 +22,7 @@
 
 - 💳 **J3H145** 자바카드. 사고 싶다면 이 가이드에서 쓴 카드는 이거예요:
   [Alibaba의 J3H145](https://www.alibaba.com/x/B2cDpJ?ck=pdp)
+  **J3R180** 자바카드도 쓸 수 있지만, 이 가이드로는 아직 테스트하지 않았어요.
 - 🔌 **USB 스마트카드 리더기**: 컴퓨터에 꽂고 카드를 칩 쪽부터 밀어 넣는
   작은 상자예요. 카드를 갖다 대는 NFC 리더기인 **ACS ACR122U**는 쓰지
   마세요: [Satochip-DIY 가이드](https://github.com/3rdIteration/Satochip-DIY#smartcard-readers)에서

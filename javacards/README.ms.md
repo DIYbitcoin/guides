@@ -25,6 +25,7 @@ Applet ini datang daripada [Satochip](https://satochip.io) dan
 
 - 💳 Javacard **J3H145**. Jika anda mahu membelinya, inilah kad yang
   digunakan untuk panduan ini: [J3H145 di Alibaba](https://www.alibaba.com/x/B2cDpJ?ck=pdp)
+  Javacard **J3R180** juga boleh digunakan, tetapi panduan ini belum diuji padanya.
 - 🔌 **Pembaca kad pintar USB**: kotak kecil yang anda sambungkan ke
   komputer, lalu masukkan kad ke dalamnya, bahagian cip dahulu. Jangan
   guna **ACS ACR122U**, pembaca NFC yang anda sentuhkan kad padanya:
