@@ -32,6 +32,23 @@ takes questions about any of these signers.
 | Kern | [odudex/Kern](https://github.com/odudex/Kern) | [t.me/kern_custody](https://t.me/kern_custody) |
 | KISS Signer | [DIYbitcoin/kiss-signer](https://github.com/DIYbitcoin/kiss-signer) | [t.me/KISS_signer](https://t.me/KISS_signer) |
 
+## 🎮 Try it before you buy
+
+Play with each signer's screens on your computer before buying a
+board. Only KISS Signer runs in the browser; the others install on
+your computer, and some need build tools.
+
+| Signer | Simulator | Runs on |
+|---|---|---|
+| Krux | [Krux device simulator](https://github.com/selfcustody/krux#run-the-device-simulator) | Your computer |
+| Jade | [Jade emulator](https://github.com/Blockstream/Jade#emulatorvirtualizer-qemu-in-docker) | Your computer, in Docker |
+| SeedSigner | [SeedSigner emulator](https://github.com/enteropositivo/seedsigner-emulator), a community project | Your computer |
+| ShieldSigner | [Desktop simulation guide](https://github.com/3rdIteration/seedsigner/blob/dev/docs/desktop_simulation.md) | Your computer |
+| Specter-DIY | [Specter-DIY simulator](https://github.com/cryptoadvance/specter-diy/blob/master/docs/simulator.md) | Your computer (Linux or macOS) |
+| Satochip-DIY | None: it's a card with no screen | |
+| Kern | [Kern desktop simulator](https://github.com/odudex/Kern#desktop-simulator) | Your computer |
+| KISS Signer | [KISS Signer simulator](https://diybitcoin.github.io/kiss-signer/sim/) | Your browser |
+
 ## 🛒 Where to buy
 
 Where each project says to buy its boards. KISS Signer's README names
