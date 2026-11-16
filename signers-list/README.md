@@ -20,14 +20,13 @@ its boards.
 ## 💬 Code and help chats
 
 The 🦾 DIYbitcoin chat, [t.me/DIYbitcoin](https://t.me/DIYbitcoin),
-takes questions about any of these signers. Valandro and GreenAddress,
-who have done a lot of work on Jade DIY, answer questions there too.
-Each signer's own chat is in the table below.
+takes questions about any of these signers. Each signer's own chat is
+in the table below.
 
 | Signer | Code | Telegram |
 |---|---|---|
 | Krux | [selfcustody/krux](https://github.com/selfcustody/krux) | [t.me/KruxDIY](https://t.me/KruxDIY) |
-| Jade | [Blockstream/Jade](https://github.com/Blockstream/Jade) | [t.me/blockstream_jade](https://t.me/blockstream_jade) |
+| Jade | [Blockstream/Jade](https://github.com/Blockstream/Jade) | Several Blockstream employees are in the [DIYbitcoin chat](https://t.me/DIYbitcoin) |
 | SeedSigner | [SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner) | [SeedSigner chat](https://t.me/joinchat/GHNuc_nhNQjLPWsS) |
 | ShieldSigner | [3rdIteration/seedsigner](https://github.com/3rdIteration/seedsigner) | [ShieldSigner chat](https://t.me/+mp3CIjCQuk0yMjUx) |
 | Specter-DIY | [cryptoadvance/specter-diy](https://github.com/cryptoadvance/specter-diy) | [t.me/spectersupport](https://t.me/spectersupport) |
