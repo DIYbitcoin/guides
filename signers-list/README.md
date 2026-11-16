@@ -20,16 +20,18 @@ its boards.
 ## 💬 Code and help chats
 
 The 🦾 DIYbitcoin chat, [t.me/DIYbitcoin](https://t.me/DIYbitcoin),
-takes questions about any of these signers.
+takes questions about any of these signers. Valandro and GreenAddress,
+who have done a lot of work on Jade DIY, answer questions there too.
+Each signer's own chat is in the table below.
 
 | Signer | Code | Telegram |
 |---|---|---|
 | Krux | [selfcustody/krux](https://github.com/selfcustody/krux) | [t.me/KruxDIY](https://t.me/KruxDIY) |
-| Jade | [Blockstream/Jade](https://github.com/Blockstream/Jade) | Valandro and GreenAddress have done a lot of work on Jade DIY and answer questions in the [DIYbitcoin chat](https://t.me/DIYbitcoin) |
+| Jade | [Blockstream/Jade](https://github.com/Blockstream/Jade) | [t.me/blockstream_jade](https://t.me/blockstream_jade) |
 | SeedSigner | [SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner) | [SeedSigner chat](https://t.me/joinchat/GHNuc_nhNQjLPWsS) |
 | ShieldSigner | [3rdIteration/seedsigner](https://github.com/3rdIteration/seedsigner) | [ShieldSigner chat](https://t.me/+mp3CIjCQuk0yMjUx) |
 | Specter-DIY | [cryptoadvance/specter-diy](https://github.com/cryptoadvance/specter-diy) | [t.me/spectersupport](https://t.me/spectersupport) |
-| Satochip-DIY | [3rdIteration/Satochip-DIY](https://github.com/3rdIteration/Satochip-DIY) | [DIYbitcoin chat](https://t.me/DIYbitcoin) |
+| Satochip-DIY | [3rdIteration/Satochip-DIY](https://github.com/3rdIteration/Satochip-DIY) | [ShieldSigner chat](https://t.me/+mp3CIjCQuk0yMjUx) |
 | Kern | [odudex/Kern](https://github.com/odudex/Kern) | [t.me/kern_custody](https://t.me/kern_custody) |
 | KISS Signer | [DIYbitcoin/kiss-signer](https://github.com/DIYbitcoin/kiss-signer) | [t.me/KISS_signer](https://t.me/KISS_signer) |
 
