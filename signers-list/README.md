@@ -30,7 +30,7 @@ in the table below.
 | SeedSigner | [SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner) | [SeedSigner chat](https://t.me/joinchat/GHNuc_nhNQjLPWsS) |
 | ShieldSigner | [3rdIteration/seedsigner](https://github.com/3rdIteration/seedsigner) | [ShieldSigner chat](https://t.me/+mp3CIjCQuk0yMjUx) |
 | Specter-DIY | [cryptoadvance/specter-diy](https://github.com/cryptoadvance/specter-diy) | [t.me/spectersupport](https://t.me/spectersupport) |
-| Satochip-DIY | [3rdIteration/Satochip-DIY](https://github.com/3rdIteration/Satochip-DIY) | [ShieldSigner chat](https://t.me/+mp3CIjCQuk0yMjUx) |
+| Satochip-DIY | [3rdIteration/Satochip-DIY](https://github.com/3rdIteration/Satochip-DIY) | [Satochip_DIY chat](https://t.me/+mp3CIjCQuk0yMjUx) |
 | Kern | [odudex/Kern](https://github.com/odudex/Kern) | [t.me/kern_custody](https://t.me/kern_custody) |
 | KISS Signer | [DIYbitcoin/kiss-signer](https://github.com/DIYbitcoin/kiss-signer) | [t.me/KISS_signer](https://t.me/KISS_signer) |
 
